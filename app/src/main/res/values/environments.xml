@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="env_base_url">https://api-dev.hushbunny.com/</string>
+    <string name="env_session_url">session/v1/</string>
+    <string name="env_login_url">login</string>
+    <string name="env_forget_password_url">forgotPassword</string>
+    <string name="env_verify_forget_otp_url">verifyForgotOtp</string>
+    <string name="env_resendOtp_url">resendOtp</string>
+    <string name="env_create_new_password_url">createNewPassword</string>
+    <string name="env_send_otp_url">sendOtp</string>
+    <string name="env_verify_new_user_otp_url">verifyOtp</string>
+    <string name="env_kids_url">kids/v1/</string>
+    <string name="env_kids_list_url">list</string>
+    <string name="env_add_kid_url">add</string>
+
+</resources>

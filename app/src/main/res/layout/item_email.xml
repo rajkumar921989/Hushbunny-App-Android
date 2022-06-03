@@ -1,0 +1,36 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/container"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="@dimen/padding_7"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:minHeight="@dimen/view_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/text_color_gray"
+        android:textColorHint="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16" />
+    <View
+        android:id="@+id/email_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_input" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

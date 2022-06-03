@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/container"
+    android:background="@drawable/drawable_login_background_button"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_2">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/emil_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_weight="1"
+        android:background="@drawable/drawable_button_white"
+        android:fontFamily="@font/roboto"
+        android:minHeight="@dimen/view_33"
+        android:text="@string/email"
+        android:textAllCaps="false"
+        android:textColor="@color/button_color_pink"
+        android:textSize="@dimen/text_size_16" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mobile_number_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_weight="1"
+        android:background="@null"
+        android:fontFamily="@font/roboto"
+        android:minHeight="@dimen/view_33"
+        android:text="@string/mobile"
+        android:textAllCaps="false"
+        android:textColor="@color/button_color_pink"
+        android:textSize="@dimen/text_size_16" />
+
+</LinearLayout>

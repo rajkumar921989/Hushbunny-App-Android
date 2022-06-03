@@ -1,0 +1,67 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/phone_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_phone"
+        app:layout_constraintBottom_toBottomOf="@+id/mobile_number_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mobile_number_input" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/country_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:ccp_defaultPhoneCode="91"
+        android:layout_marginStart="@dimen/margin_7"
+        app:ccp_showArrow="true"
+        app:ccp_showFlag="false"
+        app:ccp_showNameCode="false"
+        app:ccp_showPhoneCode="true"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/text_color_gray"
+        app:ccp_textSize="@dimen/text_size_16"
+        app:ccp_countryPreference="US,IN"
+        app:layout_constraintBottom_toBottomOf="@+id/mobile_number_input"
+        app:layout_constraintStart_toEndOf="@+id/phone_image"
+        app:layout_constraintTop_toTopOf="@+id/mobile_number_input" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/mobile_number_input"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_7"
+        android:background="@null"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:hint="@string/mobile_number"
+        android:inputType="phone"
+        android:maxLines="1"
+        android:minHeight="@dimen/view_30"
+        android:textColor="@color/text_color_gray"
+        android:textColorHint="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/country_selection"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/mobile_number_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobile_number_input" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
