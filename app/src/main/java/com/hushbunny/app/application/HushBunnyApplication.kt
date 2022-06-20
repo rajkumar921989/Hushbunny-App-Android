@@ -5,6 +5,7 @@ import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.di.AppComponentModule
 import com.hushbunny.app.di.DaggerAppComponent
 import com.hushbunny.app.ui.landing.SplashActivity
+import com.hushbunny.app.uitls.PrefsManager
 import java.util.concurrent.ConcurrentHashMap
 
 class HushBunnyApplication: BaseApplication(),AppComponentProvider {
@@ -13,6 +14,7 @@ class HushBunnyApplication: BaseApplication(),AppComponentProvider {
         super.onCreate()
         applicationInstance = this
         launchActivityClass = SplashActivity::class.java
+        PrefsManager.initialize(this)
     }
 
     override fun getAppComponent(): AppComponent {

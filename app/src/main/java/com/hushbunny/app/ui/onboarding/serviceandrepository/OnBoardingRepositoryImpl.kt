@@ -1,6 +1,7 @@
 package com.hushbunny.app.ui.onboarding.serviceandrepository
 
 import com.hushbunny.app.ui.onboarding.model.*
+import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class OnBoardingRepositoryImpl @Inject constructor(private val onBoardingService
     override suspend fun userLogin(loginRequest: LoginRequest): LoginResponseStatus {
         val response = onBoardingService.userLogin(loginRequest = loginRequest)
         return when (response.statusCode) {
-            AppConstants.API_RESPONSE_200 -> LoginResponseStatus.Success(response.message.orEmpty(), response.data)
+            APIConstants.API_RESPONSE_200 -> LoginResponseStatus.Success(response.message.orEmpty(), response.data)
             else -> LoginResponseStatus.Error(response.message.orEmpty())
         }
     }

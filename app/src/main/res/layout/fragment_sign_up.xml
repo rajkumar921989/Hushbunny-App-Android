@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_image"
+        android:layout_width="@dimen/view_25"
+        android:layout_height="@dimen/view_25"
+        android:layout_marginStart="@dimen/margin_18"
+        android:padding="@dimen/padding_3"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/logo_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logo_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:src="@drawable/ic_header_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_50"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/welcome_aboard"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/what_is_your_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:text="@string/what_is_your_name"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_user"
+        android:drawablePadding="@dimen/padding_10"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:hint="@string/name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="@dimen/view_30"
+        android:textColor="@color/text_color_gray"
+        android:textColorHint="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/what_is_your_name_text" />
+
+    <View
+        android:id="@+id/name_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/when_is_your_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:text="@string/when_is_your_birthday"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/date_of_birth_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        android:drawableStart="@drawable/ic_calender"
+        android:drawablePadding="@dimen/padding_10"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:hint="@string/date_of_birth_hint"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="@dimen/view_30"
+        android:textColor="@color/text_color_gray"
+        android:textColorHint="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/when_is_your_birthday" />
+
+    <View
+        android:id="@+id/date_of_birth_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_of_birth_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/what_is_your_gender_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:text="@string/what_is_your_gender"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_of_birth_view" />
+
+    <include
+        android:id="@+id/male_container"
+        layout="@layout/item_radio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/what_is_your_gender_text" />
+
+    <include
+        android:id="@+id/female_container"
+        layout="@layout/item_radio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/male_container" />
+
+    <include
+        android:id="@+id/other_container"
+        layout="@layout/item_radio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/female_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/association_with_the_kid_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:text="@string/association_with_the_kid"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/other_container" />
+
+    <include
+        android:id="@+id/father_container"
+        layout="@layout/item_radio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/association_with_the_kid_text" />
+
+    <include
+        android:id="@+id/mother_container"
+        layout="@layout/item_radio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/father_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/which_country_you_are_in_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:text="@string/which_country_you_are_in"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mother_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/country_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        android:drawableStart="@drawable/ic_location"
+        android:drawableEnd="@drawable/ic_down_arrow"
+        android:drawablePadding="@dimen/padding_5"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:hint="@string/country"
+        android:minHeight="@dimen/view_30"
+        android:paddingEnd="@dimen/padding_2"
+        android:textColor="@color/text_color_gray"
+        android:textColorHint="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/which_country_you_are_in_text" />
+
+    <View
+        android:id="@+id/country_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        android:background="@drawable/drawable_button_green"
+        android:fontFamily="@font/roboto"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_view" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/hush_bunny_logo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_42"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_hush_bunny_logo"
+        app:layout_constraintBottom_toTopOf="@+id/step_by_step_container"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/step_by_step_container"
+        layout="@layout/item_step_by_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_50"
+        app:layout_constraintBottom_toTopOf="@+id/already_have_an_account_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/already_have_an_account_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:fontFamily="@font/roboto"
+        android:text="@string/already_have_an_account"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/step_one_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="what_is_your_name_text,name_input,name_view"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/step_two_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="when_is_your_birthday,date_of_birth_text,date_of_birth_view"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/step_three_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="what_is_your_gender_text,male_container,female_container,other_container"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/step_four_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="association_with_the_kid_text,father_container,mother_container"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/step_five_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="which_country_you_are_in_text,country_text,country_view"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

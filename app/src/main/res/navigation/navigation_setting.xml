@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_setting"
+    app:startDestination="@+id/settingFragment">
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.hushbunny.app.ui.setting.SettingFragment"
+        android:label="@string/title_setting"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/actionEditProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/actionChangePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/actionKidsListFragment"
+            app:destination="@id/kidsListFragment" />
+        <action
+            android:id="@+id/actionInAppNotificationFragment"
+            app:destination="@id/inAppNotificationFragment" />
+        <action
+            android:id="@+id/actionIntroScreenFragment"
+            app:destination="@id/introScreenFragment" />
+        <action
+            android:id="@+id/actionBlockedUserFragment"
+            app:destination="@id/blockedUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.hushbunny.app.ui.profile.EditProfileFragment"
+        android:label="@string/edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/actionVerifyProfileOTPFragment"
+            app:destination="@id/verifyProfileOTPFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.hushbunny.app.ui.onboarding.chagepassword.ChangePasswordFragment"
+        android:label="@string/change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/kidsListFragment"
+        android:name="com.hushbunny.app.ui.kids.KidsListFragment"
+        android:label="@string/kids_list"
+        tools:layout="@layout/fragment_kids_list">
+        <action
+            android:id="@+id/actionAddKidFragment"
+            app:destination="@id/addKidsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addKidsFragment"
+        android:name="com.hushbunny.app.ui.kids.AddKidFragment"
+        tools:layout="@layout/fragment_add_kid">
+        <argument
+            android:name="isEditKid"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="kidsDetail"
+            android:defaultValue="@null"
+            app:argType="com.hushbunny.app.ui.model.KidsResponseModel"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/inAppNotificationFragment"
+        android:name="com.hushbunny.app.ui.setting.InAppNotificationSettingFragment"
+        tools:layout="@layout/fragment_in_app_notification">
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/introScreenFragment"
+        android:name="com.hushbunny.app.ui.onboarding.introscreen.IntroScreenFragment"
+        tools:layout="@layout/fragment_in_app_notification">
+        <argument
+            android:name="isFromOnBoarding"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/blockedUserFragment"
+        android:name="com.hushbunny.app.ui.blockeduser.BlockedUserFragment"
+        tools:layout="@layout/fragment_blocked_list" />
+    <fragment
+        android:id="@+id/verifyProfileOTPFragment"
+        android:name="com.hushbunny.app.ui.profile.VerifyProfileOTPFragment"
+        tools:layout="@layout/fragment_verify_profile_otp">
+        <argument
+            android:name="editedUserDetail"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.hushbunny.app.ui.model.EditedUserDetail" />
+    </fragment>
+</navigation>

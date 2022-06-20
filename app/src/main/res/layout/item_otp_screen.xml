@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_one"
+        android:layout_width="@dimen/view_50"
+        android:layout_height="@dimen/view_50"
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_size_14"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_two"
+        android:layout_width="@dimen/view_50"
+        android:layout_height="@dimen/view_50"
+        android:textSize="@dimen/text_size_14"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin_20"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_three"
+        android:layout_width="@dimen/view_50"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_height="@dimen/view_50"
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_size_14"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_four"
+        android:layout_width="@dimen/view_50"
+        android:textSize="@dimen/text_size_14"
+        android:layout_height="@dimen/view_50"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin_20"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1" />
+</LinearLayout>

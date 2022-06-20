@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@+id/navigation_home">
+
+    <include app:graph="@navigation/navigation_home" />
+    <include app:graph="@navigation/navigation_notifications" />
+    <include app:graph="@navigation/navigation_add_moment" />
+    <include app:graph="@navigation/navigation_setting" />
+    <include app:graph="@navigation/navigation_profile" />
+
+</navigation>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/intro_image"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="@dimen/view_constraint"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/one_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/one_image"
+        android:layout_width="@dimen/view_55"
+        android:layout_height="@dimen/view_55"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:background="@drawable/ic_background_pink_circle"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/button_color_pink"
+        android:textSize="@dimen/text_size_24"
+        app:layout_constraintBottom_toTopOf="@+id/title_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/set_up_your_family"
+        android:textColor="@color/button_color_pink"
+        android:textSize="@dimen/text_size_20"
+        app:layout_constraintBottom_toTopOf="@+id/add_your_kids_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_your_kids_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_28"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:drawableStart="@drawable/ic_intro_play_icon"
+        android:drawablePadding="@dimen/padding_15"
+        android:fontFamily="@font/roboto"
+        android:text="@string/add_your_kids"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toTopOf="@+id/add_your_spouse_text"
+        app:layout_constraintStart_toStartOf="@+id/title_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_your_spouse_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_25"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:drawableStart="@drawable/ic_forward_icon"
+        android:drawablePadding="@dimen/padding_5"
+        android:fontFamily="@font/roboto"
+        android:text="@string/add_your_spouse"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toTopOf="@+id/other_text"
+        app:layout_constraintStart_toStartOf="@+id/title_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/other_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/capture_all_moments_as_your_kids_grow"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/step_by_step_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/step_by_step_container"
+        layout="@layout/item_step_by_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_50"
+        app:layout_constraintBottom_toTopOf="@+id/skip_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_40"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:background="@null"
+        android:fontFamily="@font/roboto_medium"
+        android:minHeight="@dimen/view_40"
+        android:text="@string/skip"
+        android:textAllCaps="false"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/next_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:minWidth="@dimen/view_30"
+        android:minHeight="@dimen/view_30"
+        android:padding="@dimen/padding_5"
+        android:rotation="270"
+        android:src="@drawable/ic_down_arrow"
+        android:tint="@color/button_color_pink"
+        app:layout_constraintBottom_toBottomOf="@+id/skip_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/skip_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

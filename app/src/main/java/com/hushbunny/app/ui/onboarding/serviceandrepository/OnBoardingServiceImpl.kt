@@ -4,7 +4,7 @@ import com.hushbunny.app.R
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.network.NetworkCallHandler
 import com.hushbunny.app.ui.onboarding.model.*
-import com.hushbunny.app.uitls.AppConstants
+import com.hushbunny.app.uitls.APIConstants
 import javax.inject.Inject
 
 class OnBoardingServiceImpl @Inject constructor(
@@ -20,7 +20,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_login_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = loginRequest
         )
@@ -34,7 +34,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_forget_password_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = forgetPasswordRequest
         )
@@ -48,7 +48,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_verify_forget_otp_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = verifyForgetOTPRequest
         )
@@ -62,7 +62,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_resendOtp_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = resendOTPRequest
         )
@@ -76,7 +76,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_create_new_password_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = createPasswordRequest
         )
@@ -90,7 +90,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_send_otp_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = createPasswordRequest
         )
@@ -104,7 +104,7 @@ class OnBoardingServiceImpl @Inject constructor(
                     R.string.env_verify_new_user_otp_url
                 )
             }",
-            headers = hashMapOf(AppConstants.ACCEPT_LANGUAGE to AppConstants.ENGLISH),
+            headers = hashMapOf(APIConstants.ACCEPT_LANGUAGE to APIConstants.ENGLISH),
             queryParams = hashMapOf(),
             requestBody = verifyNewUserOTPRequest
         )

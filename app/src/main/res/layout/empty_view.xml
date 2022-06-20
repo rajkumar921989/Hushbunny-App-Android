@@ -1,0 +1,85 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_170"
+        android:background="@drawable/drawable_login_background_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/welcome_message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_50"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="@string/home_page_welcome_message"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_kid_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:background="@drawable/drawable_button_white"
+            android:drawableStart="@drawable/ic_add_moment"
+            android:drawablePadding="@dimen/padding_5"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="@dimen/padding_15"
+            android:text="@string/add_kid"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/add_moment_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_message_text" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_moment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:background="@drawable/drawable_button_white"
+            android:drawableStart="@drawable/ic_add_moment"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="@dimen/padding_15"
+            android:text="@string/title_add_moment"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="@+id/add_kid_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/add_kid_button"
+            app:layout_constraintTop_toTopOf="@+id/add_kid_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/view_200"
+        android:layout_height="@dimen/view_200"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_empty_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

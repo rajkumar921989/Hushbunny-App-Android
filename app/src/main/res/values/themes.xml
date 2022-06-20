@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
     <style name="style_bottom_nav_label_small_default" parent="android:style/Widget.TextView">
@@ -19,5 +21,12 @@
         <item name="android:textSize">@dimen/text_size_8</item>
         <item name="android:textColor">@color/text_color_gray</item>
         <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/button_color_pink</item>
+    </style>
+    <style name="DialogBackgroundStyle" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">@dimen/radius_5</item>
+        <item name="background">@color/white</item>
     </style>
 </resources>

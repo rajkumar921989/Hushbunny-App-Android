@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/text_color_gray"
         android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_16" />
+        android:textSize="@dimen/text_size_14" />
     <View
         android:id="@+id/email_view"
         android:layout_width="match_parent"

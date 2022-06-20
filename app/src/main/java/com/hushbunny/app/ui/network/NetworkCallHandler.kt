@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import com.hushbunny.app.uitls.AppConstants
+import com.hushbunny.app.uitls.ImageViewAndFileUtils.createFileRequest
 import retrofit2.Response
+import java.io.File
 import java.lang.reflect.Type
 
 class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val networkClient: NetworkClient) {
@@ -50,9 +53,11 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
                 }.getOrNull() ?: getErrorResponseAsObjectOrDefault(T::class.java, getServerUnhandledError(response.code()))
             }
         }
-        return getErrorResponseAsObjectOrDefault(T::class.java, getServerUnhandledError(
-            NO_SERVICE_RESPONSE_ERROR_CODE
-        ))
+        return getErrorResponseAsObjectOrDefault(
+            T::class.java, getServerUnhandledError(
+                NO_SERVICE_RESPONSE_ERROR_CODE
+            )
+        )
     }
 
     @SuppressLint("NewApi")
@@ -89,25 +94,28 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
                 }.getOrNull() ?: (getErrorResponseAsObjectOrDefault(T::class.java, getServerUnhandledError(response.code())))
             }
         }
-        return getErrorResponseAsObjectOrDefault(T::class.java, getServerUnhandledError(
-            NO_SERVICE_RESPONSE_ERROR_CODE
-        ))
+        return getErrorResponseAsObjectOrDefault(
+            T::class.java, getServerUnhandledError(
+                NO_SERVICE_RESPONSE_ERROR_CODE
+            )
+        )
     }
 
 
     suspend inline fun <reified T : Any> putDataHandler(
         baseUrl: String,
         endPoint: String,
-        requestBody: Any,
+        requestBody: Any? = null,
         headers: Map<String, String>? = null,
         queryParams: Map<String, String>? = hashMapOf()
     ): T {
         if (!isNetworkConnected()) {
             return Gson().fromJson(getNoNetworkError(), T::class.java)
         }
-
         val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
-            putDataUsingCoroutine(endPoint, requestBody, headers, queryParams)
+            if (requestBody == null)
+                putDataWithoutRequestBodyUsingCoroutine(endPoint, headers, queryParams)
+            else putDataUsingCoroutine(endPoint, requestBody, headers, queryParams)
         }
 
         val response = retrofitResult.getOrNull()
@@ -126,13 +134,41 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
         baseUrl: String,
         endPoint: String,
         headers: Map<String, String>? = null,
-        queryParams: Map<String, String>? = null): T {
+        queryParams: Map<String, String>? = null
+    ): T {
         if (!isNetworkConnected()) {
             return Gson().fromJson(getNoNetworkError(), T::class.java)
         }
 
         val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
-            deleteDataUsingCoroutine(endPoint,headers, queryParams)
+            deleteDataUsingCoroutine(endPoint, headers, queryParams)
+        }
+
+        val response = retrofitResult.getOrNull()
+
+        return if (retrofitResult.isSuccess && response != null) {
+            Gson().fromJson(validateServerResponse(response), T::class.java)
+        } else {
+            Gson().fromJson(
+                getServerUnhandledError(NO_SERVICE_RESPONSE_ERROR_CODE),
+                T::class.java
+            )
+        }
+    }
+
+    suspend inline fun <reified T : Any> uploadFileDataHandler(
+        baseUrl: String,
+        endPoint: String,
+        filePath: File,
+        headers: Map<String, String>? = null
+    ): T {
+        if (!isNetworkConnected()) {
+            return Gson().fromJson(getNoNetworkError(), T::class.java)
+        }
+
+        val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
+            val fileUploadRequest = createFileRequest(filePath)
+            fileUploadUsingCoroutine(endPoint, fileUploadRequest, headers)
         }
 
         val response = retrofitResult.getOrNull()
@@ -198,6 +234,7 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
             false
         }
     }
+
     fun getNoContentMessage(code: Int = NO_CONTENT_RESPONSE_CODE): String {
         return Gson().toJson(NetworkErrorModel(code, NO_CONTENT_MESSAGE))
     }

@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.hushbunny.app.R
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.onboarding.model.*
-import com.hushbunny.app.ui.onboarding.serviceandrepository.LoginResponseStatus
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingRepository
+import com.hushbunny.app.ui.repository.LoginResponseStatus
+import com.hushbunny.app.ui.repository.OnBoardingRepository
+import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.AppConstants.Companion.isHavingLowerCaseLetter
+import com.hushbunny.app.uitls.AppConstants.Companion.isHavingNumber
 import com.hushbunny.app.uitls.AppConstants.Companion.isHavingSpecialCharacter
 import com.hushbunny.app.uitls.AppConstants.Companion.isHavingUpperCaseLetter
 import com.hushbunny.app.uitls.BaseViewModel
+import com.hushbunny.app.uitls.DateFormatUtils.convertDateToISOFormat
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -51,6 +54,9 @@ class LoginViewModel(
     private val _verifyNewUserOTPResponse: MutableLiveData<NewUserResponse> = MutableLiveData()
     val verifyNewUserOTPObserver: LiveData<NewUserResponse> = _verifyNewUserOTPResponse
 
+    private val _changePasswordResponse: MutableLiveData<PasswordResponse> = MutableLiveData()
+    val changePasswordObserver: LiveData<PasswordResponse> = _changePasswordResponse
+
     fun onLoginClick(
         type: String,
         email: String,
@@ -59,17 +65,17 @@ class LoginViewModel(
         callingCode: String? = null
     ) {
         when {
-            type == AppConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_email
                 )
             )
-            type == AppConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_valid_email
                 )
             )
-            type == AppConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_phone_number
                 )
@@ -80,16 +86,16 @@ class LoginViewModel(
                 )
             )
             else -> {
-                _errorValidation.postValue(AppConstants.SUCCESS)
+                _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
                     _loginResponse.postValue(
                         onBoardingRepository.userLogin(
                             loginRequest = LoginRequest(
                                 loginBy = type,
-                                email = if (type == AppConstants.EMAIL) email else null,
+                                email = if (type == APIConstants.EMAIL) email else null,
                                 password = password,
-                                phoneNumber = if (type == AppConstants.PHONE_NUMBER) phoneNumber else null,
-                                callingCode = if (type == AppConstants.PHONE_NUMBER) callingCode else null
+                                phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
+                                callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null
                             )
                         )
                     )
@@ -105,31 +111,31 @@ class LoginViewModel(
         callingCode: String? = null
     ) {
         when {
-            type == AppConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_email
                 )
             )
-            type == AppConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_valid_email
                 )
             )
-            type == AppConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_phone_number
                 )
             )
             else -> {
-                _errorValidation.postValue(AppConstants.SUCCESS)
+                _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
                     _forgetPasswordResponse.postValue(
                         onBoardingRepository.forgetUser(
                             forgetPasswordRequest = ForgetPasswordRequest(
                                 forgotBy = type,
-                                email = if (type == AppConstants.EMAIL) email else null,
-                                phoneNumber = if (type == AppConstants.PHONE_NUMBER) phoneNumber else null,
-                                callingCode = if (type == AppConstants.PHONE_NUMBER) callingCode else null
+                                email = if (type == APIConstants.EMAIL) email else null,
+                                phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
+                                callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null
                             )
                         )
                     )
@@ -152,7 +158,7 @@ class LoginViewModel(
                 )
             )
         } else {
-            _errorValidation.postValue(AppConstants.SUCCESS)
+            _errorValidation.postValue(APIConstants.SUCCESS)
             ioScope.launch {
                 _verifyForgetPasswordResponse.postValue(
                     onBoardingRepository.verifyForgetOTP(
@@ -168,7 +174,7 @@ class LoginViewModel(
     }
 
     fun onResendOTP(otpID: String, type: String) {
-        _errorValidation.postValue(AppConstants.SUCCESS)
+        _errorValidation.postValue(APIConstants.SUCCESS)
         ioScope.launch {
             _resendOTPResponse.postValue(
                 onBoardingRepository.resendOTP(
@@ -194,6 +200,11 @@ class LoginViewModel(
                     R.string.password_lower_letter_error
                 )
             )
+            !password.isHavingNumber() -> _errorValidation.postValue(
+                resourceProvider.getString(
+                    R.string.password_number_error
+                )
+            )
             !password.isHavingSpecialCharacter() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.password_special_character_error
@@ -202,7 +213,7 @@ class LoginViewModel(
             confirmPassword.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_confirm_password))
             password != confirmPassword -> _errorValidation.postValue(resourceProvider.getString(R.string.password_mismatch_error))
             else -> {
-                _errorValidation.postValue(AppConstants.SUCCESS)
+                _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
                     _createPasswordResponse.postValue(
                         onBoardingRepository.createPassword(
@@ -264,17 +275,17 @@ class LoginViewModel(
         callingCode: String? = null, userModel: SignInUserModel?
     ) {
         when {
-            type == AppConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_email
                 )
             )
-            type == AppConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
+            type == APIConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_valid_email
                 )
             )
-            type == AppConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
+            type == APIConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
                     R.string.please_enter_phone_number
                 )
@@ -285,21 +296,21 @@ class LoginViewModel(
                 )
             )
             else -> {
-                _errorValidation.postValue(AppConstants.SUCCESS)
+                _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
                     _newAccountOTPResponse.postValue(
                         onBoardingRepository.createNewAccount(
                             CreateNewAccountRequest(
                                 registrationBy = type,
                                 name = userModel?.name.orEmpty(),
-                                email = if (type == AppConstants.EMAIL) email else null,
+                                email = if (type == APIConstants.EMAIL) email else null,
                                 password = password,
-                                phoneNumber = if (type == AppConstants.PHONE_NUMBER) phoneNumber else null,
-                                callingCode = if (type == AppConstants.PHONE_NUMBER) callingCode else null,
+                                phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
+                                callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null,
                                 countryId = userModel?.country.orEmpty(),
                                 associatedAs = userModel?.relationShipWithKid.orEmpty().uppercase(),
                                 gender = userModel?.gender.orEmpty(),
-                                dob = userModel?.dateOfBirth.orEmpty()
+                                dob = userModel?.dateOfBirth?.convertDateToISOFormat()
                             )
                         )
                     )
@@ -323,7 +334,7 @@ class LoginViewModel(
                 )
             )
         } else {
-            _errorValidation.postValue(AppConstants.SUCCESS)
+            _errorValidation.postValue(APIConstants.SUCCESS)
             ioScope.launch {
                 _verifyNewUserOTPResponse.postValue(
                     onBoardingRepository.verifyNewAccountOTP(
@@ -337,4 +348,45 @@ class LoginViewModel(
         }
 
     }
+
+    fun changePassword(oldPassword: String, password: String, confirmPassword: String) {
+        when {
+            oldPassword.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_old_password))
+            oldPassword.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
+            password.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_password))
+            password.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
+            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(
+                resourceProvider.getString(
+                    R.string.password_upper_letter_error
+                )
+            )
+            !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_lower_letter_error))
+            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(
+                resourceProvider.getString(
+                    R.string.password_special_character_error
+                )
+            )
+            !password.isHavingNumber() -> _errorValidation.postValue(
+                resourceProvider.getString(
+                    R.string.password_number_error
+                )
+            )
+            confirmPassword.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_confirm_password))
+            password != confirmPassword -> _errorValidation.postValue(resourceProvider.getString(R.string.password_mismatch_error))
+            else -> {
+                _errorValidation.postValue(APIConstants.SUCCESS)
+                ioScope.launch {
+                    _changePasswordResponse.postValue(
+                        onBoardingRepository.changePassword(
+                            changePasswordRequest = ChangePasswordRequest(
+                                oldPassword = oldPassword,
+                                newPassword = password
+                            )
+                        )
+                    )
+                }
+            }
+        }
+    }
+
 }

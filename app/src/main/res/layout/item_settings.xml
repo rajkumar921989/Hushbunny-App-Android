@@ -1,0 +1,54 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/setting_image"
+        android:layout_width="@dimen/view_23"
+        android:layout_height="@dimen/view_23"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toBottomOf="@+id/description_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/setting_name_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/setting_name_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/edit_profile"
+        android:textColor="@color/button_color_green"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/setting_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:fontFamily="@font/roboto"
+        android:text="@string/edit_profile_description"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/setting_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/setting_name_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

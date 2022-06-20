@@ -1,15 +1,9 @@
 package com.hushbunny.app.ui.network
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.PATCH
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 @JvmSuppressWildcards
 interface NetworkInterface {
@@ -48,6 +42,20 @@ interface NetworkInterface {
 
     @DELETE("/{hostEndPoint}")
     suspend fun deleteDataUsingCoroutine(
+        @Path(value = "hostEndPoint", encoded = true) endPoint: String,
+        @HeaderMap headers: Map<String, String>?,
+        @QueryMap(encoded = true) queryParams: Map<String, String>?
+    ): Response<String>
+
+    @POST("/{hostEndPoint}")
+    suspend fun fileUploadUsingCoroutine(
+        @Path(value = "hostEndPoint", encoded = true) endPoint: String,
+        @Body requestBody: RequestBody,
+        @HeaderMap headers: Map<String, String>?
+    ): Response<String>
+
+    @PUT("/{hostEndPoint}")
+    suspend fun putDataWithoutRequestBodyUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @HeaderMap headers: Map<String, String>?,
         @QueryMap(encoded = true) queryParams: Map<String, String>?

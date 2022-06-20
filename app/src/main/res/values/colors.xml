@@ -11,4 +11,10 @@
     <color name="colorAccent">#096A74</color>
     <color name="text_color_gray">#676767</color>
     <color name="view_color">#A5A5A5</color>
+    <color name="block_people_view_color">#DADADA</color>
+    <color name="book_mark_people_view_color">#E6E6E6</color>
+    <color name="comment_edit_text_color">#F2F2F2</color>
+    <color name="button_orange_color">#FC3D39</color>
+    <color name="global_color_gray_200">#EDEDED</color>
+    <color name="user_profile_background_pink">#FF9ED3</color>
 </resources>

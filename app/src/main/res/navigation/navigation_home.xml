@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@+id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.hushbunny.app.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionAddKidFragment"
+            app:destination="@+id/addKidsFragment" />
+        <action
+            android:id="@+id/actionAddMomentFragment"
+            app:destination="@+id/addMomentFragment" />
+        <action
+            android:id="@+id/actionInviteSpouseFragment"
+            app:destination="@+id/inviteSpouseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addKidsFragment"
+        android:name="com.hushbunny.app.ui.kids.AddKidFragment"
+        tools:layout="@layout/fragment_add_kid">
+        <argument
+            android:name="isEditKid"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="kidsDetail"
+            android:defaultValue="@null"
+            app:argType="com.hushbunny.app.ui.model.KidsResponseModel"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMomentFragment"
+        android:name="com.hushbunny.app.ui.addmoment.AddMomentFragment"
+        tools:layout="@layout/fragment_add_moment">
+        <action
+            android:id="@+id/actionAddKidFragment"
+            app:destination="@+id/addKidsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteSpouseFragment"
+        android:name="com.hushbunny.app.ui.profile.InviteSpouseFragment"
+        tools:layout="@layout/fragment_share_with_spouse">
+        <argument
+            android:name="kidId"
+            app:argType="string" />
+    </fragment>
+</navigation>

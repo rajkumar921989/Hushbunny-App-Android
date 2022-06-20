@@ -29,7 +29,7 @@
         app:ccp_showPhoneCode="true"
         android:fontFamily="@font/roboto"
         android:textColor="@color/text_color_gray"
-        app:ccp_textSize="@dimen/text_size_16"
+        app:ccp_textSize="@dimen/text_size_14"
         app:ccp_countryPreference="US,IN"
         app:layout_constraintBottom_toBottomOf="@+id/mobile_number_input"
         app:layout_constraintStart_toEndOf="@+id/phone_image"
@@ -49,7 +49,7 @@
         android:minHeight="@dimen/view_30"
         android:textColor="@color/text_color_gray"
         android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="@dimen/text_size_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/country_selection"
         app:layout_constraintTop_toTopOf="parent" />

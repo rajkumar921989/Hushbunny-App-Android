@@ -16,5 +16,11 @@ data class UserData(
     val isProfile: String?,
     val callingCode: String?,
     val phoneNumber: String?,
-    val fullNumber: String?
+    val fullNumber: String?,
+    val dob: String?,
+    val gender: String?,
+    val associatedAs: String?,
+    val countryId: String?,
+    val inAppNotifications: InAppNotifications?,
+    val emailNotifications: InAppNotifications?
 )

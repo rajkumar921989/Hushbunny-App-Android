@@ -3,10 +3,36 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/drawable_white_background_with_pink_outline.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/ic_close.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/ic_empty_icon.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/ic_hide_password.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/ic_intro_play_icon.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/ic_seeting_email.xml" value="0.2265" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/drawable/kids_background.xml" value="0.2265" />
         <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/activity_on_boarding.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/activity_splash.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/create_new_password.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/empty_view.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/forget_password.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_add_kid.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_change_password.xml" value="0.264" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_create_account.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_intro_screen.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_notifications.xml" value="0.18432971014492755" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_profile.xml" value="0.10989583333333333" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_share_with_spouse.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/fragment_sign_up.xml" value="0.18432971014492755" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/item_add_kid_view.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/item_bookmark.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/item_image_view.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/item_notification.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/item_otp_screen.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/layout/user_profile_container.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/HushBunny-Latest/Hushbunny-App-Android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2359375" />
       </map>
     </option>
   </component>

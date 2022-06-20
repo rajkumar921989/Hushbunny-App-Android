@@ -1,27 +1,29 @@
 package com.hushbunny.app.ui.onboarding.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import com.hushbunny.app.HomeActivity
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentLoginBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
-import com.hushbunny.app.ui.onboarding.serviceandrepository.LoginResponseStatus
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingRepository
+import com.hushbunny.app.ui.onboarding.forgetpassword.ForgetPasswordFragment
+import com.hushbunny.app.ui.onboarding.signup.SignUpFragment
 import com.hushbunny.app.ui.onboarding.viewmodel.LoginViewModel
-import com.hushbunny.app.uitls.AppConstants
-import com.hushbunny.app.uitls.AppConstants.Companion.hideKeyboard
-import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
+import com.hushbunny.app.ui.repository.LoginResponseStatus
+import com.hushbunny.app.ui.repository.OnBoardingRepository
+import com.hushbunny.app.uitls.*
+import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _fragmentLoginBinding: FragmentLoginBinding? = null
     private val fragmentLoginBinding: FragmentLoginBinding get() = _fragmentLoginBinding!!
 
@@ -31,7 +33,7 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var resourceProvider: ResourceProvider
 
-    private var type = AppConstants.EMAIL
+    private var type = APIConstants.EMAIL
 
     private val loginViewModel: LoginViewModel by viewModelBuilderFragmentScope {
         LoginViewModel(
@@ -46,15 +48,11 @@ class LoginFragment : Fragment() {
         (requireActivity().application as AppComponentProvider).getAppComponent().inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _fragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        initializeClickListener()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _fragmentLoginBinding = FragmentLoginBinding.bind(view)
         setObserver()
-        return fragmentLoginBinding.root
+        initializeClickListener()
     }
 
     private fun initializeClickListener() {
@@ -63,16 +61,14 @@ class LoginFragment : Fragment() {
                 type = type,
                 callingCode = fragmentLoginBinding.mobileNumberContainer.countrySelection.selectedCountryCodeWithPlus,
                 email = fragmentLoginBinding.emailContainer.emailInput.text.toString().trim(),
-                phoneNumber = fragmentLoginBinding.mobileNumberContainer.mobileNumberInput.text.toString()
-                    .trim(),
-                password = fragmentLoginBinding.passwordContainer.passwordInput.text.toString()
-                    .trim(),
+                phoneNumber = fragmentLoginBinding.mobileNumberContainer.mobileNumberInput.text.toString().trim(),
+                password = fragmentLoginBinding.passwordContainer.passwordInput.text.toString().trim()
             )
         }
         fragmentLoginBinding.loginTabContainer.emilButton.setOnClickListener {
             fragmentLoginBinding.emailContainer.container.visibility = View.VISIBLE
             fragmentLoginBinding.mobileNumberContainer.container.visibility = View.GONE
-            type = AppConstants.EMAIL
+            type = APIConstants.EMAIL
             clearInput()
             fragmentLoginBinding.loginTabContainer.emilButton.background =
                 ContextCompat.getDrawable(
@@ -84,7 +80,7 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding.loginTabContainer.mobileNumberButton.setOnClickListener {
             fragmentLoginBinding.emailContainer.container.visibility = View.GONE
             fragmentLoginBinding.mobileNumberContainer.container.visibility = View.VISIBLE
-            type = AppConstants.PHONE_NUMBER
+            type = APIConstants.PHONE_NUMBER
             fragmentLoginBinding.loginTabContainer.emilButton.background = null
             fragmentLoginBinding.loginTabContainer.mobileNumberButton.background =
                 ContextCompat.getDrawable(
@@ -93,22 +89,38 @@ class LoginFragment : Fragment() {
                 )
             clearInput()
         }
-
+        fragmentLoginBinding.forgetButton.setOnClickListener {
+            requireActivity().supportFragmentManager.commit {
+                replace(
+                    R.id.fragment_container_view,
+                    ForgetPasswordFragment.getInstance(),
+                    ForgetPasswordFragment::class.simpleName.toString()
+                )
+            }
+        }
         fragmentLoginBinding.passwordContainer.passwordImage.setOnClickListener {
             if (fragmentLoginBinding.passwordContainer.passwordInput.inputType == 1) {
                 fragmentLoginBinding.passwordContainer.passwordInput.inputType =
                     InputType.TYPE_CLASS_TEXT or
                             InputType.TYPE_TEXT_VARIATION_PASSWORD
-                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_show_password)
+                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
             } else {
                 fragmentLoginBinding.passwordContainer.passwordInput.inputType =
                     InputType.TYPE_CLASS_TEXT
-                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_password)
+                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_show_password)
             }
 
             fragmentLoginBinding.passwordContainer.passwordInput.setSelection(fragmentLoginBinding.passwordContainer.passwordInput.text.toString().length)
         }
-
+        fragmentLoginBinding.loginCreateAccount.setOnClickListener {
+            requireActivity().supportFragmentManager.commit {
+                replace(
+                    R.id.fragment_container_view,
+                    SignUpFragment.getInstance(),
+                    SignUpFragment::class.simpleName.toString()
+                )
+            }
+        }
 
     }
 
@@ -116,31 +128,27 @@ class LoginFragment : Fragment() {
         loginViewModel.loginResponseObserver.observe(viewLifecycleOwner) {
             fragmentLoginBinding.progressIndicator.hideProgressbar()
             when (it) {
-                is LoginResponseStatus.Error -> AppConstants.showErrorDialog(
+                is LoginResponseStatus.Error -> DialogUtils.showErrorDialog(
                     requireActivity(),
                     buttonText = resourceProvider.getString(R.string.ok),
                     message = it.message,
                     title = resourceProvider.getString(R.string.app_name)
                 )
                 is LoginResponseStatus.Success -> {
-                    AppConstants.showErrorDialog(
-                        requireActivity(),
-                        buttonText = resourceProvider.getString(R.string.ok),
-                        message = it.message,
-                        title = resourceProvider.getString(R.string.app_name)
-                    )
+                    AppConstants.saveUserDetail(it.loginResponse)
+                    navigateToHomePage()
                 }
             }
         }
         loginViewModel.errorValidationObserver.observe(viewLifecycleOwner) {
             when (it) {
-                AppConstants.SUCCESS -> {
+                APIConstants.SUCCESS -> {
                     fragmentLoginBinding.progressIndicator.showProgressbar()
                     fragmentLoginBinding.root.hideKeyboard()
                 }
                 else -> {
                     fragmentLoginBinding.progressIndicator.hideProgressbar()
-                    AppConstants.showErrorDialog(
+                    DialogUtils.showErrorDialog(
                         requireActivity(),
                         buttonText = resourceProvider.getString(R.string.ok),
                         message = it,
@@ -151,6 +159,16 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun navigateToHomePage() {
+        PrefsManager.get().saveBooleanValues(AppConstants.IS_USER_LOGGED_IN, true)
+        val intent = Intent(requireActivity(), HomeActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        activity?.finish()
+        activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
 
     private fun clearInput() {
         fragmentLoginBinding.emailContainer.emailInput.setText("")

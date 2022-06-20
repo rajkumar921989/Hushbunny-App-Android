@@ -7,7 +7,7 @@ import com.hushbunny.app.uitls.AppConstants
 data class CreateNewAccountRequest(
     val registrationBy: String,
     val name: String,
-    val dob: String,
+    val dob: String? = null,
     val gender: String,
     val associatedAs: String,
     val countryId: String,

@@ -2,15 +2,42 @@
 <resources>
     <string name="env_base_url">https://api-dev.hushbunny.com/</string>
     <string name="env_session_url">session/v1/</string>
+    <string name="env_kids_url">kids/v1/</string>
+    <string name="env_user_url">user/v1/</string>
+    <string name="env_spouse_url">spouse/v1/</string>
+    <string name="env_notification_url">notification/v1/</string>
+    <string name="env_moment_url">moment/v1/</string>
+
     <string name="env_login_url">login</string>
     <string name="env_forget_password_url">forgotPassword</string>
     <string name="env_verify_forget_otp_url">verifyForgotOtp</string>
     <string name="env_resendOtp_url">resendOtp</string>
     <string name="env_create_new_password_url">createNewPassword</string>
+    <string name="env_change_password_url">changePassword</string>
     <string name="env_send_otp_url">sendOtp</string>
     <string name="env_verify_new_user_otp_url">verifyOtp</string>
-    <string name="env_kids_url">kids/v1/</string>
     <string name="env_kids_list_url">list</string>
     <string name="env_add_kid_url">add</string>
+    <string name="env_edit_kid_url">edit</string>
+    <string name="env_logout_url">settingActions/LOGOUT</string>
+    <string name="env_delete_url">settingActions/DELETE</string>
+    <string name="env_deactivate_url">settingActions/DEACTIVATE</string>
+    <string name="env_notification_setting_url">notifocationSetting</string>
+    <string name="env_get_user_detail_url">me</string>
+    <string name="env_file_upload_url">fileTransfer/v1/upload</string>
+    <string name="env_blocked_user_list_url">listBlockedUser</string>
+    <string name="env_block_unblock_user_url">blockUnblockUser</string>
+    <string name="env_edit_profile_url">editProfile</string>
+    <string name="env_invite_spouse_url">sendInvite</string>
+    <string name="env_resend_edit_profile_otp_url">resendEditProfileOtp</string>
+    <string name="env_send_edit_profile_otp_url">sendEditProfileOtp</string>
+    <string name="env_verify_edit_profile_otp_url">verifyEditProfileOtp</string>
+    <string name="env_accept_reject_invite_url">acceptRejectInvite</string>
+    <string name="env_upload_moment_file_url">fileTransfer/v1/uploadForMement</string>
+    <string name="env_bookmark_url">bookmark</string>
+    <string name="env_comment_url">comment</string>
+    <string name="env_list_comment_url">listComments</string>
+    <string name="env_list_of_reaction_url">listReactions</string>
+    <string name="env_reaction_url">reactions</string>
 
 </resources>

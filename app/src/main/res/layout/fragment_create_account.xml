@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_image"
+        android:layout_width="@dimen/view_25"
+        android:layout_height="@dimen/view_25"
+        android:layout_marginStart="@dimen/margin_18"
+        android:padding="@dimen/padding_3"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/logo_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logo_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:src="@drawable/ic_header_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/create_account_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_50"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/create_account"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+
+    <include
+        android:id="@+id/tab_container"
+        layout="@layout/item_login_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_constraint"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_text" />
+
+    <include
+        android:id="@+id/email_container"
+        layout="@layout/item_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_container" />
+
+    <include
+        android:id="@+id/mobile_number_container"
+        layout="@layout/item_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_container" />
+
+    <include
+        android:id="@+id/password_container"
+        layout="@layout/item_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobile_number_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/password_recommendation_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_34"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center|start"
+        android:text="@string/password_recommendation"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/password_recommendation_message_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_34"
+        android:layout_marginTop="@dimen/margin_12"
+        android:fontFamily="@font/roboto"
+        android:gravity="center|start"
+        android:text="@string/password_recommendation_message"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_recommendation_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/verify_message_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_50"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/please_enter_the_four_digits_code_sent_on_your_mobile"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_recommendation_message_text" />
+
+    <include
+        android:id="@+id/otp_container"
+        layout="@layout/item_otp_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verify_message_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/create_account_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:layout_marginTop="@dimen/margin_45"
+        android:background="@drawable/drawable_button_green"
+        android:fontFamily="@font/roboto"
+        android:text="@string/create_account"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otp_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/terms_condition_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/margin_30"
+        android:text="@string/sign_up_terms_condition"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/resend_code_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_35"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/resend_code_in"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_button" />
+
+    <com.hushbunny.app.uitls.ProgressbarWidget
+        android:id="@+id/progress_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/email_mobile_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tab_container,email_container,mobile_number_container,password_container,password_recommendation_text,password_recommendation_message_text,terms_condition_text" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/otp_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="verify_message_text,otp_container" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/already_have_an_account_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:fontFamily="@font/roboto"
+        android:text="@string/already_have_an_account"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
