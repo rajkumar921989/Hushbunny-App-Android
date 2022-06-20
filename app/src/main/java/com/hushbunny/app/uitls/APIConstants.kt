@@ -31,16 +31,10 @@ class APIConstants {
         const val ADD_KID = "ADD_KID"
         const val IN_APP = "IN_APP"
         const val UNBLOCKED = "UNBLOCKED"
-        const val BLOCKED = "BLOCKED"
         const val MOTHER = "MOTHER"
         const val FATHER = "FATHER"
         const val IS_REQUIRED_API_CALL = "IS_REQUIRED_API_CALL"
-        const val ACCEPTED = "ACCEPTED"
-        const val REJECTED = "REJECTED"
-        const val QUERY_PARAMS_PAGE = "page"
-        const val QUERY_PARAMS_PER_PAGE = "perPage"
-        const val QUERY_PARAMS_PER_PAGE_VALUE = 10
-        const val QUERY_PARAMS_TYPE = "type"
+        const val IMAGE_BASE_URL = "https://res.cloudinary.com/hushbunny/image/upload/"
 
         fun getAuthorization(): String {
             return PrefsManager.get().getString(AppConstants.USER_TOKEN, "")

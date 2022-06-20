@@ -14,8 +14,10 @@ import java.io.File
 
 object ImageViewAndFileUtils {
     fun ImageView.loadImageFromURL(imageUrl: String) {
+        val imagePath = if (imageUrl.contains(APIConstants.IMAGE_BASE_URL))
+            imageUrl else "${APIConstants.IMAGE_BASE_URL}$imageUrl"
         Glide.with(this)
-            .load(imageUrl)
+            .load(imagePath)
             .into(this)
     }
 

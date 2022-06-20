@@ -382,6 +382,8 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
             }
             result.data?.data?.let {
                 imageFile = FileUtils.getImageFile(requireContext(), it)
+            }
+            if (imageFile.exists()) {
                 binding.progressIndicator.showProgressbar()
                 addKidsViewModel.uploadFile(imageFile)
             }
