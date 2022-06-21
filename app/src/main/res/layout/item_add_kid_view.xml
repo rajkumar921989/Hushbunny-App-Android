@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/padding_1"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_no_kid_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,10 +39,12 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/user_image"
-                android:layout_width="@dimen/view_85"
-                android:layout_height="@dimen/view_85"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="@dimen/view_constraint"
+                android:padding="@dimen/padding_1"
                 android:scaleType="fitXY"
                 android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -211,13 +211,11 @@ class EditProfileViewModel(
     }
 
     private fun emailEdited(email: String): Boolean {
-        return if (PrefsManager.get().getString(AppConstants.USER_EMAIL, "").isEmpty()) false
-        else !email.equals(PrefsManager.get().getString(AppConstants.USER_EMAIL, ""), true)
+        return !email.equals(PrefsManager.get().getString(AppConstants.USER_EMAIL, ""), true)
     }
 
     private fun phoneNumberEdited(phoneNumber: String?, callingCode: String?): Boolean {
-        return if (PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, "").isEmpty()) false
-        else (!phoneNumber.equals(PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, ""), true)
+        return  (!phoneNumber.equals(PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, ""), true)
                 || !callingCode.equals(PrefsManager.get().getString(AppConstants.USER_CALLING_CODE, ""), true))
     }
 }

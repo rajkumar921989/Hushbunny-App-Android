@@ -11,7 +11,7 @@ object DateFormatUtils {
         return if (this.isNullOrEmpty()) null
         else {
             try {
-                val currentFormat = SimpleDateFormat("dd MMM,yyyy")
+                val currentFormat = SimpleDateFormat("dd MMM, yyyy")
                 val date = currentFormat.parse(this)
                 val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 simpleDateFormat.format(date)
@@ -29,7 +29,7 @@ object DateFormatUtils {
         else {
             try {
                 val currentFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                val simpleDateFormat = SimpleDateFormat("dd MMM,yyyy")
+                val simpleDateFormat = SimpleDateFormat("dd MMM, yyyy")
                 val date = currentFormat.parse(this)
                 simpleDateFormat.format(date)
             } catch (e: Exception) {
@@ -44,7 +44,7 @@ object DateFormatUtils {
             try {
                 val currentFormat = SimpleDateFormat("dd/MM/yyyy")
                 val date = currentFormat.parse(this)
-                val simpleDateFormat = SimpleDateFormat("dd MMM,yyyy")
+                val simpleDateFormat = SimpleDateFormat("dd MMM, yyyy")
                 simpleDateFormat.format(date)
             } catch (e: Exception) {
                 ""

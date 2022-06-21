@@ -13,6 +13,7 @@ import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentIntroScreenBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
+import com.hushbunny.app.ui.BaseActivity
 import javax.inject.Inject
 
 class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
@@ -206,6 +207,12 @@ class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
         startActivity(intent)
         activity?.finish()
         activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isFromOnBoarding)
+            (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
     companion object {

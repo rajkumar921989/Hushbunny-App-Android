@@ -80,7 +80,6 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
             binding.header.pageTitle.text = resourceProvider.getString(R.string.edit_kid)
             updateKidsDetail()
         }
-        (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
     private fun updateKidsDetail() {
@@ -424,5 +423,10 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
         binding.maleContainer.radioButton.isChecked = true
         binding.femaleContainer.radioButton.isChecked = false
         binding.yetToBornContainer.radioButton.isChecked = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 }

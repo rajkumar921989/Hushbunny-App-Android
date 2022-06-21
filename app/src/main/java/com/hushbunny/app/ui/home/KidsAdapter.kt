@@ -9,7 +9,6 @@ import com.hushbunny.app.R
 import com.hushbunny.app.databinding.ItemAddKidViewBinding
 import com.hushbunny.app.ui.model.KidsResponseModel
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.BaseListAdapter
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
 
@@ -36,18 +35,20 @@ class KidsAdapter(
         } else {
             binding.kidsContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.kids_background)
         }
-        if (!isAddMoment && item.isSpauseAdded == false) {
+        if (!isAddMoment && item.isSpouseAdded == false) {
             binding.addSpouseGroup.visibility = View.VISIBLE
         } else {
             binding.addSpouseGroup.visibility = View.GONE
         }
         binding.addKidImage.visibility = View.GONE
         binding.userImage.visibility = View.GONE
+        binding.addKidImageContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.drawable_login_background_button)
         if (item.type == APIConstants.KIDS_LIST) {
             if (item.image.isNullOrEmpty()) {
                 binding.addKidImage.visibility = View.VISIBLE
                 binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_no_kid_icon))
             } else {
+                binding.addKidImageContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.image_background)
                 binding.userImage.visibility = View.VISIBLE
                 binding.userImage.loadImageFromURL(item.image)
             }

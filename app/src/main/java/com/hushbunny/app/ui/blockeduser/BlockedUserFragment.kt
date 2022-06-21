@@ -42,7 +42,6 @@ class BlockedUserFragment : Fragment(R.layout.fragment_blocked_list) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AppComponentProvider).getAppComponent().inject(this)
-        (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,7 +102,10 @@ class BlockedUserFragment : Fragment(R.layout.fragment_blocked_list) {
             }
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

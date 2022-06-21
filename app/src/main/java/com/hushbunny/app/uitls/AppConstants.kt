@@ -18,7 +18,7 @@ class AppConstants {
         const val SPLASH_DELAY_DURATION: Long = 3000
         //        User Detail
         const val IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN"
-        const val USER_DETAIL = "USER_DETAIL"
+        const val USER_FIRST_NAME = "USER_FIRST_NAME"
         const val USER_NAME = "USER_NAME"
         const val USER_TOKEN = "USER_TOKEN"
         const val USER_PHONE_NUMBER = "USER_PHONE_NUMBER"
@@ -59,6 +59,8 @@ class AppConstants {
                 PrefsManager.get().saveStringValue(USER_TOKEN, userData?.token.orEmpty())
             if (!userData?.name.isNullOrEmpty())
                 PrefsManager.get().saveStringValue(USER_NAME, userData?.name.orEmpty())
+            if (!userData?.firstName.isNullOrEmpty())
+                PrefsManager.get().saveStringValue(USER_FIRST_NAME, userData?.firstName.orEmpty())
             if (!userData?._id.isNullOrEmpty())
                 PrefsManager.get().saveStringValue(USER_ID, userData?._id.orEmpty())
             if (!userData?.email.isNullOrEmpty())
@@ -85,8 +87,8 @@ class AppConstants {
                 PrefsManager.get().saveBooleanValues(EMAIL_OPTIONAL_NOTIFICATION, userData.emailNotifications.optional)
         }
 
-        fun getUserName(): String {
-            return PrefsManager.get().getString(USER_NAME, "")
+        fun getUserFirstName(): String {
+            return PrefsManager.get().getString(USER_FIRST_NAME, "")
         }
 
         fun getSettingList(resourceProvider: ResourceProvider): List<SettingsModel> {

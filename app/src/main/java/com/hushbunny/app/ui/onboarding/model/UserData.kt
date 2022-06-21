@@ -17,6 +17,7 @@ data class UserData(
     val callingCode: String?,
     val phoneNumber: String?,
     val fullNumber: String?,
+    val firstName: String?,
     val dob: String?,
     val gender: String?,
     val associatedAs: String?,

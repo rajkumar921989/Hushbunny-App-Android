@@ -61,7 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initClickListener() {
         binding.emptyViewContainer.container.visibility = View.VISIBLE
         binding.emptyViewContainer.welcomeMessageText.text =
-            resourceProvider.getString(R.string.home_page_welcome_message, AppConstants.getUserName())
+            resourceProvider.getString(R.string.home_page_welcome_message, AppConstants.getUserFirstName())
         binding.emptyViewContainer.addKidButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionAddKidFragment(isEditKid = false))
         }

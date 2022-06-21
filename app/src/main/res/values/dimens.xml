@@ -168,6 +168,7 @@
     <dimen name="view_55">55dp</dimen>
     <dimen name="view_60">60dp</dimen>
     <dimen name="view_70">70dp</dimen>
+    <dimen name="view_84">84dp</dimen>
     <dimen name="view_85">85dp</dimen>
     <dimen name="view_90">90dp</dimen>
     <dimen name="view_95">95dp</dimen>

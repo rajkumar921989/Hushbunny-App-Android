@@ -10,6 +10,7 @@ import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentKidsListBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
+import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.home.HomeFragmentDirections
 import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.home.HomeViewModel
@@ -108,7 +109,10 @@ class KidsListFragment : Fragment(R.layout.fragment_kids_list) {
         })
         binding.kidsList.adapter = kidsAdapter
     }
-
+    override fun onResume() {
+        super.onResume()
+        (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
