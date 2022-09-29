@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/view_30"
+        android:layout_height="@dimen/view_30"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/shimmer_user_circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_name_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:background="@color/shimmer_view_background"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="@id/user_image"
+        app:layout_constraintEnd_toStartOf="@id/reaction_image"
+        app:layout_constraintStart_toEndOf="@+id/user_image"
+        app:layout_constraintTop_toTopOf="@+id/user_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/reaction_image"
+        android:layout_width="@dimen/view_22"
+        android:layout_height="@dimen/view_22"
+        android:background="@drawable/shimmer_user_circle_background"
+        app:layout_constraintBottom_toBottomOf="@id/user_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

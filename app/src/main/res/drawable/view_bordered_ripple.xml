@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/global_color_gray_200">
+    <item
+        android:id="@android:id/mask"
+        android:drawable="@color/global_color_gray_200"/>
+</ripple>

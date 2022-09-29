@@ -17,11 +17,11 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/intro_image"
-        android:layout_width="@dimen/view_constraint"
-        android:layout_height="@dimen/view_constraint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20"
+        android:padding="@dimen/padding_15"
         android:layout_marginBottom="@dimen/margin_20"
-        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/one_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/one_image"
-        android:layout_width="@dimen/view_55"
-        android:layout_height="@dimen/view_55"
+        android:layout_width="@dimen/view_50"
+        android:layout_height="@dimen/view_50"
         android:layout_marginBottom="@dimen/margin_10"
         android:background="@drawable/ic_background_pink_circle"
         android:fontFamily="@font/roboto_medium"

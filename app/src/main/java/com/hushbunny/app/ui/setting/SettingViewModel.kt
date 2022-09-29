@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.model.NotificationSettingsRequest
+import com.hushbunny.app.ui.model.UpdateDeviceTokenRequest
 import com.hushbunny.app.ui.model.UserActionResponseModel
 import com.hushbunny.app.ui.onboarding.model.LoginResponse
 import com.hushbunny.app.ui.repository.UserActionRepository
+import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +44,11 @@ class SettingViewModel(
                     )
                 )
             )
+        }
+    }
+    fun updateDeviceToken(){
+        ioScope.launch {
+            userActionRepository.updateDeviceToken(UpdateDeviceTokenRequest(deviceToken = AppConstants.getFireBaseToken()))
         }
     }
 }

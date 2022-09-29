@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hushbunny.app.R
@@ -29,10 +28,9 @@ import com.hushbunny.app.ui.model.EditedUserDetail
 import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.dialog.SuccessDialog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class VerifyProfileOTPFragment : Fragment(R.layout.fragment_verify_profile_otp), TextWatcher, View.OnKeyListener, View.OnFocusChangeListener {
@@ -70,6 +68,10 @@ class VerifyProfileOTPFragment : Fragment(R.layout.fragment_verify_profile_otp),
         initView(editedUserDetail?.isEmailEdited == true && editedUserDetail?.isEmailAndPhoneNumberEdited == false)
         initClickListener()
         setObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 

@@ -68,6 +68,18 @@ class UserActionServiceImpl @Inject constructor(
         )
     }
 
+    override suspend fun updateProfilePicture(updateProfilePictureRequest: UpdateProfilePictureRequest): LoginResponse {
+        return networkCallHandler.putDataHandler(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_user_url)}${resourceProvider.getString(R.string.env_update_profile_picture_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ),
+            requestBody = updateProfilePictureRequest
+        )
+    }
+
     override suspend fun shareWithSpouse(inviteSpouseRequest: InviteSpouseRequest): BaseResponse {
         return networkCallHandler.postDataHandler(
             baseUrl = resourceProvider.getString(R.string.env_base_url),
@@ -112,6 +124,29 @@ class UserActionServiceImpl @Inject constructor(
                 Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
             ),
             requestBody = verifyEditProfileOtpRequest
+        )
+    }
+
+    override suspend fun updateDeviceToken(updateDeviceTokenRequest: UpdateDeviceTokenRequest): BaseResponse {
+        return networkCallHandler.putDataHandler(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_session_url)}${resourceProvider.getString(R.string.env_update_device_token_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ),
+            requestBody = updateDeviceTokenRequest
+        )
+    }
+
+    override suspend fun reSendInvite(invitationId: String): BaseResponse {
+        return networkCallHandler.patchData(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_spouse_url)}${resourceProvider.getString(R.string.env_resend_invite_url)}$invitationId",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ), requestBody = ""
         )
     }
 }

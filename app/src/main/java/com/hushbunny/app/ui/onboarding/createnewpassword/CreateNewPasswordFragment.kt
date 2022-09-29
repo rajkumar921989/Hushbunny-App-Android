@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -18,12 +19,15 @@ import com.hushbunny.app.ui.onboarding.viewmodel.LoginViewModel
 import com.hushbunny.app.ui.repository.OnBoardingRepository
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.dialog.SuccessDialog
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class CreateNewPasswordFragment : Fragment(R.layout.create_new_password) {
     private var _changePasswordBinding: CreateNewPasswordBinding? = null
     private val changePasswordBinding: CreateNewPasswordBinding get() = _changePasswordBinding!!
+    var password = 1
 
     @Inject
     lateinit var changePasswordRepository: OnBoardingRepository
@@ -75,20 +79,16 @@ class CreateNewPasswordFragment : Fragment(R.layout.create_new_password) {
             navigateToLoginPage()
         }
         changePasswordBinding.confirmPasswordContainer.passwordImage.setOnClickListener {
-            if (changePasswordBinding.confirmPasswordContainer.passwordInput.inputType == 1) {
-                changePasswordBinding.confirmPasswordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT or
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD
-                changePasswordBinding.confirmPasswordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
-            } else {
-                changePasswordBinding.confirmPasswordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT
+            if (password == 1) {
+                password = 2
+                changePasswordBinding.confirmPasswordContainer.passwordInput.transformationMethod = null
                 changePasswordBinding.confirmPasswordContainer.passwordImage.setImageResource(R.drawable.ic_show_password)
+            } else {
+                password = 1
+                changePasswordBinding.confirmPasswordContainer.passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                changePasswordBinding.confirmPasswordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
             }
-
-            changePasswordBinding.confirmPasswordContainer.passwordInput.setSelection(
-                changePasswordBinding.confirmPasswordContainer.passwordInput.text.toString().length
-            )
+            changePasswordBinding.confirmPasswordContainer.passwordInput.setSelection(changePasswordBinding.confirmPasswordContainer.passwordInput.text.toString().length)
         }
 
     }

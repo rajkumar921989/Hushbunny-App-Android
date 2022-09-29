@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionEditMoment"
+        android:title="@string/menu_edit_moment" />
+    <item
+        android:id="@+id/actionMarkImportant"
+        android:title="@string/menu_mark_important" />
+    <item
+        android:id="@+id/actionCopyUrl"
+        android:title="@string/menu_copy_url" />
+</menu>

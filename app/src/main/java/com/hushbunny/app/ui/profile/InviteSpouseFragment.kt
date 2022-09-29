@@ -15,11 +15,9 @@ import com.hushbunny.app.databinding.FragmentShareWithSpouseBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.ui.kids.AddKidFragmentArgs
 import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
-import com.hushbunny.app.uitls.DialogUtils
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
@@ -55,6 +53,10 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
         _binding = FragmentShareWithSpouseBinding.bind(view)
         initClickListener()
         setObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
@@ -80,6 +82,7 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
             binding.progressIndicator.hideProgressbar()
             when (it.statusCode) {
                 APIConstants.API_RESPONSE_200 -> {
+                    setFragmentResult(APIConstants.IS_SPOUSE_INVITED, bundleOf(APIConstants.SUCCESS to true))
                     findNavController().popBackStack()
                 }
                 APIConstants.UNAUTHORIZED_CODE -> {

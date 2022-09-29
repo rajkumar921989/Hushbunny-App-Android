@@ -1,14 +1,15 @@
 package com.hushbunny.app.uitls
 
 import android.app.Activity
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.annotation.MainThread
 import androidx.annotation.NavigationRes
+import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelLazy
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Delay
 import kotlin.reflect.KClass
 
 /**
@@ -94,5 +95,12 @@ inline fun <reified VM : ViewModel> Fragment.viewModelBuilderNavGraphScope(
         )
         val clazz: KClass<VM> = VM::class
         viewModelProvider.get(clazz.java)
+    }
+}
+fun <T:View> T.safePostDelay(delay: Long, block:T.() -> Unit){
+    postDelayed(delay){
+        findViewTreeLifecycleOwner()?.lifecycleScope?.launchWhenResumed {
+            block()
+        }
     }
 }

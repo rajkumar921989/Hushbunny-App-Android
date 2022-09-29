@@ -1,0 +1,53 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reaction_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_constraint"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginVertical="@dimen/margin_10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_reaction_list" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_reaction_found_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/no_reaction_found"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_20"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/reaction_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/reaction_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_constraint"
+        android:layout_margin="@dimen/margin_20"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_repeat_mode="restart"
+        app:shimmer_shape="linear">
+
+        <include layout="@layout/shimmer_view_reaction_list" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

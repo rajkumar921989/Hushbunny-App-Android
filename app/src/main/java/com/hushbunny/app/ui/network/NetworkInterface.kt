@@ -12,14 +12,14 @@ interface NetworkInterface {
     suspend fun getDataUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @QueryMap(encoded = true) optionsMap: Map<String, Any>?,
-        @HeaderMap headers: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?
     ): Response<String>
 
     @POST("/{hostEndPoint}")
     suspend fun postDataUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @Body requestBody: Any,
-        @HeaderMap headers: Map<String, String>?,
+        @HeaderMap headers: Map<String, Any>?,
         @QueryMap(encoded = true) queryMap: Map<String, Any>?
     ): Response<String>
 
@@ -28,8 +28,8 @@ interface NetworkInterface {
     suspend fun putDataUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @Body requestBody: Any,
-        @HeaderMap headers: Map<String, String>?,
-        @QueryMap(encoded = true) queryParams: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?,
+        @QueryMap(encoded = true) queryParams: Map<String, Any>?
     ): Response<String>
 
 
@@ -37,27 +37,27 @@ interface NetworkInterface {
     suspend fun patchStringDataUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @Body requestBody: Any,
-        @HeaderMap headers: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?
     ): Response<String>
 
     @DELETE("/{hostEndPoint}")
     suspend fun deleteDataUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
-        @HeaderMap headers: Map<String, String>?,
-        @QueryMap(encoded = true) queryParams: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?,
+        @QueryMap(encoded = true) queryParams: Map<String, Any>?
     ): Response<String>
 
     @POST("/{hostEndPoint}")
     suspend fun fileUploadUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
         @Body requestBody: RequestBody,
-        @HeaderMap headers: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?
     ): Response<String>
 
     @PUT("/{hostEndPoint}")
     suspend fun putDataWithoutRequestBodyUsingCoroutine(
         @Path(value = "hostEndPoint", encoded = true) endPoint: String,
-        @HeaderMap headers: Map<String, String>?,
-        @QueryMap(encoded = true) queryParams: Map<String, String>?
+        @HeaderMap headers: Map<String, Any>?,
+        @QueryMap(encoded = true) queryParams: Map<String, Any>?
     ): Response<String>
 }

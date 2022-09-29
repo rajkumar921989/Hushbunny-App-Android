@@ -11,309 +11,350 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/skip_submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_17"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:background="@null"
-        android:paddingVertical="@dimen/padding_5"
-        android:text="@string/skip_submit"
-        android:textAllCaps="false"
-        android:textColor="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_35"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/name"
-        android:textColor="@color/text_color_gray"
-        android:textSize="@dimen/text_size_20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skip_submit_button" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/you_can_update_this_information_any_time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24"
-        android:fontFamily="@font/roboto"
-        android:text="@string/you_can_update_this_information_any_time"
-        android:textColor="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_text" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/name_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_user"
-        android:drawablePadding="@dimen/padding_10"
-        android:fontFamily="@font/roboto"
-        android:gravity="center|start"
-        android:hint="@string/name"
-        android:inputType="text"
-        android:maxLines="1"
-        android:minHeight="@dimen/view_30"
-        android:textColor="@color/text_color_gray"
-        android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/you_can_update_this_information_any_time_text" />
-
-    <View
-        android:id="@+id/name_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_1"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@color/view_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_input" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/nick_name_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_user"
-        android:drawablePadding="@dimen/padding_10"
-        android:fontFamily="@font/roboto"
-        android:gravity="center|start"
-        android:hint="@string/nick_name"
-        android:inputType="text"
-        android:maxLines="1"
-        android:minHeight="@dimen/view_30"
-        android:textColor="@color/text_color_gray"
-        android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_view" />
-
-    <View
-        android:id="@+id/nick_name_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_1"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@color/view_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nick_name_input" />
-
-    <include
-        android:id="@+id/male_container"
-        layout="@layout/item_radio_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nick_name_view" />
-
-    <include
-        android:id="@+id/female_container"
-        layout="@layout/item_radio_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/male_container" />
-
-    <include
-        android:id="@+id/yet_to_born_container"
-        layout="@layout/item_radio_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/female_container" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/date_of_birth_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:drawableStart="@drawable/ic_calender"
-        android:drawablePadding="@dimen/padding_10"
-        android:fontFamily="@font/roboto"
-        android:gravity="center|start"
-        android:hint="@string/date_of_birth_hint"
-        android:inputType="text"
-        android:maxLines="1"
-        android:minHeight="@dimen/view_30"
-        android:textColor="@color/text_color_gray"
-        android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yet_to_born_container" />
-
-    <View
-        android:id="@+id/date_of_birth_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_1"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@color/view_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_of_birth_text" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/country_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:drawableStart="@drawable/ic_location"
-        android:drawableEnd="@drawable/ic_down_arrow"
-        android:drawablePadding="@dimen/padding_5"
-        android:fontFamily="@font/roboto"
-        android:gravity="center|start"
-        android:hint="@string/birth_country"
-        android:minHeight="@dimen/view_30"
-        android:paddingEnd="@dimen/padding_2"
-        android:textColor="@color/text_color_gray"
-        android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_of_birth_view" />
-
-    <View
-        android:id="@+id/country_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_1"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@color/view_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_text" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/city_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_edit"
-        android:drawablePadding="@dimen/padding_10"
-        android:maxLines="1"
-        android:fontFamily="@font/roboto"
-        android:gravity="center|start"
-        android:hint="@string/birth_city"
-        android:minHeight="@dimen/view_30"
-        android:textColor="@color/text_color_gray"
-        android:textColorHint="@color/text_color_gray"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_view" />
-
-    <View
-        android:id="@+id/city_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_1"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@color/view_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_input" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/add_kid_image_container"
-        android:layout_width="@dimen/view_85"
-        android:layout_height="@dimen/view_85"
-        android:layout_marginTop="@dimen/margin_24"
-        android:background="@drawable/drawable_login_background_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_constraint"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_view">
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/add_kid_image"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/skip_submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/padding_2"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_add_kid"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/margin_17"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:background="@null"
+            android:paddingVertical="@dimen/padding_5"
+            android:text="@string/skip_submit"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/user_image"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_35"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/name"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skip_submit_button" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/you_can_update_this_information_any_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:fontFamily="@font/roboto"
+            android:text="@string/you_can_update_this_information_any_time"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            android:background="@null"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center|start"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:minHeight="@dimen/view_30"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/you_can_update_this_information_any_time_text" />
+
+        <View
+            android:id="@+id/name_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/view_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/nick_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            android:background="@null"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center|start"
+            android:hint="@string/nick_name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minHeight="@dimen/view_30"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_view" />
+
+        <View
+            android:id="@+id/nick_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/view_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nick_name_input" />
+
+        <include
+            android:id="@+id/male_container"
+            layout="@layout/item_radio_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nick_name_view" />
+
+        <include
+            android:id="@+id/female_container"
+            layout="@layout/item_radio_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/male_container" />
+
+        <include
+            android:id="@+id/yet_to_born_container"
+            layout="@layout/item_radio_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/female_container" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date_of_birth_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            android:drawableStart="@drawable/ic_calender"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center|start"
+            android:hint="@string/date_of_birth_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minHeight="@dimen/view_30"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yet_to_born_container" />
+
+        <View
+            android:id="@+id/date_of_birth_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/view_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_of_birth_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/country_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            android:drawableStart="@drawable/ic_location"
+            android:drawableEnd="@drawable/ic_down_arrow"
+            android:drawablePadding="@dimen/padding_5"
+            android:fontFamily="@font/roboto"
+            android:gravity="center|start"
+            android:hint="@string/birth_country"
+            android:minHeight="@dimen/view_30"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_of_birth_view" />
+
+        <View
+            android:id="@+id/country_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/view_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_text" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/city_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_40"
+            android:background="@null"
+            android:drawableStart="@drawable/ic_edit"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center|start"
+            android:hint="@string/birth_city"
+            android:maxLines="1"
+            android:minHeight="@dimen/view_30"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_view" />
+
+        <View
+            android:id="@+id/city_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/view_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/city_input" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_kid_image_container"
             android:layout_width="@dimen/view_85"
             android:layout_height="@dimen/view_85"
-            android:scaleType="fitXY"
+            android:layout_marginTop="@dimen/margin_24"
+            android:elevation="@dimen/elevation_1"
+            app:cardBackgroundColor="@color/login_tab_background_color"
+            app:cardCornerRadius="@dimen/radius_7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/city_view">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/add_kid_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/padding_2"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_add_kid"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/user_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/add_profile_photo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/add_profile_photo"
+            android:textColor="@color/button_color_green"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_kid_image_container" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/next_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_60"
+            android:background="@drawable/drawable_button_green"
+            android:fontFamily="@font/roboto"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_profile_photo_text" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/name_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="name_input,name_view,nick_name_input,nick_name_view" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/gender_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="you_can_update_this_information_any_time_text,male_container,female_container,yet_to_born_container" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/date_of_birth_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="date_of_birth_text, date_of_birth_view" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/country_city_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="country_text,country_view,city_input,city_view,add_kid_image_container,add_profile_photo_text,skip_submit_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/add_profile_photo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_3"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/add_profile_photo"
-        android:textColor="@color/button_color_green"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_kid_image_container" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/next_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_30"
-        android:layout_marginTop="@dimen/margin_40"
-        android:background="@drawable/drawable_button_green"
-        android:fontFamily="@font/roboto"
-        android:text="@string/next"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_profile_photo_text" />
-
-    <com.hushbunny.app.uitls.ProgressbarWidget
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -321,32 +362,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/name_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="name_input,name_view,nick_name_input,nick_name_view" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/gender_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="you_can_update_this_information_any_time_text,male_container,female_container,yet_to_born_container" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/date_of_birth_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="date_of_birth_text, date_of_birth_view" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/country_city_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="country_text,country_view,city_input,city_view,add_kid_image_container,add_profile_photo_text,skip_submit_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

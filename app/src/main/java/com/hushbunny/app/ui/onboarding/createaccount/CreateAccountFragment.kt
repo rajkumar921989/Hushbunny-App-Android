@@ -1,11 +1,14 @@
 package com.hushbunny.app.ui.onboarding.createaccount
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.text.*
+import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
 import android.view.View
@@ -13,7 +16,6 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.lifecycle.lifecycleScope
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentCreateAccountBinding
 import com.hushbunny.app.di.AppComponentProvider
@@ -25,11 +27,11 @@ import com.hushbunny.app.ui.onboarding.viewmodel.LoginViewModel
 import com.hushbunny.app.ui.repository.OnBoardingRepository
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.dialog.SuccessDialog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWatcher, View.OnKeyListener,
     View.OnFocusChangeListener {
@@ -42,7 +44,7 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
 
     @Inject
     lateinit var resourceProvider: ResourceProvider
-
+    var password = 1
     private var type = APIConstants.EMAIL
     private var isOTPReceived = false
     private var focusView = 0
@@ -69,6 +71,7 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
         setObserver()
         setListener()
         setAlreadyHaveAccountText()
+        setTermsAndConditionText()
     }
 
     private fun setAlreadyHaveAccountText() {
@@ -102,11 +105,35 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
         fragmentCreateAccountBinding.alreadyHaveAnAccountText.text = signUpText
     }
 
+    private fun setTermsAndConditionText() {
+        val termsConditionText = SpannableStringBuilder(resourceProvider.getString(R.string.sign_up_terms_condition))
+        termsConditionText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.button_color_pink)),
+            termsConditionText.indexOf(resourceProvider.getString(R.string.terms_conditions), ignoreCase = true),
+            termsConditionText.length,
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        termsConditionText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.text_color_gray)),
+            0,
+            termsConditionText.length - termsConditionText.indexOf(
+                resourceProvider.getString(R.string.terms_conditions),
+                ignoreCase = true
+            ),
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        fragmentCreateAccountBinding.termsConditionText.text = termsConditionText
+    }
+
     private fun initializeClickListener() {
         Handler(Looper.getMainLooper()).postDelayed({
             fragmentCreateAccountBinding.tabContainer.emilButton.performClick()
-        }, 50)
+        }, 1)
 
+        fragmentCreateAccountBinding.termsConditionText.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(resourceProvider.getString(R.string.env_terms_condition_url)))
+            startActivity(intent)
+        }
         fragmentCreateAccountBinding.createAccountButton.setOnClickListener {
             if (isOTPReceived) {
                 createAccountViewModel.verifyOTPForNewUser(
@@ -177,23 +204,22 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
             navigateToLoginPage()
         }
         fragmentCreateAccountBinding.passwordContainer.passwordImage.setOnClickListener {
-            if (fragmentCreateAccountBinding.passwordContainer.passwordInput.inputType == 1) {
-                fragmentCreateAccountBinding.passwordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT or
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD
-                fragmentCreateAccountBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
-            } else {
-                fragmentCreateAccountBinding.passwordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT
+            if (password == 1) {
+                password = 2
+                fragmentCreateAccountBinding.passwordContainer.passwordInput.transformationMethod = null
                 fragmentCreateAccountBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_show_password)
+            } else {
+                password = 1
+                fragmentCreateAccountBinding.passwordContainer.passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                fragmentCreateAccountBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
             }
-
             fragmentCreateAccountBinding.passwordContainer.passwordInput.setSelection(fragmentCreateAccountBinding.passwordContainer.passwordInput.text.toString().length)
         }
 
     }
 
     private fun handleBackClick() {
+        timer.cancel()
         fragmentCreateAccountBinding.emailMobileGroup.visibility = View.VISIBLE
         fragmentCreateAccountBinding.otpGroup.visibility = View.GONE
         fragmentCreateAccountBinding.resendCodeText.visibility = View.GONE

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionEditImage"
+        android:title="@string/menu_edit_image" />
+    <item
+        android:id="@+id/actionRemoveImage"
+        android:title="@string/menu_remove_image" />
+    <item
+        android:id="@+id/actionViewImage"
+        android:title="@string/menu_view_image" />
+</menu>

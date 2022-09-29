@@ -1,12 +1,18 @@
 package com.hushbunny.app.di
 
 import com.hushbunny.app.HomeActivity
-import com.hushbunny.app.ui.addmoment.AddMomentFragment
-import com.hushbunny.app.ui.blockeduser.BlockedUserFragment
-import com.hushbunny.app.ui.home.HomeFragment
 import com.hushbunny.app.ui.kids.AddKidFragment
 import com.hushbunny.app.ui.kids.KidsListFragment
+import com.hushbunny.app.ui.moment.AddMomentFragment
+import com.hushbunny.app.ui.blockeduser.BlockedUserFragment
+import com.hushbunny.app.ui.bookmark.BookMarkFragment
+import com.hushbunny.app.ui.comment.CommentFragment
+import com.hushbunny.app.ui.filter.FilterFragment
+import com.hushbunny.app.ui.home.HomeFragment
+import com.hushbunny.app.ui.kids.KidsProfileFragment
 import com.hushbunny.app.ui.landing.SplashActivity
+import com.hushbunny.app.ui.moment.MomentDateFragment
+import com.hushbunny.app.ui.moment.MomentDetailFragment
 import com.hushbunny.app.ui.notifications.NotificationsFragment
 import com.hushbunny.app.ui.onboarding.OnBoardingActivity
 import com.hushbunny.app.ui.onboarding.chagepassword.ChangePasswordFragment
@@ -16,12 +22,13 @@ import com.hushbunny.app.ui.onboarding.forgetpassword.ForgetPasswordFragment
 import com.hushbunny.app.ui.onboarding.introscreen.IntroScreenFragment
 import com.hushbunny.app.ui.onboarding.login.LoginFragment
 import com.hushbunny.app.ui.onboarding.signup.SignUpFragment
-import com.hushbunny.app.ui.profile.EditProfileFragment
-import com.hushbunny.app.ui.profile.InviteSpouseFragment
-import com.hushbunny.app.ui.profile.ProfileFragment
-import com.hushbunny.app.ui.profile.VerifyProfileOTPFragment
+import com.hushbunny.app.ui.profile.*
+import com.hushbunny.app.ui.reaction.ReactionLandingFragment
+import com.hushbunny.app.ui.reaction.ReactionListingFragment
+import com.hushbunny.app.ui.report.ReportReasonDialog
 import com.hushbunny.app.ui.setting.InAppNotificationSettingFragment
 import com.hushbunny.app.ui.setting.SettingFragment
+import com.hushbunny.app.uitls.dialog.UserPictureDialog
 import dagger.Component
 import javax.inject.Singleton
 
@@ -51,6 +58,17 @@ interface AppComponent {
     fun inject(fragment: EditProfileFragment)
     fun inject(fragment: InAppNotificationSettingFragment)
     fun inject(fragment: BlockedUserFragment)
+    fun inject(fragment: BookMarkFragment)
     fun inject(fragment: InviteSpouseFragment)
+    fun inject(fragment: CommentFragment)
     fun inject(fragment: VerifyProfileOTPFragment)
+    fun inject(fragment: KidsProfileFragment)
+    fun inject(fragment: ReactionLandingFragment)
+    fun inject(fragment: ReactionListingFragment)
+    fun inject(fragment: OtherUserProfileFragment)
+    fun inject(fragment: FilterFragment)
+    fun inject(fragment: ReportReasonDialog)
+    fun inject(fragment: MomentDetailFragment)
+    fun inject(fragment: UserPictureDialog)
+    fun inject(fragment: MomentDateFragment)
 }

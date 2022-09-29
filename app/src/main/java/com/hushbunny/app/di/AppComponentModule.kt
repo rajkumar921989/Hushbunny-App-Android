@@ -4,15 +4,15 @@ import com.hushbunny.app.application.ApplicationScopeProvider
 import com.hushbunny.app.application.BaseApplication
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.providers.ResourceProviderImp
+import com.hushbunny.app.ui.navigation.NavigationRouterProvider
+import com.hushbunny.app.ui.navigation.NavigationRouterProviderImpl
 import com.hushbunny.app.ui.network.*
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingRepository
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingRepositoryImpl
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingService
-import com.hushbunny.app.ui.onboarding.serviceandrepository.OnBoardingServiceImpl
+import com.hushbunny.app.ui.network.NetworkMonitorImp
 import com.hushbunny.app.ui.repository.*
 import com.hushbunny.app.ui.service.*
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -45,13 +45,13 @@ class AppComponentModule(private val application: BaseApplication) {
 
     @Provides
     @Singleton
-    fun providerOnBoardingService(resourceProvider: ResourceProvider, networkCallHandler: NetworkCallHandler): com.hushbunny.app.ui.service.OnBoardingService {
-        return com.hushbunny.app.ui.service.OnBoardingServiceImpl(resourceProvider, networkCallHandler)
+    fun providerOnBoardingService(resourceProvider: ResourceProvider, networkCallHandler: NetworkCallHandler): OnBoardingService {
+        return OnBoardingServiceImpl(resourceProvider, networkCallHandler)
     }
 
     @Provides
     @Singleton
-    fun providerOnBoardingRepository(onBoardingService: com.hushbunny.app.ui.service.OnBoardingService): com.hushbunny.app.ui.repository.OnBoardingRepository {
+    fun providerOnBoardingRepository(onBoardingService: OnBoardingService): OnBoardingRepository {
         return OnBoardingRepositoryImpl(onBoardingService)
     }
 
@@ -91,5 +91,19 @@ class AppComponentModule(private val application: BaseApplication) {
         return FileUploadRepositoryImpl(fileUploadService)
     }
 
+    @Provides
+    @Singleton
+    fun providerMomentService(resourceProvider: ResourceProvider, networkCallHandler: NetworkCallHandler): MomentService {
+        return MomentServiceImpl(resourceProvider, networkCallHandler)
+    }
 
+    @Provides
+    @Singleton
+    fun providerMomentRepository(resourceProvider: ResourceProvider, momentService: MomentService): MomentRepository {
+        return MomentRepositoryImpl(resourceProvider = resourceProvider, momentService = momentService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNavigationRouter(resourceProvider: ResourceProvider): NavigationRouterProvider = NavigationRouterProviderImpl(resourceProvider)
 }

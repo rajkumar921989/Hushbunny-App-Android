@@ -14,8 +14,7 @@ import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.sealedclass.BlockedUserList
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
-import com.hushbunny.app.uitls.DialogUtils
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -55,7 +54,7 @@ class BlockedUserFragment : Fragment(R.layout.fragment_blocked_list) {
     }
 
     private fun getBlockedUserList() {
-        binding.progressIndicator.showProgressbar()
+        binding.shimmerContainer.visibility =View.VISIBLE
         blockedUserViewModel.getBlockedUserList()
     }
 
@@ -63,7 +62,6 @@ class BlockedUserFragment : Fragment(R.layout.fragment_blocked_list) {
         blockedUserAdapter = BlockedUserAdapter(onItemClick = {
             binding.progressIndicator.showProgressbar()
             blockedUserViewModel.blockAndUnblockUser(userId = it._id.orEmpty(), action = APIConstants.UNBLOCKED)
-
         })
         binding.blockList.adapter = blockedUserAdapter
     }
@@ -76,10 +74,16 @@ class BlockedUserFragment : Fragment(R.layout.fragment_blocked_list) {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()
         }
+        binding.pullRefresh.setOnRefreshListener {
+            binding.pullRefresh.isRefreshing = false
+            binding.blockList.visibility = View.GONE
+            getBlockedUserList()
+        }
     }
 
     private fun setObserver() {
         blockedUserViewModel.blockedUserListObserver.observe(viewLifecycleOwner) {
+            binding.shimmerContainer.visibility =View.GONE
             binding.progressIndicator.hideProgressbar()
             when (it) {
                 is BlockedUserList.UserList -> {

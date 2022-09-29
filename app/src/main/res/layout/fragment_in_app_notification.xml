@@ -44,12 +44,14 @@
 
     <Switch
         android:id="@+id/mandatory_switch"
+        style="@style/SwitchTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_15"
         android:checked="true"
-        style="@style/SwitchTheme"
         android:clickable="false"
+        android:thumbTint="@color/button_color_pink"
+        android:trackTint="@color/switch_color"
         app:layout_constraintBottom_toBottomOf="@id/mandatory_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/mandatory_text"
@@ -95,10 +97,12 @@
 
     <Switch
         android:id="@+id/important_notifications_switch"
+        style="@style/SwitchTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_15"
-        style="@style/SwitchTheme"
+        android:thumbTint="@color/button_color_pink"
+        android:trackTint="@color/switch_color"
         app:layout_constraintBottom_toBottomOf="@id/important_notifications_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/important_notifications_text"
@@ -114,6 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/important_notifications_description" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/optional_notifications_text"
         android:layout_width="@dimen/view_constraint"
@@ -143,10 +148,12 @@
 
     <Switch
         android:id="@+id/optional_notifications_switch"
+        style="@style/SwitchTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_15"
-        style="@style/SwitchTheme"
+        android:thumbTint="@color/button_color_pink"
+        android:trackTint="@color/switch_color"
         app:layout_constraintBottom_toBottomOf="@id/optional_notifications_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/optional_notifications_text"

@@ -23,7 +23,7 @@ import com.hushbunny.app.ui.onboarding.login.LoginFragment
 import com.hushbunny.app.ui.onboarding.viewmodel.LoginViewModel
 import com.hushbunny.app.ui.repository.OnBoardingRepository
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.DialogUtils
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers

@@ -25,10 +25,9 @@ import com.hushbunny.app.ui.onboarding.model.SignInUserModel
 import com.hushbunny.app.ui.onboarding.viewmodel.LoginViewModel
 import com.hushbunny.app.ui.repository.OnBoardingRepository
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.DateFormatUtils.convertDateIntoAppDateFormat
-import com.hushbunny.app.uitls.DialogUtils
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import java.util.*
@@ -44,6 +43,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     @Inject
     lateinit var resourceProvider: ResourceProvider
     private var signUpStep = 1
+    private var selectedCountryName = ""
 
     private val signUpViewModel: LoginViewModel by viewModelBuilderFragmentScope {
         LoginViewModel(
@@ -116,6 +116,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
+            dpd.datePicker.maxDate = Date().time
             dpd.show()
         }
         fragmentSignUpBinding.nextButton.setOnClickListener {
@@ -142,6 +143,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         }
         fragmentSignUpBinding.countryText.setOnClickListener {
             requireActivity().launchCountryPickerDialog(preferredCountryCodes = "US,IN") { selectedCountry: CPCountry? ->
+                selectedCountryName  = selectedCountry?.alpha2.orEmpty()
                 fragmentSignUpBinding.countryText.text = selectedCountry?.name.orEmpty()
             }
         }
@@ -211,14 +213,12 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                     CreateAccountFragment.getInstance(
                         SignInUserModel(
                             name = fragmentSignUpBinding.nameInput.text.toString().trim(),
-                            dateOfBirth = fragmentSignUpBinding.dateOfBirthText.text.toString()
-                                .trim(),
-                            gender = if (fragmentSignUpBinding.maleContainer.radioButton.isChecked) APIConstants.MALE else if (fragmentSignUpBinding.femaleContainer.radioButton.isChecked) APIConstants.FEMALE else fragmentSignUpBinding.otherContainer.nameInput.text.toString()
-                                .trim(),
+                            dateOfBirth = fragmentSignUpBinding.dateOfBirthText.text.toString().trim(),
+                            gender = if (fragmentSignUpBinding.maleContainer.radioButton.isChecked) APIConstants.MALE else if (fragmentSignUpBinding.femaleContainer.radioButton.isChecked) APIConstants.FEMALE else fragmentSignUpBinding.otherContainer.nameInput.text.toString().trim(),
                             relationShipWithKid = if (fragmentSignUpBinding.fatherContainer.radioButton.isChecked) resourceProvider.getString(R.string.father) else resourceProvider.getString(
                                 R.string.mother
                             ),
-                            country = fragmentSignUpBinding.countryText.text.toString().trim()
+                            country = selectedCountryName
                         )
                     ),
                     CreateAccountFragment::class.simpleName.toString()
@@ -410,7 +410,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         fragmentSignUpBinding.stepByStepContainer.stepFiveImage.setImageResource(R.drawable.ic_round_background_gray)
         val layoutParams =
             fragmentSignUpBinding.hushBunnyLogoImage.layoutParams as ConstraintLayout.LayoutParams
-        val marginLeft = resourceProvider.getDimension(R.dimen.margin_42).toInt()
+        val marginLeft = resourceProvider.getDimension(R.dimen.margin_60).toInt()
         when (signUpStep) {
             1 -> {
                 layoutParams.setMargins(marginLeft, 0, 0, 0)
@@ -418,7 +418,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
             2 -> {
                 layoutParams.setMargins(
-                    resourceProvider.getDimension(R.dimen.margin_95).toInt(),
+                    resourceProvider.getDimension(R.dimen.margin_110).toInt(),
                     0,
                     0,
                     0
@@ -434,7 +434,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
             3 -> {
                 layoutParams.setMargins(
-                    resourceProvider.getDimension(R.dimen.margin_150).toInt(),
+                    resourceProvider.getDimension(R.dimen.margin_165).toInt(),
                     0,
                     0,
                     0
@@ -457,7 +457,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
             4 -> {
                 layoutParams.setMargins(
-                    resourceProvider.getDimension(R.dimen.margin_205).toInt(),
+                    resourceProvider.getDimension(R.dimen.margin_220).toInt(),
                     0,
                     0,
                     0
@@ -487,7 +487,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
             5 -> {
                 layoutParams.setMargins(
-                    resourceProvider.getDimension(R.dimen.margin_260).toInt(),
+                    resourceProvider.getDimension(R.dimen.margin_276).toInt(),
                     0,
                     0,
                     0

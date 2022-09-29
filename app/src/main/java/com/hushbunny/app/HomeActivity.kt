@@ -1,34 +1,58 @@
 package com.hushbunny.app
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.hushbunny.app.databinding.ActivityMainBinding
 import com.hushbunny.app.di.AppComponentProvider
+import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.uitls.AppConstants
-import java.util.logging.Logger
+import com.hushbunny.app.ui.enumclass.NavigationPages
+import com.hushbunny.app.ui.home.HomeFragmentDirections
+import com.hushbunny.app.ui.home.HomeViewModel
+import com.hushbunny.app.ui.moment.NavigationViewModel
+import com.hushbunny.app.ui.navigation.NavigationRouterProvider
+import com.hushbunny.app.ui.repository.HomeRepository
+import com.hushbunny.app.uitls.APIConstants
+import com.hushbunny.app.uitls.viewModelBuilder
+import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
+import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var resourceProvider: ResourceProvider
+
+    @Inject
+    lateinit var homeRepository: HomeRepository
+
+    private val homeViewModel: HomeViewModel by viewModelBuilder {
+        HomeViewModel(
+            ioDispatcher = Dispatchers.IO,
+            resourceProvider = resourceProvider,
+            homeRepository = homeRepository
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         (application as AppComponentProvider).getAppComponent().inject(this)
-
 
         val navHostFragment = binding.navHostFragment.getFragment<NavHostFragment>()
         binding.bottomNav.setupWithNavController(navHostFragment.navController)
@@ -37,62 +61,35 @@ class HomeActivity : BaseActivity() {
             binding.bottomNav.findViewById<View>(it.itemId)
                 .setOnLongClickListener { true }
         }
-        binding.bottomNav.setOnItemReselectedListener {
-            when (it.itemId) {
-                R.id.navigation_home -> {
+        binding.bottomNav.setOnItemSelectedListener {
+            navigateToBottomItem(it)
+            when (it.toString()) {
+                resourceProvider.getString(R.string.title_home) -> {
                     navHostFragment.navController.popBackStack(R.id.homeFragment, false)
                 }
-                R.id.navigation_notifications -> {
+                resourceProvider.getString(R.string.title_notifications) -> {
                     navHostFragment.navController.popBackStack(R.id.notificationFragment, false)
                 }
-                R.id.navigation_add_moment -> {
-                    navHostFragment.navController.popBackStack(R.id.addMomentFragment, false)
-                }
-                R.id.navigation_setting -> {
-                    navHostFragment.navController.popBackStack(R.id.settingFragment, false)
-                }
-                R.id.navigation_profile -> {
+                resourceProvider.getString(R.string.title_profile) -> {
                     navHostFragment.navController.popBackStack(R.id.profileFragment, false)
                 }
             }
-        }
-
-        binding.bottomNav.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.navigation_home -> {
-                    if (it.itemId != binding.bottomNav.selectedItemId) {
-                        navigateToBottomItem(it)
-                        navHostFragment.navController.popBackStack(R.id.homeFragment, false)
-                    }
-                }
-                R.id.navigation_notifications -> {
-                    if (it.itemId != binding.bottomNav.selectedItemId) {
-                        navigateToBottomItem(it)
-                        navHostFragment.navController.popBackStack(R.id.notificationFragment, false)
-                    }
-                }
-                R.id.navigation_add_moment -> {
-                    if (it.itemId != binding.bottomNav.selectedItemId) {
-                        navigateToBottomItem(it)
-                        navHostFragment.navController.popBackStack(R.id.addMomentFragment, false)
-                    }
-                }
-                R.id.navigation_setting -> {
-                    if (it.itemId != binding.bottomNav.selectedItemId) {
-                        navigateToBottomItem(it)
-                        navHostFragment.navController.popBackStack(R.id.settingFragment, false)
-                    }
-                }
-                R.id.navigation_profile -> {
-                    if (it.itemId != binding.bottomNav.selectedItemId) {
-                        navigateToBottomItem(it)
-                        navHostFragment.navController.popBackStack(R.id.profileFragment, false)
-                    }
-                }
-
-            }
             true
         }
+        setObserver()
+
+    }
+
+    private fun setObserver() {
+        homeViewModel.notificationCountObserver.observe(this) {
+            updateNotificationBadge(it?.data?.unreadCount ?: 0)
+        }
+    }
+
+    private fun updateNotificationBadge(count: Int) {
+        val badge = binding.bottomNav.getOrCreateBadge(R.id.notificationFragment)
+        badge.number = count
+        badge.isVisible = count > 0
     }
 
     private fun navigateToBottomItem(menuItem: MenuItem) {
@@ -102,9 +99,7 @@ class HomeActivity : BaseActivity() {
                 Navigation.findNavController(this, R.id.nav_host_fragment)
             )
         } catch (e: Exception) {
-            println("Exception: $e")
         }
-
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -151,10 +146,12 @@ class HomeActivity : BaseActivity() {
             binding.bottomNav.findViewById<View>(it.itemId)
                 .setOnLongClickListener { true }
         }
+        homeViewModel.getNotificationCount()
     }
 
     override fun setBottomNavigationVisibility(visibility: Int) {
         binding.bottomNav.visibility = visibility
+        binding.addMomentImage.visibility = visibility
     }
 
     override fun animateBottomNavigation(hide: Boolean) {

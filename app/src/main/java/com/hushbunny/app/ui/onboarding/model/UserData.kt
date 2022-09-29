@@ -19,9 +19,11 @@ data class UserData(
     val fullNumber: String?,
     val firstName: String?,
     val dob: String?,
+    val totalMoments: String?,
     val gender: String?,
     val associatedAs: String?,
     val countryId: String?,
+    val isBlockedByHim: Boolean?,
     val inAppNotifications: InAppNotifications?,
     val emailNotifications: InAppNotifications?
 )

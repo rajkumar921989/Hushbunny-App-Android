@@ -24,6 +24,8 @@ import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.convertISODateIntoAppDateFormat
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.dialog.SuccessDialog
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 import javax.inject.Inject
@@ -38,6 +40,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     @Inject
     lateinit var userActionRepository: UserActionRepository
+    private var selectedCountryName = ""
 
     private val editProfileViewModel: EditProfileViewModel by viewModelBuilderFragmentScope {
         EditProfileViewModel(
@@ -65,13 +68,17 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         editProfileViewModel.editedUserDetail?.let {
             updateEditedDetail(it)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
         (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
     private fun updateEditedDetail(editedUserDetail: EditedUserDetail) {
         binding.nameInput.setText(editedUserDetail.name)
         binding.dateOfBirthText.text = editedUserDetail.dateOfBirth
-        binding.countryText.text = editedUserDetail.country
+        binding.countryText.text = AppConstants.getCountryNameByCode(editedUserDetail.country)
         binding.mobileNumberContainer.mobileNumberInput.setText(editedUserDetail.phoneNumber)
         binding.emailContainer.emailInput.setText(editedUserDetail.email)
         val gender = editedUserDetail.gender
@@ -145,6 +152,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 binding.progressIndicator.hideProgressbar()
                 when (response.statusCode) {
                     APIConstants.API_RESPONSE_200 -> {
+                        AppConstants.saveUserDetail(response.data)
                         editProfileViewModel.editedUserDetail = null
                         val dialog = SuccessDialog(requireContext())
                         dialog.show()
@@ -195,7 +203,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     private fun setUserDetail() {
         binding.nameInput.setText(PrefsManager.get().getString(AppConstants.USER_NAME, ""))
         binding.dateOfBirthText.text = PrefsManager.get().getString(AppConstants.USER_DATE_OF_BIRTH, "").convertISODateIntoAppDateFormat()
-        binding.countryText.text = PrefsManager.get().getString(AppConstants.USER_COUNTRY, "")
+        binding.countryText.text =  AppConstants.getCountryNameByCode(PrefsManager.get().getString(AppConstants.USER_COUNTRY, ""))
         binding.mobileNumberContainer.mobileNumberInput.setText(PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, ""))
         binding.emailContainer.emailInput.setText(PrefsManager.get().getString(AppConstants.USER_EMAIL, ""))
         val gender = PrefsManager.get().getString(AppConstants.USER_GENDER, "")
@@ -251,6 +259,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             otherGenderSelected()
             false
         }
+        binding.otherContainer.nameInput.setOnTouchListener { v, _ ->
+            otherGenderSelected()
+            false
+        }
         binding.fatherContainer.container.setOnClickListener {
             binding.root.hideKeyboard()
             fatherSelected()
@@ -261,6 +273,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         }
         binding.countryText.setOnClickListener {
             requireActivity().launchCountryPickerDialog(preferredCountryCodes = "US,IN") { selectedCountry: CPCountry? ->
+                selectedCountryName = selectedCountry?.alpha2.orEmpty()
                 binding.countryText.text = selectedCountry?.name.orEmpty()
             }
         }
@@ -281,7 +294,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             editProfileViewModel.validateEditProfile(
                 name = binding.nameInput.text.toString().trim(),
                 dateOfBirth = binding.dateOfBirthText.text.toString(),
-                country = binding.countryText.text.toString(),
+                country = selectedCountryName,
                 mobileNumber = binding.mobileNumberContainer.mobileNumberInput.text.toString().trim(),
                 email = binding.emailContainer.emailInput.text.toString().trim(),
                 isMale = binding.maleContainer.radioButton.isChecked,
@@ -290,9 +303,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 otherText = binding.otherContainer.nameInput.text.toString().trim(),
                 isFather = binding.fatherContainer.radioButton.isChecked,
                 isMother = binding.motherContainer.radioButton.isChecked,
-                callingCode = binding.mobileNumberContainer.countrySelection.selectedCountryCodeWithPlus
-            )
+                callingCode = binding.mobileNumberContainer.countrySelection.selectedCountryCodeWithPlus,
+                image = ""
 
+            )
         }
     }
 
@@ -313,12 +327,14 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     }
 
     private fun femaleGenderSelected() {
+        binding.otherContainer.nameInput.setText("")
         binding.maleContainer.radioButton.isChecked = false
         binding.femaleContainer.radioButton.isChecked = true
         binding.otherContainer.radioButton.isChecked = false
     }
 
     private fun maleGenderSelected() {
+        binding.otherContainer.nameInput.setText("")
         binding.maleContainer.radioButton.isChecked = true
         binding.femaleContainer.radioButton.isChecked = false
         binding.otherContainer.radioButton.isChecked = false

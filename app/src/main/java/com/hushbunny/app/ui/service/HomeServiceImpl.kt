@@ -71,5 +71,73 @@ class HomeServiceImpl @Inject constructor(
         )
     }
 
+    override suspend fun notificationList(queryParams: Map<String, Any>): NotificationAPIResponseModel {
+        return networkCallHandler.getData(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_notification_url)}${resourceProvider.getString(R.string.env_kids_list_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ), queryParams = queryParams
+        )
+    }
 
+    override suspend fun acceptOrRejectNotification(acceptOrRejectNotificationRequest: AcceptOrRejectNotificationRequest): BaseResponse {
+        return networkCallHandler.putDataHandler(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_spouse_url)}${resourceProvider.getString(R.string.env_accept_reject_invite_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ),
+            requestBody = acceptOrRejectNotificationRequest
+        )
+    }
+
+    override suspend fun addOREditMoment(isEdit: Boolean, addMomentRequest: AddMomentRequest): BaseResponse {
+        return if (isEdit) {
+            networkCallHandler.putDataHandler(
+                baseUrl = resourceProvider.getString(R.string.env_base_url),
+                endPoint = "${resourceProvider.getString(R.string.env_moment_url)}${resourceProvider.getString(R.string.env_edit_kid_url)}",
+                headers = hashMapOf(
+                    Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                    Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+                ),
+                requestBody = addMomentRequest
+            )
+        } else {
+            networkCallHandler.postDataHandler(
+                baseUrl = resourceProvider.getString(R.string.env_base_url),
+                endPoint = "${resourceProvider.getString(R.string.env_moment_url)}${resourceProvider.getString(R.string.env_add_kid_url)}",
+                headers = hashMapOf(
+                    Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                    Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+                ),
+                requestBody = addMomentRequest
+            )
+        }
+    }
+
+    override suspend fun unReadNotification(unReadNotificationRequest: UnReadNotificationRequest): BaseResponse {
+        return  networkCallHandler.postDataHandler(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_notification_url)}${resourceProvider.getString(R.string.env_unread_notification_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ),
+            requestBody = unReadNotificationRequest
+        )
+    }
+
+    override suspend fun unReadNotificationCount(): NotificationUnreadCountModel {
+        return networkCallHandler.getData(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_notification_url)}${resourceProvider.getString(R.string.env_unread_notification_count_url)}",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ), queryParams = hashMapOf()
+        )
+    }
 }

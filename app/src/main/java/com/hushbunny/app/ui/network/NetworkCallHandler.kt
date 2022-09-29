@@ -33,7 +33,7 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
         baseUrl: String,
         endPoint: String,
         queryParams: Map<String, Any>? = hashMapOf(),
-        headers: Map<String, String>? = null
+        headers: Map<String, Any>? = null
     ): T {
         if (!isNetworkConnected()) return getErrorResponseAsObjectOrDefault(T::class.java, getNoNetworkError())
 
@@ -71,7 +71,7 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
         baseUrl: String,
         endPoint: String,
         requestBody: Any,
-        headers: Map<String, String>? = null,
+        headers: Map<String, Any>? = null,
         queryParams: Map<String, Any>? = hashMapOf()
     ): T {
         if (!isNetworkConnected()) {
@@ -106,8 +106,8 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
         baseUrl: String,
         endPoint: String,
         requestBody: Any? = null,
-        headers: Map<String, String>? = null,
-        queryParams: Map<String, String>? = hashMapOf()
+        headers: Map<String, Any>? = null,
+        queryParams: Map<String, Any>? = hashMapOf()
     ): T {
         if (!isNetworkConnected()) {
             return Gson().fromJson(getNoNetworkError(), T::class.java)
@@ -133,8 +133,8 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
     suspend inline fun <reified T : Any> deleteDataHandler(
         baseUrl: String,
         endPoint: String,
-        headers: Map<String, String>? = null,
-        queryParams: Map<String, String>? = null
+        headers: Map<String, Any>? = null,
+        queryParams: Map<String, Any>? = null
     ): T {
         if (!isNetworkConnected()) {
             return Gson().fromJson(getNoNetworkError(), T::class.java)
@@ -159,7 +159,7 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
     suspend inline fun <reified T : Any> uploadFileDataHandler(
         baseUrl: String,
         endPoint: String,
-        filePath: File,
+        filePath: List<File>,
         headers: Map<String, String>? = null
     ): T {
         if (!isNetworkConnected()) {
@@ -169,6 +169,32 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
         val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
             val fileUploadRequest = createFileRequest(filePath)
             fileUploadUsingCoroutine(endPoint, fileUploadRequest, headers)
+        }
+
+        val response = retrofitResult.getOrNull()
+
+        return if (retrofitResult.isSuccess && response != null) {
+            Gson().fromJson(validateServerResponse(response), T::class.java)
+        } else {
+            Gson().fromJson(
+                getServerUnhandledError(NO_SERVICE_RESPONSE_ERROR_CODE),
+                T::class.java
+            )
+        }
+    }
+
+    suspend inline fun <reified T : Any> patchData(
+        baseUrl: String,
+        endPoint: String,
+        requestBody: Any,
+        headers: Map<String, String>? = null
+    ): T {
+        if (!isNetworkConnected()) {
+            return Gson().fromJson(getNoNetworkError(), T::class.java)
+        }
+
+        val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
+            patchStringDataUsingCoroutine(endPoint, requestBody, headers)
         }
 
         val response = retrofitResult.getOrNull()

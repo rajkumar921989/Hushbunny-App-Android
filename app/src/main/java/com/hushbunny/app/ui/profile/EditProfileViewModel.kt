@@ -39,10 +39,14 @@ class EditProfileViewModel(
 
     private val _verifyOTPResponse: MutableLiveData<EventWrapper<BaseResponse>> = MutableLiveData()
     val verifyOTPObserver: LiveData<EventWrapper<BaseResponse>> = _verifyOTPResponse
+
+    private val _resendInviteResponse: MutableLiveData<EventWrapper<BaseResponse>> = MutableLiveData()
+    val resendInviteObserver: LiveData<EventWrapper<BaseResponse>> = _resendInviteResponse
     var editedUserDetail: EditedUserDetail? = null
 
     fun validateEditProfile(
         name: String,
+        image: String,
         dateOfBirth: String,
         country: String,
         mobileNumber: String? = null,
@@ -57,9 +61,6 @@ class EditProfileViewModel(
     ) {
         when {
             name.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_name))
-            dateOfBirth.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_choose_date_of_birth))
-            country.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_choose_country))
-            email.isEmpty() && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_valid_email))
             !isMale && !isFemale && !isOther -> _errorValidation.postValue(resourceProvider.getString(R.string.please_choose_gender))
             isOther && otherText.isNullOrEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_other_gender))
             !isFather && !isMother -> _errorValidation.postValue(resourceProvider.getString(R.string.please_choose_association_with_the_kid))
@@ -71,13 +72,14 @@ class EditProfileViewModel(
                     phoneNumber = mobileNumber.orEmpty(), callingCode = callingCode.orEmpty(), isEmailEdited = emailEdited(email),
                     email = email, gender = if (isMale) APIConstants.MALE else if (isFemale) APIConstants.FEMALE else otherText.orEmpty(),
                     associatedWith = if (isFather) APIConstants.FATHER else APIConstants.MOTHER,
-                    isEmailAndPhoneNumberEdited = phoneNumberEdited(phoneNumber = mobileNumber, callingCode = callingCode) && emailEdited(email)
+                    isEmailAndPhoneNumberEdited = phoneNumberEdited(phoneNumber = mobileNumber, callingCode = callingCode) && emailEdited(email),
+                    image = image
                 )
-                if (editedUserDetail?.isEmailAndPhoneNumberEdited == true) {
+                if (editedUserDetail?.isEmailAndPhoneNumberEdited == true && editedUserDetail?.email?.isNotEmpty() == true && editedUserDetail?.phoneNumber?.isNotEmpty() == true) {
                     sendOTPForMobileNumber(phoneNumber = mobileNumber, callingCode = callingCode)
-                } else if (editedUserDetail?.isPhoneNumberEdited == true) {
+                } else if (editedUserDetail?.isPhoneNumberEdited == true && editedUserDetail?.phoneNumber?.isNotEmpty() == true) {
                     sendOTPForMobileNumber(phoneNumber = mobileNumber, callingCode = callingCode)
-                } else if (editedUserDetail?.isEmailEdited == true) {
+                } else if (editedUserDetail?.isEmailEdited == true && editedUserDetail?.email?.isNotEmpty() == true) {
                     sendOTPForEmail(email)
                 } else {
                     updateProfile(editedUserDetail)
@@ -94,6 +96,7 @@ class EditProfileViewModel(
                     userActionRepository.editUserProfile(
                         EditProfileRequest(
                             name = editedUserDetail?.name?.ifEmpty { null },
+                            image = editedUserDetail?.image?.ifEmpty { null },
                             countryId = editedUserDetail?.country?.ifEmpty { null },
                             gender = editedUserDetail?.gender?.ifEmpty { null },
                             associatedAs = editedUserDetail?.associatedWith?.ifEmpty { null },
@@ -115,7 +118,7 @@ class EditProfileViewModel(
         }
     }
 
-    fun inviteSpouse(kidId:String,type: String, email: String, phoneNumber: String, name: String? = null, callingCode: String? = null) {
+    fun inviteSpouse(kidId: String, type: String, email: String, phoneNumber: String, name: String? = null, callingCode: String? = null) {
         when {
             type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
                 resourceProvider.getString(
@@ -143,7 +146,7 @@ class EditProfileViewModel(
                                 phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
                                 callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null,
                                 name = name,
-                                kidId = kidId
+                                kidId = kidId.ifEmpty { null }
                             )
                         )
                     )
@@ -210,12 +213,29 @@ class EditProfileViewModel(
         }
     }
 
+    fun updateProfilePicture(image: String, userType: String, kidId: String? = null) {
+        ioScope.launch {
+            _editProfileResponse.postValue(
+                EventWrapper(
+                    userActionRepository.updateProfilePicture(UpdateProfilePictureRequest(image = image, type = userType, kidId = kidId))
+                )
+            )
+        }
+
+    }
+
+    fun reSendInvite(invitationId: String) {
+        ioScope.launch {
+            _resendInviteResponse.postValue(EventWrapper(userActionRepository.reSendInvite(invitationId = invitationId)))
+        }
+    }
+
     private fun emailEdited(email: String): Boolean {
         return !email.equals(PrefsManager.get().getString(AppConstants.USER_EMAIL, ""), true)
     }
 
     private fun phoneNumberEdited(phoneNumber: String?, callingCode: String?): Boolean {
-        return  (!phoneNumber.equals(PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, ""), true)
+        return (!phoneNumber.equals(PrefsManager.get().getString(AppConstants.USER_PHONE_NUMBER, ""), true)
                 || !callingCode.equals(PrefsManager.get().getString(AppConstants.USER_CALLING_CODE, ""), true))
     }
 }

@@ -65,26 +65,29 @@ class LoginViewModel(
         callingCode: String? = null
     ) {
         when {
-            type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(
-                resourceProvider.getString(
+            type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_email
-                )
-            )
-            type == APIConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            type == APIConstants.EMAIL && !AppConstants.isValidEmail(email) -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_valid_email
-                )
-            )
-            type == APIConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            type == APIConstants.PHONE_NUMBER && phoneNumber.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_phone_number
-                )
-            )
-            password.isEmpty() -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            password.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_password
-                )
-            )
+                ))
+            password.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
+            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(
+                R.string.password_upper_letter_error
+            ))
+            !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_lower_letter_error))
+            !password.isHavingNumber() -> _errorValidation.postValue(resourceProvider.getString(
+                R.string.password_number_error
+            ))
+            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(resourceProvider.getString(
+                R.string.password_special_character_error
+            ))
             else -> {
                 _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
@@ -94,6 +97,7 @@ class LoginViewModel(
                                 loginBy = type,
                                 email = if (type == APIConstants.EMAIL) email else null,
                                 password = password,
+                                deviceToken = AppConstants.getFireBaseToken().ifEmpty { null },
                                 phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
                                 callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null
                             )
@@ -152,11 +156,9 @@ class LoginViewModel(
         otpFour: String
     ) {
         if (otpOne.isEmpty() || otpTwo.isEmpty() || otpThree.isEmpty() || otpFour.isEmpty()) {
-            _errorValidation.postValue(
-                resourceProvider.getString(
+            _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_otp
-                )
-            )
+                ))
         } else {
             _errorValidation.postValue(APIConstants.SUCCESS)
             ioScope.launch {
@@ -190,26 +192,16 @@ class LoginViewModel(
         when {
             password.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_password))
             password.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
-            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(
-                resourceProvider.getString(
-                    R.string.password_upper_letter_error
-                )
-            )
-            !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(
-                resourceProvider.getString(
+            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_upper_letter_error))
+            !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.password_lower_letter_error
-                )
-            )
-            !password.isHavingNumber() -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            !password.isHavingNumber() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.password_number_error
-                )
-            )
-            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.password_special_character_error
-                )
-            )
+                ))
             confirmPassword.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_confirm_password))
             password != confirmPassword -> _errorValidation.postValue(resourceProvider.getString(R.string.password_mismatch_error))
             else -> {
@@ -290,11 +282,20 @@ class LoginViewModel(
                     R.string.please_enter_phone_number
                 )
             )
-            password.isEmpty() -> _errorValidation.postValue(
-                resourceProvider.getString(
+            password.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_password
-                )
-            )
+                ))
+            password.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
+            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(
+                    R.string.password_upper_letter_error
+                ))
+            !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_lower_letter_error))
+            !password.isHavingNumber() -> _errorValidation.postValue(resourceProvider.getString(
+                    R.string.password_number_error
+                ))
+            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(resourceProvider.getString(
+                    R.string.password_special_character_error
+                ))
             else -> {
                 _errorValidation.postValue(APIConstants.SUCCESS)
                 ioScope.launch {
@@ -328,11 +329,9 @@ class LoginViewModel(
         otpFour: String
     ) {
         if (otpOne.isEmpty() || otpTwo.isEmpty() || otpThree.isEmpty() || otpFour.isEmpty()) {
-            _errorValidation.postValue(
-                resourceProvider.getString(
+            _errorValidation.postValue(resourceProvider.getString(
                     R.string.please_enter_otp
-                )
-            )
+                ))
         } else {
             _errorValidation.postValue(APIConstants.SUCCESS)
             ioScope.launch {
@@ -355,22 +354,14 @@ class LoginViewModel(
             oldPassword.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
             password.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_password))
             password.length < 8 -> _errorValidation.postValue(resourceProvider.getString(R.string.password_minimum_character_error))
-            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(
-                resourceProvider.getString(
-                    R.string.password_upper_letter_error
-                )
-            )
+            !password.isHavingUpperCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_upper_letter_error))
             !password.isHavingLowerCaseLetter() -> _errorValidation.postValue(resourceProvider.getString(R.string.password_lower_letter_error))
-            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(
-                resourceProvider.getString(
+            !password.isHavingSpecialCharacter() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.password_special_character_error
-                )
-            )
-            !password.isHavingNumber() -> _errorValidation.postValue(
-                resourceProvider.getString(
+                ))
+            !password.isHavingNumber() -> _errorValidation.postValue(resourceProvider.getString(
                     R.string.password_number_error
-                )
-            )
+                ))
             confirmPassword.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_enter_confirm_password))
             password != confirmPassword -> _errorValidation.postValue(resourceProvider.getString(R.string.password_mismatch_error))
             else -> {

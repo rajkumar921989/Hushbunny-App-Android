@@ -23,6 +23,10 @@ class UserActionRepositoryImpl @Inject constructor(private val userActionService
         return userActionService.editUserProfile(editProfileRequest)
     }
 
+    override suspend fun updateProfilePicture(updateProfilePictureRequest: UpdateProfilePictureRequest): LoginResponse {
+        return userActionService.updateProfilePicture(updateProfilePictureRequest)
+    }
+
     override suspend fun shareWithSpouse(inviteSpouseRequest: InviteSpouseRequest): BaseResponse {
         return userActionService.shareWithSpouse(inviteSpouseRequest)
     }
@@ -37,5 +41,13 @@ class UserActionRepositoryImpl @Inject constructor(private val userActionService
 
     override suspend fun verifyEditProfileOTP(verifyEditProfileOtpRequest: VerifyEditProfileOtpRequest): BaseResponse {
         return userActionService.verifyEditProfileOTP(verifyEditProfileOtpRequest)
+    }
+
+    override suspend fun updateDeviceToken(updateDeviceTokenRequest: UpdateDeviceTokenRequest): BaseResponse {
+        return userActionService.updateDeviceToken(updateDeviceTokenRequest)
+    }
+
+    override suspend fun reSendInvite(invitationId: String): BaseResponse {
+        return userActionService.reSendInvite(invitationId)
     }
 }

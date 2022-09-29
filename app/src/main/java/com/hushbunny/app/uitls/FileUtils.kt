@@ -1,15 +1,18 @@
 package com.hushbunny.app.uitls
 
 import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.provider.OpenableColumns
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
+import com.google.gson.Gson
+import com.hushbunny.app.uitls.FileUtils.Companion.saveImage
+import java.io.*
 
 class FileUtils {
     companion object {
@@ -99,7 +102,7 @@ class FileUtils {
         the user picks in the media gallery and add
         it to your application cache directory **/
         fun getImageFile(context: Context, imagePath: Uri?): File {
-            var imageFile = File(context.cacheDir, context.contentResolver.getFileName(imagePath))
+            val imageFile = File(context.cacheDir, context.contentResolver.getFileName(imagePath))
             val parcelFileDescriptor = imagePath?.let { context.contentResolver.openFileDescriptor(it, "r", null) }
             parcelFileDescriptor?.let {
                 val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
@@ -107,6 +110,52 @@ class FileUtils {
                 inputStream.copyTo(outputStream)
             }
             return imageFile
+        }
+
+        inline fun <reified T : Any> getLocalJsonFile(fileName: String): T {
+            val classLoader = Thread.currentThread().contextClassLoader
+            val input: InputStream? = classLoader?.getResourceAsStream(fileName)
+            val inputAsString = input?.bufferedReader().use { it?.readText() }
+            return Gson().fromJson(inputAsString, T::class.java)
+        }
+
+        fun Bitmap.saveImage(context: Context): File? {
+            val filename = "OG_${System.currentTimeMillis()}.jpg"
+            if (Build.VERSION.SDK_INT >= 29) {
+                val values = ContentValues()
+                values.put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                values.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                values.put(MediaStore.Images.Media.IS_PENDING, true)
+                val uri: Uri? =
+                    context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                if (uri != null) {
+                    saveImageToStream(this, context.contentResolver.openOutputStream(uri))
+                    values.put(MediaStore.Images.Media.IS_PENDING, false)
+                    context.contentResolver.update(uri, values, null, null)
+                    return getImageFile(context, uri)
+                }
+            } else {
+                val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                val imageFile = File(imagesDir, filename)
+                saveImageToStream(this, FileOutputStream(imageFile))
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.DATA, imageFile.absolutePath)
+                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                return imageFile
+            }
+            return null
+        }
+
+        private fun saveImageToStream(bitmap: Bitmap, outputStream: OutputStream?) {
+            if (outputStream != null) {
+                try {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                    outputStream.close()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

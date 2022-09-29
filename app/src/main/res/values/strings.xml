@@ -10,6 +10,7 @@
 
     <string name="login">Log in</string>
     <string name="sign_in">Sign in</string>
+    <string name="terms_conditions">terms &amp; conditions</string>
     <string name="create_a_hushbunny_account">Create a hushbunny account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -27,7 +28,7 @@
     <string name="create_new_password">Create new password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="password_recommendation">Password recommendation</string>
-    <string name="password_recommendation_message">Minimum Of eight Characters, with a combination of uppercase, lowercase, numbers and special characters.</string>
+    <string name="password_recommendation_message">Minimum of eight characters, with a combination of uppercase, lowercase, numbers and special characters.</string>
     <string name="reset_password">Reset password</string>
     <string name="password_changed_successfully">Password changed successfully</string>
     <string name="phone_number_verified">Phone number verified</string>
@@ -81,6 +82,7 @@
     <string name="share_moments_with_your_family_and_friends">Share moments with your family and friends</string>
     <string name="skip">Skip</string>
     <string name="add_kid">Add kid</string>
+    <string name="home_page_add_kid">Add Kid   </string>
     <string name="home_page_welcome_message">Hi %1$s!\nWe are so excited to see you.\nLet’s bloom your family tree\nstarting with your kids</string>
     <string name="you_can_update_this_information_any_time">*You can update this information any time</string>
     <string name="skip_submit">Skip &amp; Submit</string>
@@ -126,10 +128,12 @@
     <string name="delete_account_message">Are you sure you want to delete the account?</string>
     <string name="cancel">Cancel</string>
     <string name="camera_permission_rationale">Camera Permission needed to add image</string>
+    <string name="write_permission_rationale">Write Permission needed to add image</string>
     <string name="choose_app">Choose app</string>
     <string name="profile_photo">Profile Photo</string>
     <string name="no_people_found">No people found!</string>
-    <string name="no_book_mark_found">No book mark found!</string>
+    <string name="no_book_mark_found">No bookmarked moments found!</string>
+    <string name="no_important_moments_found">No Important moments found!</string>
     <string name="unblock">Unblock</string>
     <string name="read_more">Read more</string>
     <string name="view_less">View less</string>
@@ -144,16 +148,19 @@
     <string name="delete_message">Are you sure you want to delete?</string>
     <string name="yes">Yes</string>
     <string name="share_the_app">Share the app to others</string>
-    <string name="share_the_app_message">Share the app to others</string>
-    <string name="share_the_app_link">https://www.figma.com/</string>
+    <string name="share_the_app_message">Download Hushbunny app at</string>
+    <string name="share_the_app_link">Download Hushbunny app at\nhttps://hushbunny.page.link/app</string>
     <string name="session_expired_message">Your session has expired. Please login again.</string>
     <string name="add_spouse">+ Add Spouse</string>
+    <string name="title_add_spouse">Add Spouse</string>
     <string name="profile_update_successfully">Profile updated successfully</string>
+    <string name="resend_invite_successfully">resend invite send successfully</string>
     <string name="share_with_spouse">Share with spouse</string>
     <string name="name_optional">Name (optional)</string>
     <string name="send_invite">Send invite</string>
     <string name="add_comment_hint">Add Comment..</string>
-    <string name="comment">Comment</string>
+    <string name="comments">Comments</string>
+    <string name="reactions">Reactions</string>
     <string name="no_comment_found">No comment found!</string>
     <string name="verify_mobile_number">Verify mobile number</string>
     <string name="verify_email">Verify email</string>
@@ -161,7 +168,7 @@
     <string name="no_notification_found">No notification found!</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
-    <string name="notification_accept_reject_message">%1$s has invited you as a parent of %2$s</string>
+    <string name="media_or_description_error">Please enter description or upload at least one media file</string>
     <string name="please_enter_description">Please enter description</string>
     <string name="please_select_kid">Please select kid</string>
     <string name="please_upload_atleast_one_file">Please upload at least one media file</string>
@@ -169,6 +176,98 @@
     <string name="moment_date">Moment Date</string>
     <string name="moment_count">Moment Count</string>
     <string name="moment_added_successfully">Moment added successfully</string>
+    <string name="moment_edited_successfully">Moment updated successfully</string>
     <string name="filter">Filter</string>
-    <string name="moment">Moment</string>
+    <string name="moment">Moments</string>
+    <string name="like">Like</string>
+    <string name="share">Share</string>
+    <string name="please_enter_comment">Please enter comment</string>
+    <string name="view_all_comment">View all %1$s comments</string>
+    <string name="delete_from_bookmark">Are you sure you want to remove from bookmark?</string>
+    <!--    Notification List Message-->
+    <string name="notification_share_with_spouse_message">%1$s has invited you as a parent of %2$s</string>
+    <string name="notification_react_message">%1$s reacted with %2$s on %3$s moment</string>
+    <string name="notification_comment_message">%1$s added a comment on %2$s moment</string>
+    <string name="notification_important_moment_message">%1$s added an important moment in %2$s memory lane</string>
+    <string name="notification_spouse_add_moment_message">%1$s added a moment in %2$s memory lane</string>
+    <string name="notification_spouse_add_bookmark_message">%1$s added a bookmark in %2$s memory lane</string>
+    <string name="tab_all">All %1$s</string>
+    <string name="no_reaction_found">No reaction found!</string>
+    <string name="no_heart_reaction_found">No heart reaction found!</string>
+    <string name="no_laugh_reaction_found">No laugh reaction found!</string>
+    <string name="no_sad_reaction_found">No sad reaction found!</string>
+    <string name="invite_pending">Invite pending…</string>
+    <string name="resend_invite">(Resend Invite)</string>
+    <string name="kids_add_moment_message">Add moments and build memory\nlane for %1$s</string>
+    <string name="memory_lane">Memory lane</string>
+    <string name="clear_all"><u>Clear all</u></string>
+    <string name="month_filter_hint">MM/YYYY</string>
+    <string name="year_filter_hint">YYYY</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="select_filter_here">Select filter here</string>
+    <string name="date">Date</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="date_range">Date Range</string>
+    <string name="month_range">Month Range</string>
+    <string name="year_range">Year Range</string>
+    <string name="from_date_error">Please choose from date</string>
+    <string name="to_date_error">Please choose to date</string>
+    <string name="date_error">Please choose date</string>
+    <string name="month_error">Please choose month</string>
+    <string name="year_error">Please choose year</string>
+    <string name="no_moment_found">No moment found for the selected time period!</string>
+    <string name="age">Age</string>
+    <string name="menu_edit_moment">Edit Moment</string>
+    <string name="menu_add_your_kid">Add to your kid</string>
+    <string name="menu_mark_important">Mark as important</string>
+    <string name="menu_remove_important_moment">Remove from important</string>
+    <string name="menu_copy_url">Copy URL</string>
+    <string name="menu_report">Report</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_block">Block</string>
+    <string name="user_detail">User Detail</string>
+    <string name="more">More</string>
+    <string name="other_user_message">Hi %1$s!\n %2$s hasn\'t done any activity on your\nposted moments yet. Add moments for\nyour kids and share with family and friends</string>
+    <string name="other_parent_message">Hi %1$s!\n Now that you have added %2$s as other parent to %3$s. Both of you can add moments and build memory lane for %4$s.</string>
+    <string name="delete_comment">Are you sure you want to remove the comment?</string>
+    <string name="report_reason">Please select reason</string>
+    <string name="report_inappropriate">Inappropriate</string>
+    <string name="report_spam">Spam</string>
+    <string name="report_abuse">Abuse</string>
+    <string name="report_unauthorised">Unauthorised</string>
+    <string name="confirm">Confirm</string>
+    <string name="reason_error_message">Please select report reason</string>
+    <string name="please_enter_reason">Please enter report reason</string>
+    <string name="report_successfully">Report added successfully</string>
+    <string name="edit_moment">Edit moment</string>
+    <string name="moment_detail">Moment Detail</string>
+    <string name="notification_channel_name">HushBunny</string>
+    <string name="invite_accepted_message">The invitation has been accepted</string>
+    <string name="invite_rejected_message">The invitation has been rejected</string>
+    <string name="add_moments">Add moments</string>
+    <string name="add_moment">Add moment</string>
+    <string name="menu_camera">Camera</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_edit_image">Edit Image</string>
+    <string name="menu_remove_image">Remove Image</string>
+    <string name="menu_view_image">View Image</string>
+    <string name="menu_image">Image</string>
+    <string name="menu_video">Video</string>
+    <string name="moment_date_message">Moment will post on the selected date\nin kid\'s memory lane.</string>
+    <string name="today">Today</string>
+    <string name="select_date_of_this_moment">Select date of this moment</string>
+    <string name="and_build_memory_lane">And build memory lane</string>
+    <string name="share_moments">Share moments</string>
+
+    <array name="date_filter">
+        <item>@string/select_filter_here</item>
+        <item>@string/date</item>
+        <item>@string/month</item>
+        <item>@string/year</item>
+        <item>@string/date_range</item>
+        <item>@string/month_range</item>
+        <item>@string/year_range</item>
+    </array>
 </resources>

@@ -56,16 +56,28 @@
     <dimen name="margin_49">49dp</dimen>
     <dimen name="margin_50">50dp</dimen>
     <dimen name="margin_60">60dp</dimen>
-    <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_62">62dp</dimen>
+    <dimen name="margin_67">67dp</dimen>
     <dimen name="margin_70">70dp</dimen>
+    <dimen name="margin_75">75dp</dimen>
     <dimen name="margin_88">88dp</dimen>
+    <dimen name="margin_90">90dp</dimen>
     <dimen name="margin_95">95dp</dimen>
     <dimen name="margin_98">98dp</dimen>
+    <dimen name="margin_110">110dp</dimen>
+    <dimen name="margin_120">120dp</dimen>
+    <dimen name="margin_125">125dp</dimen>
     <dimen name="margin_150">150dp</dimen>
+    <dimen name="margin_165">165dp</dimen>
     <dimen name="margin_170">170dp</dimen>
-    <dimen name="margin_180">180dp</dimen>
+    <dimen name="margin_185">185dp</dimen>
     <dimen name="margin_205">205dp</dimen>
+    <dimen name="margin_220">220dp</dimen>
     <dimen name="margin_260">260dp</dimen>
+    <dimen name="margin_270">270dp</dimen>
+    <dimen name="margin_276">276dp</dimen>
+    <dimen name="margin_290">290dp</dimen>
+    <dimen name="margin_310">310dp</dimen>
     <!--    Padding Dimens-->
     <dimen name="padding_0">0dp</dimen>
     <dimen name="padding_1">1dp</dimen>
@@ -88,6 +100,7 @@
     <dimen name="padding_18">18dp</dimen>
     <dimen name="padding_19">19dp</dimen>
     <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
     <dimen name="padding_50">50dp</dimen>
     <dimen name="padding_80">100dp</dimen>
     <!--    Radius Dimens-->
@@ -168,14 +181,15 @@
     <dimen name="view_55">55dp</dimen>
     <dimen name="view_60">60dp</dimen>
     <dimen name="view_70">70dp</dimen>
-    <dimen name="view_84">84dp</dimen>
     <dimen name="view_85">85dp</dimen>
     <dimen name="view_90">90dp</dimen>
     <dimen name="view_95">95dp</dimen>
     <dimen name="view_100">100dp</dimen>
+    <dimen name="view_180">180dp</dimen>
     <dimen name="view_200">200dp</dimen>
     <dimen name="view_220">220dp</dimen>
     <dimen name="view_250">250dp</dimen>
+    <dimen name="view_270">270dp</dimen>
     <dimen name="view_320">320dp</dimen>
     <!--    Text Size-->
     <dimen name="text_size_8">8sp</dimen>

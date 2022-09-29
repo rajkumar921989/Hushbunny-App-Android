@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,13 +21,14 @@ import com.hushbunny.app.ui.repository.LoginResponseStatus
 import com.hushbunny.app.ui.repository.OnBoardingRepository
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.hideKeyboard
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _fragmentLoginBinding: FragmentLoginBinding? = null
     private val fragmentLoginBinding: FragmentLoginBinding get() = _fragmentLoginBinding!!
-
+    var password = 1
     @Inject
     lateinit var loginRepository: OnBoardingRepository
 
@@ -99,15 +101,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
         fragmentLoginBinding.passwordContainer.passwordImage.setOnClickListener {
-            if (fragmentLoginBinding.passwordContainer.passwordInput.inputType == 1) {
-                fragmentLoginBinding.passwordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT or
-                            InputType.TYPE_TEXT_VARIATION_PASSWORD
-                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
-            } else {
-                fragmentLoginBinding.passwordContainer.passwordInput.inputType =
-                    InputType.TYPE_CLASS_TEXT
+            if (password == 1) {
+                password = 2
+                fragmentLoginBinding.passwordContainer.passwordInput.transformationMethod = null
                 fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_show_password)
+            } else {
+                password = 1
+                fragmentLoginBinding.passwordContainer.passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                fragmentLoginBinding.passwordContainer.passwordImage.setImageResource(R.drawable.ic_hide_password)
             }
 
             fragmentLoginBinding.passwordContainer.passwordInput.setSelection(fragmentLoginBinding.passwordContainer.passwordInput.text.toString().length)

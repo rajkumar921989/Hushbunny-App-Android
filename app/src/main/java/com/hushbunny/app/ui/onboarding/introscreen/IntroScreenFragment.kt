@@ -77,6 +77,7 @@ class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
         fragmentIntroScreenBinding.addYourSpouseText.visibility = View.VISIBLE
         fragmentIntroScreenBinding.otherText.visibility = View.GONE
         fragmentIntroScreenBinding.introImage.setImageResource(R.drawable.ic_intro_screen_one)
+        fragmentIntroScreenBinding.titleText.text = resourceProvider.getString(R.string.set_up_your_family)
         fragmentIntroScreenBinding.oneImage.text = "1"
         setUpStepByStepImage()
     }
@@ -87,6 +88,7 @@ class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
         fragmentIntroScreenBinding.addYourKidsText.visibility = View.GONE
         fragmentIntroScreenBinding.addYourSpouseText.visibility = View.GONE
         fragmentIntroScreenBinding.otherText.visibility = View.VISIBLE
+        fragmentIntroScreenBinding.titleText.text = resourceProvider.getString(R.string.add_moments)
         fragmentIntroScreenBinding.otherText.text = resourceProvider.getString(R.string.capture_all_moments_as_your_kids_grow)
         fragmentIntroScreenBinding.introImage.setImageResource(R.drawable.ic_intro_screen_two)
         fragmentIntroScreenBinding.oneImage.text = "2"
@@ -99,6 +101,7 @@ class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
         fragmentIntroScreenBinding.addYourKidsText.visibility = View.GONE
         fragmentIntroScreenBinding.addYourSpouseText.visibility = View.GONE
         fragmentIntroScreenBinding.otherText.visibility = View.VISIBLE
+        fragmentIntroScreenBinding.titleText.text = resourceProvider.getString(R.string.and_build_memory_lane)
         fragmentIntroScreenBinding.otherText.text = resourceProvider.getString(R.string.give_your_kids_their_best_gift)
         fragmentIntroScreenBinding.introImage.setImageResource(R.drawable.ic_intro_screen_three)
         fragmentIntroScreenBinding.oneImage.text = "3"
@@ -111,6 +114,7 @@ class IntroScreenFragment : Fragment(R.layout.fragment_intro_screen) {
         fragmentIntroScreenBinding.addYourKidsText.visibility = View.GONE
         fragmentIntroScreenBinding.addYourSpouseText.visibility = View.GONE
         fragmentIntroScreenBinding.otherText.visibility = View.VISIBLE
+        fragmentIntroScreenBinding.titleText.text = resourceProvider.getString(R.string.share_moments)
         fragmentIntroScreenBinding.otherText.text = resourceProvider.getString(R.string.share_moments_with_your_family_and_friends)
         fragmentIntroScreenBinding.introImage.setImageResource(R.drawable.ic_intro_screen_four)
         fragmentIntroScreenBinding.oneImage.text = "4"

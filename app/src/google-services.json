@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "366046513536",
+    "project_id": "hushbunny-8b5bc",
+    "storage_bucket": "hushbunny-8b5bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366046513536:android:1e2e2ae7ca77c22e4a5965",
+        "android_client_info": {
+          "package_name": "com.hushbunny.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366046513536-on74net1k1il3eo49f7khpaj9qltinof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG3txYbP5j2PoVR71rTj9UBV5DsDIXKqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366046513536-on74net1k1il3eo49f7khpaj9qltinof.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "366046513536-kff0m2ij70b0b7m7qbp01akjhk40kuk5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hushbunny.app",
+                "app_store_id": "1633444164"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

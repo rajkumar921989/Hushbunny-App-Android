@@ -7,13 +7,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.ItemAddKidViewBinding
+import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.model.KidsResponseModel
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.BaseListAdapter
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
 
 class KidsAdapter(
+    private val resourceProvider: ResourceProvider,
     private val isAddMoment: Boolean = false,
+    private val isOtherUser: Boolean = false,
+    private val isFromHome: Boolean = false,
     private val addKidsClick: ((String) -> Unit)? = null,
     private val addSpouseClick: ((String) -> Unit)? = null,
     private val kidsClick: ((KidsResponseModel) -> Unit)? = null
@@ -35,22 +39,21 @@ class KidsAdapter(
         } else {
             binding.kidsContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.kids_background)
         }
-        if (!isAddMoment && item.isSpouseAdded == false) {
+        if (isFromHome && item.isSpouseAdded == false && item.type == APIConstants.KIDS_LIST) {
             binding.addSpouseGroup.visibility = View.VISIBLE
         } else {
             binding.addSpouseGroup.visibility = View.GONE
         }
         binding.addKidImage.visibility = View.GONE
         binding.userImage.visibility = View.GONE
-        binding.addKidImageContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.drawable_login_background_button)
         if (item.type == APIConstants.KIDS_LIST) {
             if (item.image.isNullOrEmpty()) {
                 binding.addKidImage.visibility = View.VISIBLE
                 binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_no_kid_icon))
             } else {
-                binding.addKidImageContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.image_background)
                 binding.userImage.visibility = View.VISIBLE
-                binding.userImage.loadImageFromURL(item.image)
+                val widthAndHeight = resourceProvider.getDimension(R.dimen.view_85).toInt()
+                binding.userImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${item.image.replace(APIConstants.IMAGE_BASE_URL, "")}")
             }
         } else {
             binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_add_kid))
@@ -83,7 +86,7 @@ class KidsAdapter(
 
     class ItemDiffCallback : DiffUtil.ItemCallback<KidsResponseModel>() {
         override fun areItemsTheSame(oldItem: KidsResponseModel, newItem: KidsResponseModel): Boolean {
-            return oldItem == newItem
+            return oldItem._id == newItem._id
         }
 
         override fun areContentsTheSame(oldItem: KidsResponseModel, newItem: KidsResponseModel): Boolean {

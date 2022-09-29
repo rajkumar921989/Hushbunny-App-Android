@@ -1,11 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pull_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/padding_15">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_image"
+            android:layout_width="@dimen/view_48"
+            android:layout_height="@dimen/view_40"
+            android:layout_marginStart="@dimen/margin_8"
+            android:padding="@dimen/padding_9"
+            android:src="@drawable/ic_back_arrow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/logo_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/logo_image" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/more_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:padding="@dimen/padding_9"
+            android:src="@drawable/ic_more"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/logo_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/logo_image" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo_image"
+            android:layout_width="@dimen/view_180"
+            android:layout_height="@dimen/view_35"
+            android:layout_marginTop="@dimen/margin_24"
+            android:src="@drawable/ic_app_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_constraint"
+            android:layout_marginTop="@dimen/margin_30"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/top_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/profile_container"
+                        layout="@layout/user_profile_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/profile_shimmer_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shimmer_repeat_mode="restart"
+                        app:shimmer_shape="linear">
+
+                        <include layout="@layout/shimmer_view_user_profile_container" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </LinearLayout>
 
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_98"
+                    android:layout_marginTop="@dimen/margin_90"
+                    android:src="@drawable/ic_profile_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/kids_list_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_11"
+                    android:layout_marginTop="@dimen/margin_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/top_container">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/kids_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_add_kid_view" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/kids_shimmer_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_constraint"
+                        android:layout_marginStart="@dimen/margin_11"
+                        android:layout_marginTop="@dimen/margin_20"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shimmer_repeat_mode="restart"
+                        app:shimmer_shape="linear">
+
+                        <include layout="@layout/shimmer_view_kids_profile" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/empty_view_container"
+                    layout="@layout/empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_35"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kids_list_container" />
+
+                <include
+                    android:id="@+id/other_user_empty_view_container"
+                    layout="@layout/other_user_empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_35"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kids_list_container" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/filter_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_25"
+                    android:layout_marginEnd="@dimen/margin_15"
+                    android:background="@drawable/drawable_white_background_with_gray_outline"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down"
+                    android:drawablePadding="@dimen/padding_5"
+                    android:fontFamily="@font/roboto"
+                    android:hint="@string/filter"
+                    android:minHeight="@dimen/view_35"
+                    android:paddingStart="@dimen/padding_10"
+                    android:paddingEnd="@dimen/padding_5"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kids_list_container" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/moment_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/moment"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/filter_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/filter_button" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/moment_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_10"
+                    android:layout_marginVertical="@dimen/margin_25"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/filter_button"
+                    tools:listitem="@layout/item_bookmark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/no_moment_found"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_90"
+                    android:layout_marginBottom="@dimen/margin_45"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/no_moment_found"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_20"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/filter_button" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/moment_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="moment_list, moment_text, filter_button" />
+
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/moments_shimmer_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_constraint"
+                    android:layout_marginHorizontal="@dimen/margin_7"
+                    android:layout_marginTop="@dimen/margin_20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kids_list_container"
+                    app:shimmer_repeat_mode="restart"
+                    app:shimmer_shape="linear">
+
+                    <include layout="@layout/shimmer_view_moment" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.hushbunny.app.uitls.ProgressbarWidget
+            android:id="@+id/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

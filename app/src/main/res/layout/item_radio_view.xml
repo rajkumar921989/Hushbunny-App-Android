@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_2"
         android:gravity="center"
+        android:buttonTint="@color/text_color_gray"
         android:clickable="false"
         app:layout_constraintBottom_toBottomOf="@+id/input_container"
         app:layout_constraintEnd_toEndOf="parent"

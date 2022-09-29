@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_8"
+    android:background="@drawable/un_read_notification_background"
+    app:cardCornerRadius="@dimen/radius_7">
+
+    <View
+        android:layout_width="@dimen/view_3"
+        android:layout_height="@dimen/view_35"
+        android:background="@color/text_color_gray"
+        app:layout_constraintBottom_toBottomOf="@id/image_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_container" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/user_image"
+            android:layout_width="@dimen/view_55"
+            android:layout_height="@dimen/view_55"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_no_kid_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo_image"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_hush_bunny_logo"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_name_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintEnd_toStartOf="@+id/emoji_image"
+        app:layout_constraintStart_toEndOf="@+id/image_container"
+        app:layout_constraintTop_toTopOf="@+id/image_container"
+        tools:text="Jana Krish" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/accept_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_7"
+        android:background="@drawable/drawable_button_green"
+        android:fontFamily="@font/roboto_medium"
+        android:minHeight="@dimen/margin_25"
+        android:paddingHorizontal="@dimen/padding_10"
+        android:text="@string/accept"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintStart_toStartOf="@+id/user_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reject_button"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_15"
+        android:background="@drawable/reject_button_background"
+        android:fontFamily="@font/roboto_medium"
+        android:minHeight="@dimen/margin_25"
+        android:paddingHorizontal="@dimen/padding_10"
+        android:text="@string/reject"
+        android:textAllCaps="false"
+        android:textColor="@color/button_orange_color"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintBottom_toBottomOf="@+id/accept_button"
+        app:layout_constraintStart_toEndOf="@+id/accept_button"
+        app:layout_constraintTop_toTopOf="@+id/accept_button" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/comment_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_7"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:fontFamily="@font/roboto"
+        android:maxLines="3"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_10"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/emoji_image"
+        app:layout_constraintStart_toStartOf="@+id/user_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/accept_button"
+        tools:text="Jana Krish" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/time_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/view_color"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintEnd_toStartOf="@+id/emoji_image"
+        app:layout_constraintStart_toStartOf="@+id/user_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/comment_text"
+        tools:text="Jana Krish" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/view_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_text" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/view_15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_container" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/emoji_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:src="@drawable/ic_important_marked"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/time_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/accept_reject_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="accept_button, reject_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

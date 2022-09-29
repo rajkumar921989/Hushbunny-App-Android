@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.addCallback
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,6 +18,7 @@ import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.uitls.*
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -51,6 +54,10 @@ class InAppNotificationSettingFragment : Fragment(R.layout.fragment_in_app_notif
         initClickListener()
         updateToggleCheck()
         setObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
 
@@ -64,6 +71,20 @@ class InAppNotificationSettingFragment : Fragment(R.layout.fragment_in_app_notif
                 binding.importantNotificationsSwitch.isChecked = PrefsManager.get().getBoolean(AppConstants.EMAIL_IMPORTANT_NOTIFICATION, false)
                 binding.optionalNotificationsSwitch.isChecked = PrefsManager.get().getBoolean(AppConstants.EMAIL_OPTIONAL_NOTIFICATION, false)
             }
+        }
+        updateTintColor()
+    }
+
+    private fun updateTintColor() {
+        if (binding.importantNotificationsSwitch.isChecked) {
+            binding.importantNotificationsSwitch.thumbTintList = AppCompatResources.getColorStateList(requireContext(), R.color.button_color_pink)
+        } else {
+            binding.importantNotificationsSwitch.thumbTintList = AppCompatResources.getColorStateList(requireContext(), R.color.switch_default_color)
+        }
+        if (binding.optionalNotificationsSwitch.isChecked) {
+            binding.optionalNotificationsSwitch.thumbTintList = AppCompatResources.getColorStateList(requireContext(), R.color.button_color_pink)
+        } else {
+            binding.optionalNotificationsSwitch.thumbTintList = AppCompatResources.getColorStateList(requireContext(), R.color.switch_default_color)
         }
     }
 
@@ -93,9 +114,11 @@ class InAppNotificationSettingFragment : Fragment(R.layout.fragment_in_app_notif
         binding.headerContainer.pageTitle.text = navigationArgs.type
 
         binding.importantNotificationsSwitch.setOnClickListener {
+            updateTintColor()
             updateNotificationSettings()
         }
         binding.optionalNotificationsSwitch.setOnClickListener {
+            updateTintColor()
             updateNotificationSettings()
         }
         binding.headerContainer.backImage.setOnClickListener {

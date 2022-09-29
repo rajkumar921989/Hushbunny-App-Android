@@ -15,12 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/add_kid_image_container"
             android:layout_width="@dimen/view_85"
             android:layout_height="@dimen/view_85"
             android:layout_margin="@dimen/margin_8"
-            android:background="@drawable/drawable_login_background_button"
+            app:cardCornerRadius="@dimen/radius_7"
+            app:cardBackgroundColor="@color/login_tab_background_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,6 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="@dimen/padding_1"
+                android:visibility="visible"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_no_kid_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -39,17 +42,15 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/user_image"
-                android:layout_width="@dimen/view_constraint"
-                android:layout_height="@dimen/view_constraint"
-                android:padding="@dimen/padding_1"
+                android:layout_width="@dimen/view_85"
+                android:layout_height="@dimen/view_85"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
         <androidx.appcompat.widget.AppCompatTextView

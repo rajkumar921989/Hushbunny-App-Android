@@ -1,0 +1,36 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/view_60"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/kid_image"
+        android:layout_width="@dimen/view_40"
+        android:layout_height="@dimen/view_40"
+        android:layout_gravity="center"
+        android:padding="@dimen/padding_1"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/shimmer_user_circle_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:fontFamily="@font/roboto"
+        android:background="@color/shimmer_view_background"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kid_image" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

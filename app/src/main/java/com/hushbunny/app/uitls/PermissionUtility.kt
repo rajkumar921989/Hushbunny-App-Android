@@ -12,19 +12,22 @@ object PermissionUtility {
     fun requestCameraPermission(request: ActivityResultLauncher<String>) {
         request.launch(Manifest.permission.CAMERA)
     }
-    fun userGrantedCameraPermission(hostActivity: FragmentActivity): Boolean {
-        val hasCameraPermission = ContextCompat.checkSelfPermission(
-            hostActivity,
-            Manifest.permission.CAMERA
-        )
 
+    fun requestExternalPermission(request: ActivityResultLauncher<String>) {
+        request.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+
+    fun userGrantedCameraPermission(hostActivity: FragmentActivity): Boolean {
+        val hasCameraPermission = ContextCompat.checkSelfPermission(hostActivity, Manifest.permission.CAMERA)
         return hasCameraPermission == PackageManager.PERMISSION_GRANTED
     }
+
+    fun userGrantedExternalPermission(hostActivity: FragmentActivity): Boolean {
+        val hasCameraPermission = ContextCompat.checkSelfPermission(hostActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return hasCameraPermission == PackageManager.PERMISSION_GRANTED
+    }
+
     fun showPermissionRationaleToast(fragmentContext: Context, message: String) {
-        Toast.makeText(
-            fragmentContext,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(fragmentContext, message, Toast.LENGTH_SHORT).show()
     }
 }

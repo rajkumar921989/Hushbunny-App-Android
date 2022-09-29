@@ -1,0 +1,120 @@
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pull_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/header_container"
+            layout="@layout/item_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_constraint"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/comment_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_container"
+            tools:listitem="@layout/item_comment_list" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/comment_list_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_constraint"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintBottom_toTopOf="@id/comment_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_container"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="linear">
+
+            <include layout="@layout/shimmer_view_comment_list" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <View
+            android:id="@+id/comment_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@color/book_mark_people_view_color"
+            app:layout_constraintBottom_toTopOf="@+id/comment_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/comment_input"
+            android:layout_width="@dimen/view_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_7"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@drawable/comment_edittext_background"
+            android:fontFamily="@font/roboto"
+            android:hint="@string/add_comment_hint"
+            android:maxLines="4"
+            android:minHeight="@dimen/view_40"
+            android:paddingStart="@dimen/padding_15"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/send_comment_image"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/send_comment_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/ic_send_comment"
+            app:layout_constraintBottom_toBottomOf="@id/comment_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/comment_input"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/no_user_found_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/no_people_found"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_20"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/comment_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hushbunny.app.uitls.ProgressbarWidget
+            android:id="@+id/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

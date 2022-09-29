@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/step_container"
     android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
@@ -14,6 +16,7 @@
     <View
         android:id="@+id/step_one_view"
         android:layout_width="@dimen/view_25"
+        android:layout_marginTop="@dimen/margin_1"
         android:layout_height="@dimen/view_1"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/margin_7"
@@ -28,6 +31,7 @@
     <View
         android:id="@+id/step_two_view"
         android:layout_width="@dimen/view_25"
+        android:layout_marginTop="@dimen/margin_1"
         android:layout_height="@dimen/view_1"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/margin_7"
@@ -43,6 +47,7 @@
         android:id="@+id/step_three_view"
         android:layout_width="@dimen/view_25"
         android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_1"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/margin_7"
         android:background="@color/text_color_gray" />
@@ -57,6 +62,7 @@
         android:id="@+id/step_four_view"
         android:layout_width="@dimen/view_25"
         android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_1"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/margin_7"
         android:background="@color/text_color_gray" />

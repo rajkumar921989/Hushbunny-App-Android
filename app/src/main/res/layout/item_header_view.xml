@@ -46,6 +46,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/clear_filter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:fontFamily="@font/roboto"
+        android:text="@string/clear_all"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:minHeight="@dimen/view_35"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <View

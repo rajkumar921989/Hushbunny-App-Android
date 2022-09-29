@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:background="@color/button_color_pink"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/ok"
+        android:text="@string/yes"
         android:layout_marginTop="@dimen/margin_40"
         android:layout_marginEnd="@dimen/margin_1"
         android:textAllCaps="false"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/view_55"
+        android:layout_height="@dimen/view_55"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/shimmer_view_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_name_text"
+        android:layout_width="@dimen/view_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toBottomOf="@+id/user_image"
+        app:layout_constraintEnd_toStartOf="@+id/unblock_button"
+        app:layout_constraintStart_toEndOf="@+id/user_image"
+        app:layout_constraintTop_toTopOf="@+id/user_image"
+        android:background="@color/shimmer_view_background" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/unblock_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:minHeight="@dimen/margin_30"
+        android:paddingHorizontal="@dimen/padding_10"
+        android:background="@color/shimmer_view_background"
+        android:textAllCaps="false"
+        android:textColor="@color/button_color_pink"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintBottom_toBottomOf="@+id/user_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_name_text"
+        app:layout_constraintTop_toTopOf="@+id/user_image" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_1"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/block_people_view_color"
+        app:layout_constraintTop_toBottomOf="@+id/user_image" />
+</androidx.constraintlayout.widget.ConstraintLayout>

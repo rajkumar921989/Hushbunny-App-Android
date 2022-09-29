@@ -1,0 +1,248 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/name_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_50"
+        android:background="@color/user_profile_background_pink"
+        android:paddingBottom="@dimen/padding_80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profile_picture_container">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_70"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Janarthanan R" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/associate_with_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_text"
+            tools:text="(Father)" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_picture_container"
+        android:layout_width="@dimen/view_100"
+        android:layout_height="@dimen/view_100"
+        android:elevation="@dimen/elevation_0"
+        app:cardBackgroundColor="@color/login_tab_background_color"
+        app:cardCornerRadius="@dimen/radius_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/user_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/default_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_no_kid_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_170"
+        android:background="@drawable/kids_background"
+        android:elevation="@dimen/elevation_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_container">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/age_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_50"
+            android:src="@drawable/ic_age"
+            app:layout_constraintBottom_toBottomOf="@+id/country_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/country_image" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/country_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:src="@drawable/ic_country"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/moment_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_50"
+            android:src="@drawable/ic_moments"
+            app:layout_constraintBottom_toBottomOf="@+id/country_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/country_image" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/age_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/age"
+            android:textColor="@color/view_color"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/country_text"
+            app:layout_constraintEnd_toEndOf="@+id/age_image"
+            app:layout_constraintStart_toStartOf="@+id/age_image"
+            app:layout_constraintTop_toTopOf="@+id/country_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/country_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="1"
+            android:text="@string/country"
+            android:textColor="@color/view_color"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/age_image" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/moment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/moment"
+            android:textColor="@color/view_color"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/country_text"
+            app:layout_constraintEnd_toEndOf="@+id/moment_image"
+            app:layout_constraintStart_toStartOf="@+id/moment_image"
+            app:layout_constraintTop_toTopOf="@+id/country_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/age_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:textColor="@color/button_color_green"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="@+id/country_value_text"
+            app:layout_constraintEnd_toEndOf="@+id/age_image"
+            app:layout_constraintStart_toStartOf="@+id/age_image"
+            app:layout_constraintTop_toTopOf="@+id/country_value_text"
+            tools:text="28" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/country_value_text"
+            android:layout_width="@dimen/view_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/margin_5"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/button_color_green"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="@+id/country_text"
+            app:layout_constraintStart_toStartOf="@+id/country_text"
+            app:layout_constraintTop_toBottomOf="@+id/country_text"
+            tools:text="India" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/moment_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:textColor="@color/button_color_green"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="@+id/country_value_text"
+            app:layout_constraintEnd_toEndOf="@+id/moment_image"
+            app:layout_constraintStart_toStartOf="@+id/moment_image"
+            app:layout_constraintTop_toTopOf="@+id/country_value_text"
+            tools:text="28" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_20"
+            android:background="@drawable/drawable_login_background_button"
+            android:fontFamily="@font/roboto_medium"
+            android:minHeight="@dimen/view_40"
+            android:text="@string/edit_profile"
+            android:textAllCaps="false"
+            android:textColor="@color/button_color_green"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_value_text" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_30"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_value_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

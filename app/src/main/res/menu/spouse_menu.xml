@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionAddYourKid"
+        android:title="@string/menu_add_your_kid" />
+    <item
+        android:id="@+id/actionMarkImportant"
+        android:title="@string/menu_mark_important" />
+    <item
+        android:id="@+id/actionCopyUrl"
+        android:title="@string/menu_copy_url" />
+    <item
+        android:id="@+id/actionReport"
+        android:title="@string/menu_report" />
+</menu>

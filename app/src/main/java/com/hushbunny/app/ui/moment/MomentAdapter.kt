@@ -1,0 +1,331 @@
+package com.hushbunny.app.ui.moment
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import androidx.appcompat.widget.PopupMenu
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.viewpager.widget.ViewPager
+import com.hushbunny.app.R
+import com.hushbunny.app.databinding.ItemBookmarkBinding
+import com.hushbunny.app.databinding.PopupReactionBinding
+import com.hushbunny.app.providers.ResourceProvider
+import com.hushbunny.app.ui.comment.CommentListAdapter
+import com.hushbunny.app.ui.enumclass.ReactionPageName
+import com.hushbunny.app.ui.model.*
+import com.hushbunny.app.uitls.APIConstants
+import com.hushbunny.app.uitls.AppConstants
+import com.hushbunny.app.uitls.BaseListAdapter
+import com.hushbunny.app.uitls.DateFormatUtils.convertISODateIntoAppDateFormat
+import com.hushbunny.app.uitls.DateFormatUtils.getTimeAgo
+import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadCircleImageFromURL
+
+
+class MomentAdapter(
+    private val isKidsProfile: Boolean = false,
+    private val resourceProvider: ResourceProvider,
+    private val onItemClick: ((View, Int, String, MomentListingModel) -> Unit)? = null,
+    private val onCommentClick: ((Int, String, String) -> Unit)? = null,
+    private val onMediaClick: ((String, String) -> Unit)? = null,
+    private val onKidClick: ((MomentListingModel, MomentKidsModel) -> Unit)? = null
+) :
+    BaseListAdapter<MomentListingModel, ItemBookmarkBinding>(ItemDiffCallback()) {
+    override fun createBinding(parent: ViewGroup): ItemBookmarkBinding {
+        return ItemBookmarkBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+    }
+
+    override fun bind(binding: ItemBookmarkBinding, item: MomentListingModel, position: Int) {
+        if (item.isImportant == true) binding.starImage.setImageResource(R.drawable.ic_important_marked)
+        else binding.starImage.setImageResource(R.drawable.ic_important)
+        if (item.isBookmarked == true) binding.bookmarkImage.setImageResource(R.drawable.ic_setting_book_mark)
+        else binding.bookmarkImage.setImageResource(R.drawable.ic_book_mark)
+        binding.dateText.text = item.createdAt?.getTimeAgo()
+        val convertedDate = item.momentDate?.convertISODateIntoAppDateFormat()
+        binding.dateValueText.text = convertedDate
+        binding.dateButton.text = convertedDate
+        binding.userNameText.text = item.addedBy?.name.orEmpty()
+        binding.momentCountText.text = item.momentNumber ?: "0"
+        binding.favoriteCountText.text = item.reactionCount.orEmpty()
+        binding.commentCountText.text = item.commentCount.orEmpty()
+        binding.lessDescriptionText.text = item.description.orEmpty()
+        binding.moreDescriptionText.text = item.description.orEmpty()
+        binding.dateGroup.visibility = if (isKidsProfile) getDateVisibility(position) else View.GONE
+        if (item.addedBy?._id.orEmpty() == AppConstants.getUserID() || item.isAddedBySpouse == true)
+            binding.moreImage.visibility = View.VISIBLE
+        else binding.moreImage.visibility = View.INVISIBLE
+        if (item.isReacted == true) {
+            when (item.reactedInfo?.emojiType) {
+                ReactionPageName.LAUGH.name -> {
+                    binding.favoriteImage.setImageResource(R.drawable.ic_laugh_reaction)
+                }
+                ReactionPageName.SAD.name -> {
+                    binding.favoriteImage.setImageResource(R.drawable.ic_sad_reaction)
+                }
+                else -> {
+                    binding.favoriteImage.setImageResource(R.drawable.ic_heart_reaction)
+                }
+            }
+        } else {
+            binding.favoriteImage.setImageResource(R.drawable.ic_favorite)
+        }
+        if (item.addedBy?.image.isNullOrEmpty())
+            binding.userImage.setImageDrawable(ContextCompat.getDrawable(binding.userImage.context, R.drawable.ic_no_kid_icon))
+        else binding.userImage.loadCircleImageFromURL(item.addedBy?.image.orEmpty())
+        if (item.description.orEmpty().length > 190)
+            binding.readMoreText.visibility = View.VISIBLE
+        else binding.readMoreText.visibility = View.GONE
+        binding.readMoreText.setOnClickListener {
+            if (binding.readMoreText.text.toString() == binding.readMoreText.context.getString(R.string.read_more)) {
+                binding.moreDescriptionText.visibility = View.VISIBLE
+                binding.lessDescriptionText.visibility = View.GONE
+                binding.readMoreText.text = binding.readMoreText.context.getString(R.string.view_less)
+            } else {
+                binding.moreDescriptionText.visibility = View.GONE
+                binding.lessDescriptionText.visibility = View.VISIBLE
+                binding.readMoreText.text = binding.readMoreText.context.getString(R.string.read_more)
+            }
+        }
+        val kidsAdapter = MomentKidsListAdapter(onItemClick = {
+            onKidClick?.invoke(item, it)
+        })
+        binding.kidsList.adapter = kidsAdapter
+        kidsAdapter.submitList(item.kidId)
+
+        val imageAdapter = ImageSliderAdapter(
+            resourceProvider = resourceProvider,
+            imageList = item.mediaContent.orEmpty(),
+            context = binding.headerImageViewPager.context, onMediaClick = { type: String, url: String, isLocal: Boolean ->
+                onMediaClick?.invoke(type, url)
+            }
+        )
+        binding.headerImageViewPager.offscreenPageLimit = item.mediaContent.orEmpty().size
+        binding.headerImageViewPager.adapter = imageAdapter
+        if (item.mediaContent.orEmpty().size > 1) {
+            binding.headerImageViewPager.clipToPadding = false
+            binding.headerImageViewPager.setPadding(0, 0, resourceProvider.getDimension(R.dimen.margin_40).toInt(), 0)
+            binding.headerImageViewPager.pageMargin = resourceProvider.getDimension(R.dimen.margin_10).toInt()
+
+        } else {
+            binding.headerImageViewPager.setPadding(0, 0, 0, 0)
+            binding.headerImageViewPager.pageMargin = 0
+        }
+        if (item.mediaContent.isNullOrEmpty())
+            binding.headerImageViewPager.visibility = View.GONE
+        else binding.headerImageViewPager.visibility = View.VISIBLE
+
+        val commentAdapter = CommentListAdapter(
+            onDeleteClick = { position: Int, item: CommentModel ->
+                onCommentClick?.invoke(position, AppConstants.COMMENT_DELETE, item._id.orEmpty())
+            }, onReportClick = { position: Int, item: CommentModel ->
+                onCommentClick?.invoke(position, AppConstants.COMMENT_REPORT, item._id.orEmpty())
+            }, onUserClick = {
+                onCommentClick?.invoke(position, AppConstants.USER_PROFILE, it.commentBy?._id.orEmpty())
+            }
+        )
+        binding.commentList.adapter = commentAdapter
+        commentAdapter.submitList(AppConstants.createCommentList(item))
+        binding.viewAllCommentText.text = binding.viewAllCommentText.context.getString(R.string.view_all_comment, item.commentCount.orEmpty())
+        if (item.comments.isNullOrEmpty()) {
+            binding.commentsContainer.visibility = View.GONE
+        } else {
+            binding.commentsContainer.visibility = View.VISIBLE
+        }
+
+        binding.favoriteImage.setOnClickListener {
+            val popupReactionBinding = PopupReactionBinding.inflate(LayoutInflater.from(it.context))
+            val popupWindow =
+                PopupWindow(popupReactionBinding.root, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+            popupWindow.isOutsideTouchable = true
+            val leftToRight = resourceProvider.getDimension(R.dimen.margin_17).toInt()
+            val bottomToTop = resourceProvider.getDimension(R.dimen.margin_70).toInt()
+            popupWindow.showAsDropDown(binding.favoriteImage, leftToRight, -bottomToTop)
+            popupReactionBinding.heartImage.setOnClickListener { view ->
+                onItemClick?.invoke(view, position, ReactionPageName.HEART.name, item)
+                popupWindow.dismiss()
+            }
+            popupReactionBinding.laughImage.setOnClickListener { view ->
+                onItemClick?.invoke(view, position, ReactionPageName.LAUGH.name, item)
+                popupWindow.dismiss()
+            }
+            popupReactionBinding.sadImage.setOnClickListener { view ->
+                onItemClick?.invoke(view, position, ReactionPageName.SAD.name, item)
+                popupWindow.dismiss()
+            }
+        }
+        binding.commentImage.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.comments), item)
+        }
+        binding.commentCountText.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.comments), item)
+        }
+        binding.favoriteCountText.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.like), item)
+        }
+        binding.viewAllCommentText.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.comments), item)
+        }
+        binding.shareImage.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.share), item)
+        }
+        binding.bookmarkImage.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.bookmarks), item)
+        }
+        binding.userImage.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.user_detail), item)
+        }
+        binding.userNameText.setOnClickListener { view ->
+            onItemClick?.invoke(view, position, binding.bookmarkImage.context.getString(R.string.user_detail), item)
+        }
+        binding.moreImage.setOnClickListener { view ->
+            val popUp = PopupMenu(binding.moreImage.context, view)
+            if (item.isAddedBySpouse == true)
+                popUp.menuInflater.inflate(R.menu.spouse_menu, popUp.menu)
+            else if (item.addedBy?._id.orEmpty() == AppConstants.getUserID())
+                popUp.menuInflater.inflate(R.menu.user_menu, popUp.menu)
+            else popUp.menuInflater.inflate(R.menu.other_user_menu, popUp.menu)
+            if (item.isAddedBySpouse == true || item.addedBy?._id.orEmpty() == AppConstants.getUserID())
+                popUp.menu.findItem(R.id.actionMarkImportant).title =
+                    if (item.isImportant == true) binding.moreImage.context.getString(R.string.menu_remove_important_moment) else binding.moreImage.context.getString(
+                        R.string.menu_mark_important
+                    )
+            popUp.show()
+            popUp.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.actionEditMoment -> {
+                        onItemClick?.invoke(view, position, AppConstants.MOMENT_EDIT, item)
+                    }
+                    R.id.actionAddYourKid -> {
+                        onItemClick?.invoke(view, position, AppConstants.ADD_YOUR_KID, item)
+                    }
+                    R.id.actionMarkImportant -> {
+                        onItemClick?.invoke(view, position, AppConstants.IMPORTANT_MOMENT, item)
+                    }
+                    R.id.actionCopyUrl -> {
+                        onItemClick?.invoke(view, position, AppConstants.COPY_URL, item)
+                    }
+                    R.id.actionBlock -> {
+                        onItemClick?.invoke(view, position, APIConstants.BLOCKED, item)
+                    }
+                    R.id.actionReport -> {
+                        onItemClick?.invoke(view, position, AppConstants.MOMENT_REPORT, item)
+                    }
+
+                }
+                true
+            }
+        }
+        val dots = arrayOfNulls<ImageView>(item.mediaContent?.size ?: 0)
+        binding.sliderDots.removeAllViews()
+        if (dots.isNotEmpty() && dots.size > 1) {
+            buildViewPagerSlidingDotPanels(binding.headerImageViewPager.context, binding.sliderDots, dots)
+            setViewPagerPageChangeListener(binding.headerImageViewPager.context, binding.headerImageViewPager, dots)
+        }
+    }
+
+    private fun buildViewPagerSlidingDotPanels(
+        context: Context,
+        sliderDotsPanel: LinearLayout,
+        dots: Array<ImageView?>
+    ) {
+        for (i in dots.indices) {
+            dots[i] = ImageView(context)
+            dots[i]?.background = ContextCompat.getDrawable(context, R.drawable.view_bordered_ripple)
+            dots[i]?.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.slider_non_active_dot
+                )
+            )
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.setMargins(8, 0, 8, 0)
+            dots[i]?.setPadding(4, 12, 4, 8)
+            sliderDotsPanel.addView(dots[i], params)
+            dots[i]?.setOnClickListener {
+            }
+        }
+        dots[0]?.setImageDrawable(
+            ContextCompat.getDrawable(
+                context,
+                R.drawable.slider_active_dot
+            )
+        )
+    }
+
+    private fun setViewPagerPageChangeListener(
+        context: Context,
+        productImageViewPager: ViewPager,
+        dots: Array<ImageView?>
+    ) {
+        productImageViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                for (imageView in dots) {
+                    imageView?.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.slider_non_active_dot
+                        )
+                    )
+                }
+                dots.getOrNull(position)?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.slider_active_dot
+                    )
+                )
+            }
+        })
+    }
+
+    fun updateMomentDetail(position: Int, model: MomentListingModel) {
+        currentList[position].isBookmarked = model.isBookmarked
+        currentList[position].isImportant = model.isImportant
+        currentList[position].reactionCount = model.reactionCount
+        currentList[position].isReacted = model.isReacted
+        currentList[position].reactedInfo = model.reactedInfo
+        notifyItemChanged(position)
+    }
+
+    fun getDateVisibility(position: Int): Int {
+        return if (position == 0) View.VISIBLE
+        else {
+            val previousDate = currentList[position - 1]
+            val currentDate = currentList[position]
+            if (previousDate.momentDate?.convertISODateIntoAppDateFormat() == currentDate.momentDate?.convertISODateIntoAppDateFormat()) {
+                View.GONE
+            } else View.VISIBLE
+        }
+    }
+
+    class ItemDiffCallback : DiffUtil.ItemCallback<MomentListingModel>() {
+        override fun areItemsTheSame(oldItem: MomentListingModel, newItem: MomentListingModel): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: MomentListingModel, newItem: MomentListingModel): Boolean {
+            return oldItem == newItem
+        }
+    }
+}

@@ -1,58 +1,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="wrap_content"
-    android:gravity="center"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/padding_5"
+    android:paddingVertical="@dimen/padding_10">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/input_one"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/view_50"
         android:layout_height="@dimen/view_50"
         android:layout_gravity="center"
-        android:textSize="@dimen/text_size_14"
         android:background="@drawable/drawable_white_background_with_green_outline"
-        android:gravity="center"
-        android:inputType="number"
-        android:maxLength="1"
-        android:maxLines="1" />
+        android:elevation="@dimen/elevation_5">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/input_two"
-        android:layout_width="@dimen/view_50"
-        android:layout_height="@dimen/view_50"
-        android:textSize="@dimen/text_size_14"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/margin_20"
-        android:background="@drawable/drawable_white_background_with_green_outline"
-        android:gravity="center"
-        android:inputType="number"
-        android:maxLength="1"
-        android:maxLines="1" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_14" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/input_three"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/view_50"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_height="@dimen/view_50"
-        android:layout_gravity="center"
-        android:textSize="@dimen/text_size_14"
-        android:background="@drawable/drawable_white_background_with_green_outline"
-        android:gravity="center"
-        android:inputType="number"
-        android:maxLength="1"
-        android:maxLines="1" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/input_four"
-        android:layout_width="@dimen/view_50"
-        android:textSize="@dimen/text_size_14"
         android:layout_height="@dimen/view_50"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/margin_20"
         android:background="@drawable/drawable_white_background_with_green_outline"
-        android:gravity="center"
-        android:inputType="number"
-        android:maxLength="1"
-        android:maxLines="1" />
+        android:elevation="@dimen/elevation_5">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_14" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/view_50"
+        android:layout_height="@dimen/view_50"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin_20"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:elevation="@dimen/elevation_5">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_three"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_14" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/view_50"
+        android:layout_height="@dimen/view_50"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin_20"
+        android:background="@drawable/drawable_white_background_with_green_outline"
+        android:elevation="@dimen/elevation_5">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_four"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_14" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </LinearLayout>

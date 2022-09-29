@@ -4,8 +4,8 @@ import androidx.annotation.Keep
 
 @Keep
 data class AddKidRequest(
-    val name: String,
-    val gender: String,
+    val name: String? = null,
+    val gender: String? = null,
     val dob: String? = null,
     val birthCountryISO2: String? = null,
     val birtCity: String? = null,

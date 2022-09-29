@@ -11,11 +11,10 @@ import com.hushbunny.app.databinding.FragmentKidsListBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.ui.home.HomeFragmentDirections
 import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.home.HomeViewModel
 import com.hushbunny.app.ui.sealedclass.KidsStatusInfo
-import com.hushbunny.app.uitls.DialogUtils
+import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -68,51 +67,60 @@ class KidsListFragment : Fragment(R.layout.fragment_kids_list) {
         binding.emptyViewContainer.addKidButton.setOnClickListener {
             findNavController().navigate(KidsListFragmentDirections.actionAddKidFragment(isEditKid = false))
         }
+        binding.pullRefresh.setOnRefreshListener {
+            binding.pullRefresh.isRefreshing = false
+            binding.kidsList.visibility = View.GONE
+            getKidsList()
+        }
     }
 
     private fun getKidsList() {
-        binding.progressIndicator.showProgressbar()
+        binding.shimmerContainer.visibility = View.VISIBLE
         kidsViewModel.getKidsList()
     }
 
     private fun setObserver() {
         kidsViewModel.kidsListObserver.observe(viewLifecycleOwner) {
-            binding.progressIndicator.hideProgressbar()
-            when (it) {
-                is KidsStatusInfo.UserList -> {
-                    if (it.userList.size == 1) {
-                        binding.emptyViewContainer.welcomeMessageText.text =
-                            resourceProvider.getString(R.string.lets_bloom_your_family_tree_starting_with_your_kids)
-                        binding.emptyViewContainer.container.visibility = View.VISIBLE
-                        binding.emptyViewContainer.addMomentButton.visibility = View.GONE
-                        binding.kidsList.visibility = View.GONE
-                        binding.addMoreKidButton.visibility = View.GONE
-                    } else {
-                        binding.kidsList.visibility = View.VISIBLE
-                        binding.addMoreKidButton.visibility = View.VISIBLE
-                        binding.emptyViewContainer.container.visibility = View.GONE
-                        kidsAdapter.submitList(it.userList.subList(fromIndex = 1, it.userList.size))
+            it.getContentIfNotHandled()?.let { response ->
+                binding.shimmerContainer.visibility = View.GONE
+                when (response) {
+                    is KidsStatusInfo.UserList -> {
+                        if (response.userList.size == 1) {
+                            binding.emptyViewContainer.welcomeMessageText.text =
+                                resourceProvider.getString(R.string.lets_bloom_your_family_tree_starting_with_your_kids)
+                            binding.emptyViewContainer.container.visibility = View.VISIBLE
+                            binding.emptyViewContainer.addMomentButton.visibility = View.GONE
+                            binding.kidsList.visibility = View.GONE
+                            binding.addMoreKidButton.visibility = View.GONE
+                        } else {
+                            binding.kidsList.visibility = View.VISIBLE
+                            binding.addMoreKidButton.visibility = View.VISIBLE
+                            binding.emptyViewContainer.container.visibility = View.GONE
+                            kidsAdapter.submitList(response.userList.subList(fromIndex = 1, response.userList.size))
+                        }
                     }
-                }
-                else -> {
-                    activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
+                    else -> {
+                        activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
+                    }
                 }
             }
         }
     }
 
     private fun setAdapter() {
-        kidsAdapter = KidsListAdapter(onEditProfileClick = {
+        kidsAdapter = KidsListAdapter(resourceProvider = resourceProvider, onEditProfileClick = {
             findNavController().navigate(KidsListFragmentDirections.actionAddKidFragment(isEditKid = true, kidsDetail = it))
         }, onViewProfileClick = {
-
+            findNavController().navigate(KidsListFragmentDirections.actionKidsProfileFragment(kidId = it._id.orEmpty()))
         })
         binding.kidsList.adapter = kidsAdapter
     }
+
     override fun onResume() {
         super.onResume()
         (activity as? BaseActivity)?.setBottomNavigationVisibility(visibility = View.GONE)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

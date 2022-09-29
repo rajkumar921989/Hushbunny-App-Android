@@ -19,8 +19,11 @@ data class KidsResponseModel(
     val status: String? = null,
     val createdAt: String? = null,
     val updatedAt: String? = null,
+    val totalMoments: String? = null,
     val __v: String? = null,
-    val isSpouseAdded: Boolean? = null,
+    val isSpouseAdded: Boolean? = false,
+    var inviteInfo: InviteInfoModel? = null,
+    val parents: List<ParentModel>? = null,
     val type: String = APIConstants.KIDS_LIST,
     var isSelected: Boolean = false
 ) : Serializable

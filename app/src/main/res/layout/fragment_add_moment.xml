@@ -5,4 +5,281 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/header"
+        layout="@layout/item_header_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_constraint"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:paddingBottom="@dimen/padding_10"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/select_kid_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/select_kid"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/you_can_select_multiple_kids_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5"
+                android:fontFamily="@font/roboto"
+                android:text="@string/you_can_select_multiple_kids"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintBottom_toBottomOf="@+id/select_kid_text"
+                app:layout_constraintStart_toEndOf="@+id/select_kid_text"
+                app:layout_constraintTop_toTopOf="@+id/select_kid_text" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/kids_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_7"
+                android:layout_marginTop="@dimen/margin_15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_kid_text">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/kids_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_add_kid_view" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/kids_shimmer_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shimmer_repeat_mode="restart"
+                    app:shimmer_shape="linear">
+
+                    <include layout="@layout/shimmer_view_kids_profile" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/star_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_4"
+                android:src="@drawable/ic_important"
+                app:layout_constraintBottom_toBottomOf="@+id/date_button"
+                app:layout_constraintStart_toStartOf="@id/select_kid_text"
+                app:layout_constraintTop_toTopOf="@+id/date_button" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/date_button"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_25"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:background="@drawable/drawable_white_background_with_gray_outline"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
+                android:drawablePadding="@dimen/padding_5"
+                android:fontFamily="@font/roboto"
+                android:minHeight="@dimen/view_35"
+                android:paddingStart="@dimen/padding_10"
+                android:paddingEnd="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/kids_container"
+                tools:text="08 Jun, 2022" />
+
+            <View
+                android:id="@+id/date_view"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="@dimen/view_1"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@color/block_people_view_color"
+                app:layout_constraintEnd_toEndOf="@id/date_button"
+                app:layout_constraintStart_toStartOf="@id/star_image"
+                app:layout_constraintTop_toBottomOf="@+id/date_button" />
+
+            <com.hushbunny.app.uitls.EditTextKeyboardListenerWidget
+                android:id="@+id/say_something_about_this_moment_input"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@null"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/say_something_about_this_moment"
+                android:maxLines="6"
+                android:minLines="3"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintEnd_toEndOf="@id/date_button"
+                app:layout_constraintStart_toStartOf="@id/star_image"
+                app:layout_constraintTop_toBottomOf="@+id/date_view" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/header_image_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_270"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/say_something_about_this_moment_input" />
+
+
+            <LinearLayout
+                android:id="@+id/slider_dots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_8"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/date_button"
+                app:layout_constraintStart_toStartOf="@id/star_image"
+                app:layout_constraintTop_toBottomOf="@id/header_image_view_pager" />
+
+            <Space
+                android:id="@+id/dummy_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_50"
+                app:layout_constraintTop_toBottomOf="@+id/header_image_view_pager" />
+
+            <include
+                android:id="@+id/add_a_photo_video_button"
+                layout="@layout/add_moment_button"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_45"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dummy_view" />
+
+            <include
+                android:id="@+id/take_a_photo_video_button"
+                layout="@layout/add_moment_button"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                app:layout_constraintEnd_toEndOf="@+id/add_a_photo_video_button"
+                app:layout_constraintStart_toStartOf="@+id/add_a_photo_video_button"
+                app:layout_constraintTop_toBottomOf="@+id/add_a_photo_video_button" />
+
+            <include
+                android:id="@+id/mark_as_important_moment_button"
+                layout="@layout/add_moment_button"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                app:layout_constraintEnd_toEndOf="@+id/add_a_photo_video_button"
+                app:layout_constraintStart_toStartOf="@+id/add_a_photo_video_button"
+                app:layout_constraintTop_toBottomOf="@+id/take_a_photo_video_button" />
+
+
+            <LinearLayout
+                android:id="@+id/media_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="@dimen/view_30"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_10"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mark_as_important_moment_button">
+
+                <ImageView
+                    android:id="@+id/add_media_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_7"
+                    android:src="@drawable/ic_select_image_video" />
+
+                <View
+                    android:layout_width="@dimen/view_1"
+                    android:layout_height="@dimen/view_32"
+                    android:background="@color/media_divider_color" />
+
+                <ImageView
+                    android:id="@+id/take_media_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_7"
+                    android:src="@drawable/ic_take_image_video" />
+
+                <View
+                    android:layout_width="@dimen/view_1"
+                    android:layout_height="@dimen/view_32"
+                    android:background="@color/media_divider_color" />
+
+                <ImageView
+                    android:id="@+id/important_moment_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_7"
+                    android:src="@drawable/ic_setting_important" />
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/media_container" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <com.hushbunny.app.uitls.ProgressbarWidget
+        android:id="@+id/progress_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

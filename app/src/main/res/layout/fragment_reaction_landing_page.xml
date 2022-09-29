@@ -1,0 +1,132 @@
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pull_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/header_container"
+            layout="@layout/item_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/tab_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_35"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_container">
+
+            <RadioButton
+                android:id="@+id/all_tab"
+                style="@style/style_tab_item_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:checked="true"
+                android:fontFamily="@font/roboto"
+                android:text="@string/tab_all"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12" />
+
+            <RadioButton
+                android:id="@+id/heart_tab"
+                style="@style/style_tab_item_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_25"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_heart_reaction"
+                android:drawablePadding="@dimen/padding_10"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12" />
+
+            <RadioButton
+                android:id="@+id/laugh_tab"
+                style="@style/style_tab_item_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_laugh_reaction"
+                android:drawablePadding="@dimen/padding_10"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12" />
+
+            <RadioButton
+                android:id="@+id/sad_tab"
+                style="@style/style_tab_item_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_sad_reaction"
+                android:drawablePadding="@dimen/padding_10"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12" />
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/button_separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_1"
+            android:layout_marginTop="@dimen/margin_5"
+            android:background="@color/block_people_view_color"
+            app:layout_constraintTop_toBottomOf="@+id/tab_container" />
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_constraint"
+            android:layout_margin="@dimen/margin_20"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_separator" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/no_user_found_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/no_people_found"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_20"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hushbunny.app.uitls.ProgressbarWidget
+            android:id="@+id/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
