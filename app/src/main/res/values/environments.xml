@@ -35,7 +35,7 @@
     <string name="env_send_edit_profile_otp_url">sendEditProfileOtp</string>
     <string name="env_verify_edit_profile_otp_url">verifyEditProfileOtp</string>
     <string name="env_accept_reject_invite_url">acceptRejectInvite</string>
-    <string name="env_upload_moment_file_url">uploadForMement</string>
+    <string name="env_upload_moment_file_url">uploadForMoment</string>
     <string name="env_bookmark_url">bookmark</string>
     <string name="env_comment_url">comment</string>
     <string name="env_list_comment_url">listComments</string>
