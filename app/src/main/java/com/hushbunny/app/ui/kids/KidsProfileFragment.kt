@@ -336,6 +336,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                     is MomentResponseInfo.MomentList -> {
                         isLoading = response.momentList.size < 30
                         momentList.addAll(response.momentList)
+                        setTotalMomentCount(count = response.count.toIntOrZero())
                         loadMomentList()
                     }
                     is MomentResponseInfo.ApiError -> {
@@ -459,6 +460,10 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                 }
             }
         }
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        momentAdapter.setTotalMomentCount(count)
     }
 
     private fun loadMomentList() {

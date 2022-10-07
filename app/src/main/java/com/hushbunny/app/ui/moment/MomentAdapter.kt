@@ -34,8 +34,10 @@ class MomentAdapter(
     private val onCommentClick: ((Int, String, String) -> Unit)? = null,
     private val onMediaClick: ((String, String) -> Unit)? = null,
     private val onKidClick: ((MomentListingModel, MomentKidsModel) -> Unit)? = null
-) :
-    BaseListAdapter<MomentListingModel, ItemBookmarkBinding>(ItemDiffCallback()) {
+) : BaseListAdapter<MomentListingModel, ItemBookmarkBinding>(ItemDiffCallback()) {
+
+    private var totalMomentCount: Int = 0
+
     override fun createBinding(parent: ViewGroup): ItemBookmarkBinding {
         return ItemBookmarkBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -54,7 +56,7 @@ class MomentAdapter(
         binding.dateValueText.text = convertedDate
         binding.dateButton.text = convertedDate
         binding.userNameText.text = item.addedBy?.name.orEmpty()
-        binding.momentCountText.text = item.momentNumber ?: "0"
+        binding.momentCountText.text = (totalMomentCount.minus(position)).toString()
         binding.favoriteCountText.text = item.reactionCount.orEmpty()
         binding.commentCountText.text = item.commentCount.orEmpty()
         binding.lessDescriptionText.text = item.description.orEmpty()
@@ -308,7 +310,11 @@ class MomentAdapter(
         notifyItemChanged(position)
     }
 
-    fun getDateVisibility(position: Int): Int {
+    fun setTotalMomentCount(count: Int?) {
+        totalMomentCount = count ?: 0
+    }
+
+    private fun getDateVisibility(position: Int): Int {
         return if (position == 0) View.VISIBLE
         else {
             val previousDate = currentList[position - 1]

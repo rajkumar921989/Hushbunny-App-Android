@@ -26,11 +26,8 @@ import com.hushbunny.app.ui.sealedclass.CommentDeletedResponseInfo
 import com.hushbunny.app.ui.sealedclass.KidsStatusInfo
 import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
 import com.hushbunny.app.ui.setting.SettingViewModel
-import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
-import com.hushbunny.app.uitls.PrefsManager
+import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.dialog.DialogUtils
-import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -358,6 +355,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     is MomentResponseInfo.MomentList -> {
                         isLoading = response.momentList.size < 30
                         momentList.addAll(response.momentList)
+                        setTotalMomentCount(count = response.count.toIntOrZero())
                         loadMomentList()
                     }
                     is MomentResponseInfo.ApiError -> {
@@ -455,6 +453,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        momentAdapter.setTotalMomentCount(count)
     }
 
     private fun loadMomentList() {

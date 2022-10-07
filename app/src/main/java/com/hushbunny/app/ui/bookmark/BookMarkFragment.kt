@@ -30,6 +30,7 @@ import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.toIntOrZero
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -298,6 +299,7 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                     is MomentResponseInfo.MomentList -> {
                         isLoading = response.momentList.size < 30
                         bookMarkList.addAll(response.momentList)
+                        setTotalMomentCount(count = response.count.toIntOrZero())
                         loadBookMarkList()
                     }
                     is MomentResponseInfo.ApiError -> {
@@ -379,6 +381,10 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                 }
             }
         }
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        bookmarkAdapter.setTotalMomentCount(count)
     }
 
     private fun loadBookMarkList() {

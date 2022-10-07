@@ -387,6 +387,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         }
                         isLoading = response.momentList.size < 30
                         momentList.addAll(response.momentList)
+                        setTotalMomentCount(count = response.count.toIntOrZero())
                         loadMomentList()
                     }
                     is MomentResponseInfo.ApiError -> {
@@ -498,6 +499,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.filterButton.text = resourceProvider.getString(R.string.filter)
             }
         }
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        momentAdapter.setTotalMomentCount(count)
     }
 
     private fun loadMomentList() {
