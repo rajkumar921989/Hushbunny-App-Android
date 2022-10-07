@@ -370,7 +370,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                             isFilterAPICalled = false
                         } else {
                             PrefsManager.get().saveStringValue(AppConstants.USER_MOMENT_COUNT, response.count)
-                            binding.profileContainer.momentCountText.text = response.count
+                            binding.profileContainer.totalMomentCountText.text = response.count.prependZeroToStringIfSingleDigit()
                         }
                         isLoading = response.momentList.size < 30
                         momentList.addAll(response.momentList)
@@ -515,7 +515,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileContainer.associateWithText.text = userDetail?.associatedAs.orEmpty()
         binding.profileContainer.countryValueText.text = AppConstants.getCountryNameByCode(userDetail?.countryId.orEmpty())
         binding.profileContainer.ageCountText.text = userDetail?.dob?.getAge()
-        binding.profileContainer.momentCountText.text = userDetail?.totalMoments.prependZeroToStringIfSingleDigit()
+        binding.profileContainer.totalMomentCountText.text = userDetail?.totalMoments.prependZeroToStringIfSingleDigit()
         if (userDetail?.image?.isNotEmpty() == true) {
             binding.profileContainer.userImage.visibility = View.VISIBLE
             binding.profileContainer.defaultImage.visibility = View.GONE
