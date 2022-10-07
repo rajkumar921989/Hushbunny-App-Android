@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.hushbunny.app.R
 import com.hushbunny.app.databinding.SpinnerProgressBinding
 
 class ProgressbarWidget : ConstraintLayout {
@@ -28,9 +30,11 @@ class ProgressbarWidget : ConstraintLayout {
 
     private fun initView() {
         spinnerProgressBinding = SpinnerProgressBinding.inflate(LayoutInflater.from(context), this)
-
-        spinnerProgressBinding.root.setOnClickListener {
-            // Prevent the view clicks while progress was shown
+        spinnerProgressBinding.root.run {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.progress_background_color))
+            setOnClickListener {
+                // Prevent the view clicks while progress was shown
+            }
         }
         hideProgressbar()
     }
