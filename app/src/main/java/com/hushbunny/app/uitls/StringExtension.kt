@@ -12,6 +12,3 @@ fun String?.prependZeroToStringIfSingleDigit(): String {
     return if (intValue > 9) intValue.toString()
     else "0${intValue}"
 }
-
-fun appendSToStringIfGreaterThanOne(str: String, value: Int) =
-    if (value > 1) "${str}s" else str

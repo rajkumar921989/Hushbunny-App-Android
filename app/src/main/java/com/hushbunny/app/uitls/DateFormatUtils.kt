@@ -25,11 +25,8 @@ object DateFormatUtils {
             } catch (e: Exception) {
                 ""
             }
-
         }
-
     }
-
 
     fun String.convertISODateIntoAppDateFormat(): String {
         return if (this.isEmpty()) ""
@@ -87,23 +84,20 @@ object DateFormatUtils {
                 val min = ((difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours)) / (1000 * 60)).toInt()
                 if (days != 0) {
                     if (days >= 365) {
-                        val years = days / 365
-                        "$years ${appendSToStringIfGreaterThanOne(str = "year", value = years)} ago"
+                        "${days / 365}y ago"
                     } else if (days >= 30) {
-                        val months = days / 30
-                        "$months ${appendSToStringIfGreaterThanOne(str = "month", value = months)} ago"
+                        "${days / 30}m ago"
                     } else if (days >= 7) {
-                        val weeks = days / 7
-                        "$weeks ${appendSToStringIfGreaterThanOne(str = "week", value = weeks)} ago"
+                        "${days / 7}w ago"
                     } else if (days == 1) {
                         "Yesterday"
                     } else {
-                        "$days days ago"
+                        "${days}d ago"
                     }
                 } else if (hours != 0) {
-                    "$hours ${appendSToStringIfGreaterThanOne(str = "hour", value = hours)} ago"
+                    "${hours}h ago"
                 } else if (min != 0) {
-                    "$min ${appendSToStringIfGreaterThanOne(str = "minute", value = min)} ago"
+                    "${min}min ago"
                 } else {
                     "Just now"
                 }
