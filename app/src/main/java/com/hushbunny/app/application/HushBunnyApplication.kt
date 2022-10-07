@@ -1,11 +1,13 @@
 package com.hushbunny.app.application
 
+import com.hushbunny.app.BuildConfig
 import com.hushbunny.app.di.AppComponent
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.di.AppComponentModule
 import com.hushbunny.app.di.DaggerAppComponent
 import com.hushbunny.app.ui.landing.SplashActivity
 import com.hushbunny.app.uitls.PrefsManager
+import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 
 class HushBunnyApplication: BaseApplication(),AppComponentProvider {
@@ -15,6 +17,9 @@ class HushBunnyApplication: BaseApplication(),AppComponentProvider {
         applicationInstance = this
         launchActivityClass = SplashActivity::class.java
         PrefsManager.initialize(this)
+        if(BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun getAppComponent(): AppComponent {
