@@ -403,7 +403,8 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
                         default(
                             width = resourceProvider.getDimension(R.dimen.view_85).toInt(),
                             height = resourceProvider.getDimension(R.dimen.view_85).toInt(),
-                            format = Bitmap.CompressFormat.JPEG
+                            format = Bitmap.CompressFormat.JPEG,
+                            quality = 50
                         )
                     }
                     if (compressedImageFile.exists()) imageFile = compressedImageFile

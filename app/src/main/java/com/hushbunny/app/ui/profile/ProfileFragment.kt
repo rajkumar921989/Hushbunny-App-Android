@@ -587,7 +587,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         default(
                             width = resourceProvider.getDimension(R.dimen.view_100).toInt(),
                             height = resourceProvider.getDimension(R.dimen.view_100).toInt(),
-                            format = Bitmap.CompressFormat.JPEG
+                            format = Bitmap.CompressFormat.JPEG,
+                            quality = 50
                         )
                     }
                     binding.progressIndicator.showProgressbar()
