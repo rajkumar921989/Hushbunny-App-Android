@@ -28,14 +28,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/user_image"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardUserImage"
             android:layout_width="@dimen/view_55"
             android:layout_height="@dimen/view_55"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_no_kid_icon"
+            app:cardCornerRadius="@dimen/radius_6"
+            app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardElevation="@dimen/elevation_0">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_no_kid_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/logo_image"
