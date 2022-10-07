@@ -3,10 +3,12 @@ package com.hushbunny.app.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hushbunny.app.R
+import com.hushbunny.app.core.HomeSharedViewModel
 import com.hushbunny.app.databinding.FragmentHomeBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
@@ -62,6 +64,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AppComponentProvider).getAppComponent().inject(this)
+    }
+
+    private val homeSharedViewModel: HomeSharedViewModel by viewModelBuilderActivityScope {
+        HomeSharedViewModel()
     }
 
     private val settingViewModel: SettingViewModel by viewModelBuilderFragmentScope {
@@ -167,11 +173,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.emptyViewContainer.welcomeMessageText.text =
             resourceProvider.getString(R.string.home_page_welcome_message, AppConstants.getUserFirstName())
         binding.pullRefresh.setOnRefreshListener {
-            binding.pullRefresh.isRefreshing = false
-            currentPage = 1
-            momentList.clear()
-            getKidsList()
-            getMomentList(true)
+            onPullToRefreshCalled()
         }
         binding.emptyViewContainer.addKidButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionAddKidFragment(isEditKid = false))
@@ -179,13 +181,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.emptyViewContainer.addMomentButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionAddMomentFragment())
         }
-        binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        binding.scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
             val layoutManager = binding.momentList.layoutManager as LinearLayoutManager
             val totalItemCount = layoutManager.itemCount - 1
             val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
             if (!isLoading && totalItemCount == lastVisibleItem) {
                 ++currentPage
                 getMomentList(false)
+            }
+        }
+    }
+
+    private fun onPullToRefreshCalled() {
+        currentPage = 1
+        momentList.clear()
+        getKidsList()
+        getMomentList(true)
+        binding.pullRefresh.isRefreshing = false
+    }
+
+    private fun setMomentListScrollBehaviour() {
+        if (binding.momentList.isVisible && momentList.isNotEmpty()) {
+            val isFirstItem = binding.scrollView.scrollY == 0
+            if (isFirstItem) {
+                binding.pullRefresh.run {
+                    post {
+                        this.isRefreshing = true
+                        onPullToRefreshCalled()
+                    }
+                }
+            } else {
+                binding.scrollView.smoothScrollTo(0, 0)
             }
         }
     }
@@ -452,6 +478,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     )
                 }
             }
+        }
+
+        homeSharedViewModel.homeTabClickedObserver.observe(viewLifecycleOwner) {
+            setMomentListScrollBehaviour()
         }
     }
 

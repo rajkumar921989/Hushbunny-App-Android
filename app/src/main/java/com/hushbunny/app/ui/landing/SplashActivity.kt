@@ -6,11 +6,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.common.api.Api
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
-import com.hushbunny.app.HomeActivity
+import com.hushbunny.app.core.HomeActivity
 import com.hushbunny.app.databinding.ActivitySplashBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.ui.onboarding.OnBoardingActivity

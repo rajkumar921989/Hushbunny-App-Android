@@ -8,7 +8,7 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.hushbunny.app.HomeActivity
+import com.hushbunny.app.core.HomeActivity
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentIntroScreenBinding
 import com.hushbunny.app.di.AppComponentProvider

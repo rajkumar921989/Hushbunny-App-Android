@@ -7,10 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Patterns
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.hushbunny.app.HomeActivity
 import com.hushbunny.app.R
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.model.*

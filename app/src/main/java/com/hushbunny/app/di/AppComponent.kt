@@ -1,6 +1,6 @@
 package com.hushbunny.app.di
 
-import com.hushbunny.app.HomeActivity
+import com.hushbunny.app.core.HomeActivity
 import com.hushbunny.app.ui.kids.AddKidFragment
 import com.hushbunny.app.ui.kids.KidsListFragment
 import com.hushbunny.app.ui.moment.AddMomentFragment

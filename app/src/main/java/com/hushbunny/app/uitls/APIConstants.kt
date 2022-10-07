@@ -1,16 +1,5 @@
 package com.hushbunny.app.uitls
 
-import android.app.Activity
-import android.content.Intent
-import android.util.Patterns
-import androidx.core.content.ContextCompat.startActivity
-import com.hushbunny.app.HomeActivity
-import com.hushbunny.app.R
-import com.hushbunny.app.providers.ResourceProvider
-import com.hushbunny.app.ui.model.SettingsModel
-import com.hushbunny.app.ui.onboarding.OnBoardingActivity
-import com.hushbunny.app.ui.onboarding.model.UserData
-
 
 class APIConstants {
     companion object {

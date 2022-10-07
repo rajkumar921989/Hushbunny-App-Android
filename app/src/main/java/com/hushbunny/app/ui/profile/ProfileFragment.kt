@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hushbunny.app.R
+import com.hushbunny.app.core.HomeSharedViewModel
 import com.hushbunny.app.databinding.FragmentProfileBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
@@ -79,6 +80,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     @Inject
     lateinit var userActionRepository: UserActionRepository
 
+    private val homeSharedViewModel: HomeSharedViewModel by viewModelBuilderActivityScope {
+        HomeSharedViewModel()
+    }
 
     private val homeViewModel: HomeViewModel by viewModelBuilderFragmentScope {
         HomeViewModel(
@@ -148,12 +152,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun initClickListener() {
         binding.pullRefresh.setOnRefreshListener {
-            binding.pullRefresh.isRefreshing = false
-            currentPage = 1
-            momentList.clear()
-            initView()
-            getKidsList()
-            getMomentList(true)
+            onPullToRefreshCalled()
         }
         binding.emptyViewContainer.addKidButton.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionAddKidFragment(isEditKid = false))
@@ -182,6 +181,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 getMomentList(false)
             }
         }
+    }
+
+    private fun onPullToRefreshCalled() {
+        currentPage = 1
+        momentList.clear()
+        initView()
+        getKidsList()
+        getMomentList(true)
+        binding.pullRefresh.isRefreshing = false
     }
 
     private fun getKidsList() {
@@ -484,6 +492,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     )
                 }
             }
+        }
+        homeSharedViewModel.profileTabClickedTabClickedObserver.observe(viewLifecycleOwner) {
+            setMomentListScrollBehaviour()
+        }
+    }
+
+    private fun setMomentListScrollBehaviour() {
+        val isFirstItem = binding.scrollView.scrollY == 0
+        if (isFirstItem) {
+            binding.pullRefresh.run {
+                post {
+                    this.isRefreshing = true
+                    onPullToRefreshCalled()
+                }
+            }
+        } else {
+            binding.scrollView.smoothScrollTo(0, 0)
         }
     }
 

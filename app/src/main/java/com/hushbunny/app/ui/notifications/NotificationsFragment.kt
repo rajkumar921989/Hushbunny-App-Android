@@ -3,22 +3,24 @@ package com.hushbunny.app.ui.notifications
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hushbunny.app.R
+import com.hushbunny.app.core.HomeSharedViewModel
 import com.hushbunny.app.databinding.FragmentNotificationsBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.ui.enumclass.MomentType
 import com.hushbunny.app.ui.enumclass.NotificationType
 import com.hushbunny.app.ui.model.NotificationModel
 import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.sealedclass.NotificationInfoList
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.dialog.DialogUtils
+import com.hushbunny.app.uitls.viewModelBuilderActivityScope
 import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -44,6 +46,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         )
     }
 
+    private val homeSharedViewModel: HomeSharedViewModel by viewModelBuilderActivityScope {
+        HomeSharedViewModel()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AppComponentProvider).getAppComponent().inject(this)
@@ -58,12 +64,16 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         getNotificationList(true)
         setObserver()
         binding.pullRefresh.setOnRefreshListener {
-            binding.pullRefresh.isRefreshing = false
-            currentPage = 1
-            notificationList.clear()
-            binding.notificationList.visibility = View.GONE
-            getNotificationList(true)
+            onPullToRefresh()
         }
+    }
+
+    private fun onPullToRefresh() {
+        currentPage = 1
+        notificationList.clear()
+        binding.notificationList.visibility = View.GONE
+        getNotificationList(true)
+        binding.pullRefresh.isRefreshing = false
     }
 
     override fun onResume() {
@@ -113,7 +123,27 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                 }
             }
         }
+        homeSharedViewModel.notificationTabClickedObserver.observe(viewLifecycleOwner) {
+            setNotificationListScrollBehaviour()
+        }
     }
+
+    private fun setNotificationListScrollBehaviour() {
+        if (binding.notificationList.isVisible && notificationList.isNotEmpty()) {
+            val isFirstItem = binding.notificationList.computeVerticalScrollOffset() == 0
+            if (isFirstItem) {
+                binding.pullRefresh.run {
+                    post {
+                        this.isRefreshing = true
+                        onPullToRefresh()
+                    }
+                }
+            } else {
+                binding.notificationList.smoothScrollToPosition(0)
+            }
+        }
+    }
+
 
     private fun loadNotification() {
         if (notificationList.isNotEmpty()) {

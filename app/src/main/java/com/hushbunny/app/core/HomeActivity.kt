@@ -1,8 +1,6 @@
-package com.hushbunny.app
+package com.hushbunny.app.core
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,22 +9,16 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.forEach
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.hushbunny.app.R
 import com.hushbunny.app.databinding.ActivityMainBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.ui.enumclass.NavigationPages
-import com.hushbunny.app.ui.home.HomeFragmentDirections
 import com.hushbunny.app.ui.home.HomeViewModel
-import com.hushbunny.app.ui.moment.NavigationViewModel
-import com.hushbunny.app.ui.navigation.NavigationRouterProvider
 import com.hushbunny.app.ui.repository.HomeRepository
-import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.viewModelBuilder
-import com.hushbunny.app.uitls.viewModelBuilderFragmentScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -48,6 +40,10 @@ class HomeActivity : BaseActivity() {
         )
     }
 
+    private val homeSharedViewModel: HomeSharedViewModel by viewModelBuilder {
+        HomeSharedViewModel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -65,19 +61,21 @@ class HomeActivity : BaseActivity() {
             navigateToBottomItem(it)
             when (it.toString()) {
                 resourceProvider.getString(R.string.title_home) -> {
+                    homeSharedViewModel.onHomeTabClicked()
                     navHostFragment.navController.popBackStack(R.id.homeFragment, false)
                 }
                 resourceProvider.getString(R.string.title_notifications) -> {
+                    homeSharedViewModel.onNotificationTabClicked()
                     navHostFragment.navController.popBackStack(R.id.notificationFragment, false)
                 }
                 resourceProvider.getString(R.string.title_profile) -> {
+                    homeSharedViewModel.onProfileTabClicked()
                     navHostFragment.navController.popBackStack(R.id.profileFragment, false)
                 }
             }
             true
         }
         setObserver()
-
     }
 
     private fun setObserver() {

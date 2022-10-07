@@ -3,13 +3,12 @@ package com.hushbunny.app.ui.onboarding.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.hushbunny.app.HomeActivity
+import com.hushbunny.app.core.HomeActivity
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentLoginBinding
 import com.hushbunny.app.di.AppComponentProvider
