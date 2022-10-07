@@ -73,6 +73,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-common-ktx:20.1.1'
     implementation 'id.zelory:compressor:3.0.1'
     implementation 'org.jsoup:jsoup:1.13.1'
+    debugImplementation 'com.github.chuckerteam.chucker:library:3.5.2'
+    releaseImplementation 'com.github.chuckerteam.chucker:library-no-op:3.5.2'
 
     kapt 'com.google.dagger:dagger-compiler:2.40.5'
     testImplementation 'junit:junit:4.13.2'

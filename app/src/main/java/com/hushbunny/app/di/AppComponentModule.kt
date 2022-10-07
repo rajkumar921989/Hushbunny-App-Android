@@ -12,7 +12,6 @@ import com.hushbunny.app.ui.repository.*
 import com.hushbunny.app.ui.service.*
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -40,7 +39,7 @@ class AppComponentModule(private val application: BaseApplication) {
     @Provides
     @Singleton
     fun getNetworkClient(): NetworkClient {
-        return RetrofitClient()
+        return RetrofitClient(application.applicationContext)
     }
 
     @Provides
