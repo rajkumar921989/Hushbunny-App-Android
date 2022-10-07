@@ -38,28 +38,29 @@ class NotificationAdapter(
         if (item.isRequiredHushBunnyLogo) {
             binding.userImage.visibility = View.GONE
             binding.logoImage.visibility = View.VISIBLE
-        } else if (item.image.isNullOrEmpty())
+        } else if (item.image.isEmpty())
             binding.userImage.setImageDrawable(ContextCompat.getDrawable(binding.userImage.context, R.drawable.ic_no_kid_icon))
         else binding.userImage.loadImageFromURL(item.image)
-        if (item.type.equals(NotificationType.ADD_OTHER_PARENT.name, true) && item.status.equals("PENDING", true)) {
-            binding.acceptRejectGroup.visibility = View.VISIBLE
-        } else {
-            binding.acceptRejectGroup.visibility = View.GONE
+
+        when(item.type) {
+            NotificationType.OTHER_PARENT_INVITATION.name,
+            NotificationType.REMINDER_OTHER_PARENT_INVITATION.name,
+            NotificationType.FINAL_REMINDER_OTHER_PARENT_INVITATION.name -> {
+                if(item.status.equals("PENDING", true)) {
+                    binding.acceptRejectGroup.visibility = View.VISIBLE
+                    binding.commentText.visibility = View.GONE
+                } else {
+                    binding.acceptRejectGroup.visibility = View.GONE
+                    binding.commentText.visibility = View.VISIBLE
+                    binding.commentText.text = "The invitation has been ${item.status.lowercase()}"
+                }
+            }
+            else -> {
+                binding.acceptRejectGroup.visibility = View.GONE
+                binding.commentText.visibility = View.GONE
+            }
         }
-        if (item.type.equals(NotificationType.OTHER_PARENT_ACCEPTED_INVITATION.name, true) || item.type.equals(
-                NotificationType.ADD_OTHER_PARENT.name,
-                true
-            ) && item.status.equals("REJECTED", true)
-        ) {
-            binding.commentText.visibility = View.VISIBLE
-            binding.commentText.text = if (item.type.equals(
-                    NotificationType.OTHER_PARENT_ACCEPTED_INVITATION.name,
-                    true
-                )
-            ) binding.commentText.context.getString(R.string.invite_accepted_message) else binding.commentText.context.getString(R.string.invite_rejected_message)
-        } else {
-            binding.commentText.visibility = View.GONE
-        }
+
         if (item.type.equals(NotificationType.IMPORTANT_MOMENT.name, true)) {
             binding.emojiImage.visibility = View.VISIBLE
             binding.emojiImage.setImageDrawable(ContextCompat.getDrawable(binding.emojiImage.context, R.drawable.ic_important_marked))
