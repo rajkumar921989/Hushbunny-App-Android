@@ -115,6 +115,7 @@
     <dimen name="radius_8">8dp</dimen>
     <dimen name="radius_9">9dp</dimen>
     <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
     <!--    Elevation Dimens-->
     <dimen name="elevation_0">0dp</dimen>
     <dimen name="elevation_1">1dp</dimen>
@@ -128,6 +129,7 @@
     <dimen name="elevation_9">9dp</dimen>
     <dimen name="elevation_10">10dp</dimen>
     <!--    View Dimens-->
+    <dimen name="view_point_5">0.5dp</dimen>
     <dimen name="view_1">1dp</dimen>
     <dimen name="view_2">2dp</dimen>
     <dimen name="view_3">3dp</dimen>

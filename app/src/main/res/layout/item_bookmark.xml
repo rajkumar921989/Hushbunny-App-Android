@@ -44,398 +44,413 @@
         app:layout_constraintStart_toEndOf="@+id/date_button"
         app:layout_constraintTop_toTopOf="@+id/date_button" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_10"
-        android:layout_marginVertical="@dimen/margin_15"
-        android:background="@drawable/kids_background"
-        android:elevation="@dimen/elevation_5"
+        app:cardCornerRadius="@dimen/radius_12"
+        app:cardElevation="@dimen/elevation_5"
+        android:layout_marginVertical="@dimen/margin_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_button">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/star_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_7"
-            android:layout_marginTop="@dimen/margin_20"
-            android:src="@drawable/ic_important"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/more_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_9"
-            android:layout_marginEnd="@dimen/margin_7"
-            android:padding="@dimen/padding_7"
-            android:src="@drawable/ic_more"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_5"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_10"
-            app:layout_constraintBottom_toBottomOf="@+id/more_image"
-            app:layout_constraintEnd_toStartOf="@+id/more_image"
-            app:layout_constraintTop_toTopOf="@+id/more_image"
-            tools:text="2d ago" />
-
-        <LinearLayout
-            android:id="@+id/kids_container"
-            android:layout_width="@dimen/view_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/star_image"
-            app:layout_constraintTop_toBottomOf="@+id/star_image">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/user_image"
-                    android:layout_width="@dimen/view_55"
-                    android:layout_height="@dimen/view_55"
-                    android:layout_marginTop="@dimen/margin_15"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_no_kid_icon" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/user_name_text"
-                    android:layout_width="@dimen/view_constraint"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/margin_7"
-                    android:layout_marginEnd="@dimen/margin_7"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="center|start"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/text_size_14"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_image"
-                    app:layout_constraintEnd_toStartOf="@+id/user_view"
-                    app:layout_constraintStart_toEndOf="@+id/user_image"
-                    app:layout_constraintTop_toTopOf="@+id/user_image"
-                    tools:text="Janarthanan Radhakrishnan" />
-
-                <View
-                    android:id="@+id/user_view"
-                    android:layout_width="@dimen/view_1"
-                    android:layout_height="@dimen/view_constraint"
-                    android:background="@color/book_mark_people_view_color"
-                    app:layout_constraintBottom_toBottomOf="@+id/user_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/user_name_text"
-                    app:layout_constraintTop_toTopOf="@+id/user_image" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/kids_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingEnd="@dimen/padding_5"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintTop_toTopOf="@+id/user_image"
-                tools:listitem="@layout/item_moment_kids_list" />
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/moment_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_5"
-            android:layout_marginTop="@dimen/margin_40"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:text="@string/moment_count"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_10"
-            app:layout_constraintStart_toStartOf="@+id/star_image"
-            app:layout_constraintTop_toBottomOf="@+id/kids_container" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/moment_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_7"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_10"
-            app:layout_constraintEnd_toEndOf="@+id/moment_text"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/moment_text"
-            tools:text="79" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/moment_date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_5"
-            android:fontFamily="@font/roboto"
-            android:text="@string/moment_date"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_10"
-            app:layout_constraintEnd_toEndOf="@+id/more_image"
-            app:layout_constraintTop_toTopOf="@+id/moment_text" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/date_value_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_7"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_10"
-            app:layout_constraintEnd_toEndOf="@+id/moment_date_text"
-            app:layout_constraintStart_toStartOf="@+id/moment_date_text"
-            app:layout_constraintTop_toBottomOf="@+id/moment_date_text"
-            tools:text="12 Aug, 2018" />
-
-        <View
-            android:layout_width="@dimen/view_constraint"
-            android:layout_height="@dimen/view_1"
-            android:layout_marginHorizontal="@dimen/margin_15"
-            android:background="@color/block_people_view_color"
-            app:layout_constraintBottom_toTopOf="@+id/date_value_text"
-            app:layout_constraintEnd_toStartOf="@id/moment_date_text"
-            app:layout_constraintStart_toEndOf="@id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/moment_date_text" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/less_description_text"
-            android:layout_width="@dimen/view_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_7"
-            android:fontFamily="@font/roboto"
-            android:maxLines="3"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12"
-            app:layout_constraintEnd_toEndOf="@id/moment_date_text"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/date_value_text"
-            tools:text="The issue was from Microsoft Side and not the BlueJeans Room System Side as per our later findings in troubleshooting.3x Points Showing in Account / Checkout After Redeemed dgfgfgf jggjhjthgjh" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/more_description_text"
-            android:layout_width="@dimen/view_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_5"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/moment_date_text"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/less_description_text"
-            tools:text="The issue was from Microsoft Side and not the BlueJeans Room System Side as per our later findings in troubleshooting.3x Points Showing in Account / Checkout After Redeemed" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/read_more_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center"
-            android:minHeight="@dimen/view_25"
-            android:text="@string/read_more"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/more_description_text" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/header_image_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_270"
-            android:layout_marginHorizontal="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toBottomOf="@+id/read_more_text" />
-
-        <LinearLayout
-            android:id="@+id/slider_dots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_8"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_image_view_pager" />
-
-        <View
-            android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_1"
-            android:layout_marginTop="@dimen/margin_25"
-            android:background="@color/block_people_view_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slider_dots" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/favorite_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            android:padding="@dimen/padding_7"
-            android:src="@drawable/ic_favorite"
-            app:layout_constraintStart_toStartOf="@+id/moment_text"
-            app:layout_constraintTop_toTopOf="@+id/image_view" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/favorite_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_1"
-            android:layout_marginBottom="@dimen/margin_3"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:padding="@dimen/padding_5"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12"
-            app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
-            app:layout_constraintStart_toEndOf="@+id/favorite_image"
-            app:layout_constraintTop_toTopOf="@+id/favorite_image"
-            tools:text="79" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/comment_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_30"
-            android:padding="@dimen/padding_7"
-            android:src="@drawable/ic_comment"
-            app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
-            app:layout_constraintStart_toEndOf="@+id/favorite_count_text"
-            app:layout_constraintTop_toTopOf="@+id/favorite_image" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/comment_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_1"
-            android:layout_marginBottom="@dimen/margin_3"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:padding="@dimen/padding_5"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12"
-            app:layout_constraintBottom_toBottomOf="@+id/comment_image"
-            app:layout_constraintStart_toEndOf="@+id/comment_image"
-            app:layout_constraintTop_toTopOf="@+id/comment_image"
-            tools:text="79" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/share_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:padding="@dimen/padding_7"
-            android:src="@drawable/ic_share"
-            app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/favorite_image" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/bookmark_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_15"
-            android:padding="@dimen/padding_7"
-            android:src="@drawable/ic_setting_book_mark"
-            app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
-            app:layout_constraintEnd_toStartOf="@+id/share_image"
-            app:layout_constraintTop_toTopOf="@+id/favorite_image" />
-
-        <View
-            android:id="@+id/action_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_1"
-            android:layout_marginTop="@dimen/margin_6"
-            android:background="@color/block_people_view_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/favorite_image" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/comments_container"
-            android:layout_width="@dimen/view_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_15"
-            android:layout_marginTop="@dimen/margin_25"
-            android:background="@drawable/kids_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_view">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/comment_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_comment_list" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/view_all_comment_text"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/star_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_20"
+                android:src="@drawable/ic_important"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/more_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_9"
+                android:layout_marginEnd="@dimen/margin_7"
+                android:padding="@dimen/padding_7"
+                android:src="@drawable/ic_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintBottom_toBottomOf="@+id/more_image"
+                app:layout_constraintEnd_toStartOf="@+id/more_image"
+                app:layout_constraintTop_toTopOf="@+id/more_image"
+                tools:text="2d ago" />
+
+            <LinearLayout
+                android:id="@+id/kids_container"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/star_image"
+                app:layout_constraintTop_toBottomOf="@+id/star_image">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="@dimen/view_55"
+                        android:layout_height="@dimen/view_55"
+                        android:layout_marginTop="@dimen/margin_15"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_no_kid_icon" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/user_name_text"
+                        android:layout_width="@dimen/view_constraint"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_7"
+                        android:layout_marginEnd="@dimen/margin_7"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center|start"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintBottom_toBottomOf="@+id/user_image"
+                        app:layout_constraintEnd_toStartOf="@+id/user_view"
+                        app:layout_constraintStart_toEndOf="@+id/user_image"
+                        app:layout_constraintTop_toTopOf="@+id/user_image"
+                        tools:text="Janarthanan Radhakrishnan" />
+
+                    <View
+                        android:id="@+id/user_view"
+                        android:layout_width="@dimen/view_1"
+                        android:layout_height="@dimen/view_constraint"
+                        android:background="@color/book_mark_people_view_color"
+                        app:layout_constraintBottom_toBottomOf="@+id/user_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/user_name_text"
+                        app:layout_constraintTop_toTopOf="@+id/user_image" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/kids_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_0"
+                    android:paddingEnd="@dimen/padding_5"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toTopOf="@+id/user_image"
+                    tools:listitem="@layout/item_moment_kids_list" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/moment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_40"
+                android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:padding="@dimen/padding_10"
+                android:text="@string/moment_count"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintStart_toStartOf="@+id/star_image"
+                app:layout_constraintTop_toBottomOf="@+id/kids_container" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/moment_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_7"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintEnd_toEndOf="@+id/moment_text"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/moment_text"
+                tools:text="79" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/moment_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:fontFamily="@font/roboto"
+                android:text="@string/moment_date"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintEnd_toEndOf="@+id/more_image"
+                app:layout_constraintTop_toTopOf="@+id/moment_text" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/date_value_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_7"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintEnd_toEndOf="@+id/moment_date_text"
+                app:layout_constraintStart_toStartOf="@+id/moment_date_text"
+                app:layout_constraintTop_toBottomOf="@+id/moment_date_text"
+                tools:text="12 Aug, 2018" />
+
+            <View
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="@dimen/view_1"
+                android:layout_marginHorizontal="@dimen/margin_15"
+                android:background="@color/block_people_view_color"
+                app:layout_constraintBottom_toTopOf="@+id/date_value_text"
+                app:layout_constraintEnd_toStartOf="@id/moment_date_text"
+                app:layout_constraintStart_toEndOf="@id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/moment_date_text" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/less_description_text"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_7"
+                android:fontFamily="@font/roboto"
+                android:maxLines="3"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="@id/moment_date_text"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/date_value_text"
+                tools:text="The issue was from Microsoft Side and not the BlueJeans Room System Side as per our later findings in troubleshooting.3x Points Showing in Account / Checkout After Redeemed dgfgfgf jggjhjthgjh" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/more_description_text"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/moment_date_text"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/less_description_text"
+                tools:text="The issue was from Microsoft Side and not the BlueJeans Room System Side as per our later findings in troubleshooting.3x Points Showing in Account / Checkout After Redeemed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/read_more_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:minHeight="@dimen/view_25"
+                android:text="@string/read_more"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/more_description_text" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/header_image_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_270"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toBottomOf="@+id/read_more_text" />
+
+            <LinearLayout
+                android:id="@+id/slider_dots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_8"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/comment_list" />
+                app:layout_constraintTop_toBottomOf="@id/header_image_view_pager" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/comment_group"
+            <View
+                android:id="@+id/image_view"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/view_point_5"
+                android:layout_marginTop="@dimen/margin_25"
+                android:background="@color/block_people_view_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/slider_dots" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/favorite_image"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="comment_list, view_all_comment_text" />
+                android:layout_marginTop="@dimen/margin_10"
+                android:padding="@dimen/padding_7"
+                android:src="@drawable/ic_favorite"
+                app:layout_constraintStart_toStartOf="@+id/moment_text"
+                app:layout_constraintTop_toTopOf="@+id/image_view" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/favorite_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_1"
+                android:layout_marginBottom="@dimen/margin_3"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:padding="@dimen/padding_5"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
+                app:layout_constraintStart_toEndOf="@+id/favorite_image"
+                app:layout_constraintTop_toTopOf="@+id/favorite_image"
+                tools:text="79" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/comment_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30"
+                android:padding="@dimen/padding_7"
+                android:src="@drawable/ic_comment"
+                app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
+                app:layout_constraintStart_toEndOf="@+id/favorite_count_text"
+                app:layout_constraintTop_toTopOf="@+id/favorite_image" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/comment_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_1"
+                android:layout_marginBottom="@dimen/margin_3"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:padding="@dimen/padding_5"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@+id/comment_image"
+                app:layout_constraintStart_toEndOf="@+id/comment_image"
+                app:layout_constraintTop_toTopOf="@+id/comment_image"
+                tools:text="79" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/share_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:padding="@dimen/padding_7"
+                android:src="@drawable/ic_share"
+                app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favorite_image" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bookmark_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_15"
+                android:padding="@dimen/padding_7"
+                android:src="@drawable/ic_setting_book_mark"
+                app:layout_constraintBottom_toBottomOf="@+id/favorite_image"
+                app:layout_constraintEnd_toStartOf="@+id/share_image"
+                app:layout_constraintTop_toTopOf="@+id/favorite_image" />
+
+            <View
+                android:id="@+id/action_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_point_5"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/block_people_view_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_image" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/comments_container"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_25"
+                app:cardCornerRadius="@dimen/radius_6"
+                app:cardElevation="@dimen/elevation_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/action_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/comment_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_comment_list" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/view_all_comment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_10"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/comment_list" />
+
+                    <androidx.constraintlayout.widget.Group
+                        android:id="@+id/comment_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:constraint_referenced_ids="comment_list, view_all_comment_text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/view_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/comments_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/view_20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comments_container" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/date_group"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="view_start,date_button,view_end" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
