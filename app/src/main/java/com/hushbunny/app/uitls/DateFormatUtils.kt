@@ -11,12 +11,12 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 object DateFormatUtils {
-    const val FILTER_DATE_FORMAT = "dd MMM, yyyy"
-    const val FILTER_MONTH_FORMAT = "MMM, yyyy"
-    const val FILTER_YEAR_FORMAT = "yyyy"
-    const val ISO_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    private const val FILTER_DATE_FORMAT = "dd MMM, yyyy"
+    private const val FILTER_MONTH_FORMAT = "MMM, yyyy"
+    private const val FILTER_YEAR_FORMAT = "yyyy"
+    private const val ISO_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     fun String.convertDateToISOFormat(): String? {
-        return if (this.isNullOrEmpty()) null
+        return if (this.isEmpty()) null
         else {
             try {
                 val currentFormat = SimpleDateFormat("dd MMM, yyyy")
@@ -33,7 +33,7 @@ object DateFormatUtils {
 
 
     fun String.convertISODateIntoAppDateFormat(): String {
-        return if (this.isNullOrEmpty()) ""
+        return if (this.isEmpty()) ""
         else {
             try {
                 val currentFormat = SimpleDateFormat(ISO_DATE_FORMAT)
@@ -47,7 +47,7 @@ object DateFormatUtils {
     }
 
     fun String.convertDateIntoAppDateFormat(): String {
-        return if (this.isNullOrEmpty()) ""
+        return if (this.isEmpty()) ""
         else {
             try {
                 val currentFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -61,7 +61,7 @@ object DateFormatUtils {
     }
 
     fun String.convertIntoFilterDateFormat(requiredFormat: SimpleDateFormat): String {
-        return if (this.isNullOrEmpty()) ""
+        return if (this.isEmpty()) ""
         else {
             try {
                 val currentFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -118,17 +118,17 @@ object DateFormatUtils {
         if (value > 1) "${str}s" else str
 
     fun String.getAge(): String {
-        return if (this.isNullOrEmpty())
+        return if (this.isEmpty())
             "00"
         else {
             try {
                 val from = LocalDate.parse(this, DateTimeFormatter.ofPattern(ISO_DATE_FORMAT))
                 val today = LocalDate.now()
                 val period = Period.between(from, today)
-                if (period.years == 0) {
-                    "00"
-                } else
+                if (period.years > 9) {
                     period.years.toString()
+                } else
+                    "0${period.years}"
             } catch (e: Exception) {
                 "00"
             }
