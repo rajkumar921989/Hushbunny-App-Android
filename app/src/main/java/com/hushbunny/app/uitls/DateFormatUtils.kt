@@ -74,7 +74,7 @@ object DateFormatUtils {
     }
 
     fun String.getTimeAgo(): String {
-        return if (this.isNullOrEmpty())
+        return if (this.isEmpty())
             ""
         else {
             try {
@@ -87,19 +87,24 @@ object DateFormatUtils {
                 val hours = ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60)).toInt()
                 val min = ((difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours)) / (1000 * 60)).toInt()
                 if (days != 0) {
-                    if (days > 365) {
-                        "${days / 365} year ago"
-                    } else if (days > 30) {
-                        "${days / 30} months ago"
+                    if (days >= 365) {
+                        val years = days / 365
+                        "$years ${appendToStringIfGreaterThanOne(str = "year", value = years)} ago"
+                    } else if (days >= 30) {
+                        val months = days / 30
+                        "$months ${appendToStringIfGreaterThanOne(str = "month", value = months)} ago"
+                    } else if (days >= 7) {
+                        val weeks = days / 7
+                        "$weeks ${appendToStringIfGreaterThanOne(str = "week", value = weeks)} ago"
                     } else if (days == 1) {
                         "Yesterday"
                     } else {
                         "$days days ago"
                     }
                 } else if (hours != 0) {
-                    "$hours hours ago"
+                    "$hours ${appendToStringIfGreaterThanOne(str = "hour", value = hours)} ago"
                 } else if (min != 0) {
-                    "$min minutes ago"
+                    "$min ${appendToStringIfGreaterThanOne(str = "minute", value = min)} ago"
                 } else {
                     "Just now"
                 }
@@ -108,6 +113,9 @@ object DateFormatUtils {
             }
         }
     }
+
+    private fun appendToStringIfGreaterThanOne(str: String, value: Int) =
+        if (value > 1) "${str}s" else str
 
     fun String.getAge(): String {
         return if (this.isNullOrEmpty())
