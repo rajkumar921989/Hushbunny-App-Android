@@ -17,7 +17,7 @@
             android:layout_height="@dimen/view_constraint"
             android:layout_gravity="center"
             android:padding="@dimen/padding_1"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

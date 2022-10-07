@@ -12,7 +12,7 @@
         android:layout_height="@dimen/view_33"
         android:layout_margin="@dimen/margin_8"
         android:layout_marginTop="@dimen/margin_10"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_add_moment_button_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

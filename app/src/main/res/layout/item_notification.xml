@@ -28,7 +28,7 @@
             android:id="@+id/user_image"
             android:layout_width="@dimen/view_55"
             android:layout_height="@dimen/view_55"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_no_kid_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

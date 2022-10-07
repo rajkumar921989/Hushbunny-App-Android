@@ -21,7 +21,7 @@
         android:layout_width="@dimen/view_55"
         android:layout_height="@dimen/view_55"
         android:layout_margin="@dimen/margin_15"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:background="@color/shimmer_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

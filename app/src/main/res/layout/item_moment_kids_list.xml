@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:padding="@dimen/padding_1"
         android:layout_marginTop="@dimen/margin_10"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_no_kid_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
