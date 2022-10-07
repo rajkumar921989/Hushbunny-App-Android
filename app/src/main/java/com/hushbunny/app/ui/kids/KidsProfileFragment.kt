@@ -482,7 +482,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
     private fun updateKidDetail() {
         binding.nameText.text = kidByIdResponseModel?.name.orEmpty()
         binding.nickNameText.text = if (kidByIdResponseModel?.nickName.orEmpty().isNotEmpty()) "(${kidByIdResponseModel?.nickName.orEmpty()})" else ""
-        binding.momentCountText.text = kidByIdResponseModel?.totalMoments ?: "00"
+        binding.momentCountText.text = kidByIdResponseModel?.totalMoments.prependZeroToStringIfSingleDigit()
         binding.countryValueText.text = AppConstants.getCountryNameByCode(kidByIdResponseModel?.birthCountryISO2.orEmpty())
         binding.emptyTextMessage.text = resourceProvider.getString(R.string.kids_add_moment_message, kidByIdResponseModel?.firstName.orEmpty())
         if (kidByIdResponseModel?.gender.equals("Yet to born")) {

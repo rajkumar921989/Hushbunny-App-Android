@@ -133,7 +133,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             resourceProvider.getString(R.string.home_page_welcome_message, AppConstants.getUserFirstName())
         binding.profileContainer.countryValueText.text = AppConstants.getCountryNameByCode(PrefsManager.get().getString(AppConstants.USER_COUNTRY, ""))
         binding.profileContainer.ageCountText.text = PrefsManager.get().getString(AppConstants.USER_DATE_OF_BIRTH, "").getAge()
-        binding.profileContainer.momentCountText.text = PrefsManager.get().getString(AppConstants.USER_MOMENT_COUNT, "00")
+        binding.profileContainer.momentCountText.text = PrefsManager.get().getString(AppConstants.USER_MOMENT_COUNT, "00").prependZeroToStringIfSingleDigit()
         loadUserImage()
     }
 

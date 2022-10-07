@@ -1,7 +1,6 @@
 package com.hushbunny.app.uitls
 
 import android.annotation.SuppressLint
-import android.text.format.DateUtils
 import com.hushbunny.app.ui.enumclass.FilterType
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -89,22 +88,22 @@ object DateFormatUtils {
                 if (days != 0) {
                     if (days >= 365) {
                         val years = days / 365
-                        "$years ${appendToStringIfGreaterThanOne(str = "year", value = years)} ago"
+                        "$years ${appendSToStringIfGreaterThanOne(str = "year", value = years)} ago"
                     } else if (days >= 30) {
                         val months = days / 30
-                        "$months ${appendToStringIfGreaterThanOne(str = "month", value = months)} ago"
+                        "$months ${appendSToStringIfGreaterThanOne(str = "month", value = months)} ago"
                     } else if (days >= 7) {
                         val weeks = days / 7
-                        "$weeks ${appendToStringIfGreaterThanOne(str = "week", value = weeks)} ago"
+                        "$weeks ${appendSToStringIfGreaterThanOne(str = "week", value = weeks)} ago"
                     } else if (days == 1) {
                         "Yesterday"
                     } else {
                         "$days days ago"
                     }
                 } else if (hours != 0) {
-                    "$hours ${appendToStringIfGreaterThanOne(str = "hour", value = hours)} ago"
+                    "$hours ${appendSToStringIfGreaterThanOne(str = "hour", value = hours)} ago"
                 } else if (min != 0) {
-                    "$min ${appendToStringIfGreaterThanOne(str = "minute", value = min)} ago"
+                    "$min ${appendSToStringIfGreaterThanOne(str = "minute", value = min)} ago"
                 } else {
                     "Just now"
                 }
@@ -114,11 +113,8 @@ object DateFormatUtils {
         }
     }
 
-    private fun appendToStringIfGreaterThanOne(str: String, value: Int) =
-        if (value > 1) "${str}s" else str
-
-    fun String.getAge(): String {
-        return if (this.isEmpty())
+    fun String?.getAge(): String {
+        return if (this.isNullOrEmpty())
             "00"
         else {
             try {
