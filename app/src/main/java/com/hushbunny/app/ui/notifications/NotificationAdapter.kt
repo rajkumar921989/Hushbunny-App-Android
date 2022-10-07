@@ -52,7 +52,7 @@ class NotificationAdapter(
                 } else {
                     binding.acceptRejectGroup.visibility = View.GONE
                     binding.commentText.visibility = View.VISIBLE
-                    binding.commentText.text = "The invitation has been ${item.status.lowercase()}"
+                    binding.commentText.text = binding.commentText.context.getString(R.string.invitation_append, item.status.lowercase())
                 }
             }
             else -> {

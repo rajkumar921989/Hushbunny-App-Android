@@ -85,33 +85,31 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Jana Krish" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/accept_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_7"
-            android:background="@drawable/drawable_button_green"
-            android:fontFamily="@font/roboto_medium"
-            android:minHeight="@dimen/margin_25"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:background="@drawable/drawable_button_green_radius_2_dp"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="@dimen/padding_8"
+            android:paddingVertical="@dimen/padding_3"
             android:text="@string/accept"
-            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_10"
             app:layout_constraintStart_toStartOf="@+id/user_name_text"
             app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/reject_button"
-            android:layout_width="@dimen/view_constraint"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginStart="@dimen/margin_12"
             android:background="@drawable/reject_button_background"
-            android:fontFamily="@font/roboto_medium"
-            android:minHeight="@dimen/margin_25"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="@dimen/padding_8"
+            android:paddingVertical="@dimen/padding_3"
             android:text="@string/reject"
-            android:textAllCaps="false"
             android:textColor="@color/button_orange_color"
             android:textSize="@dimen/text_size_10"
             app:layout_constraintBottom_toBottomOf="@+id/accept_button"
@@ -123,7 +121,7 @@
             android:layout_width="@dimen/view_constraint"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_7"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/roboto_bold"
             android:maxLines="3"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_10"

@@ -244,8 +244,7 @@
     <string name="edit_moment">Edit moment</string>
     <string name="moment_detail">Moment Detail</string>
     <string name="notification_channel_name">HushBunny</string>
-    <string name="invite_accepted_message">The invitation has been accepted</string>
-    <string name="invite_rejected_message">The invitation has been rejected</string>
+    <string name="invitation_append">The invitation has been %1$s</string>
     <string name="add_moments">Add moments</string>
     <string name="add_moment">Add moment</string>
     <string name="menu_camera">Camera</string>
