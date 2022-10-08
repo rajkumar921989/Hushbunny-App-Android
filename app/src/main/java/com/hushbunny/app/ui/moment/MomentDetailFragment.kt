@@ -65,7 +65,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
 
     @Inject
     lateinit var homeRepository: HomeRepository
-    private var momentImageLit = mutableListOf<MomentMediaModel>()
+    private var momentImageList = mutableListOf<MomentMediaModel>()
 
     private val momentDetailViewModel: MomentDetailViewModel by viewModelBuilderFragmentScope {
         MomentDetailViewModel(
@@ -96,7 +96,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMomentDetailBinding.bind(view)
         PrefsManager.get().saveBooleanValues(AppConstants.IS_REQUIRED_NAVIGATION, false)
-        momentImageLit.clear()
+        momentImageList.clear()
         getMomentDetail()
         initializeClickListener()
         setAdapter()
@@ -274,7 +274,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
     }
 
     private fun updateMomentDetail() {
-        momentImageLit.clear()
+        momentImageList.clear()
         if (momentDetailDataModel?.isImportant == true) binding.momentContainer.starImage.setImageResource(R.drawable.ic_important_marked)
         else binding.momentContainer.starImage.setImageResource(R.drawable.ic_important)
         if (momentDetailDataModel?.isBookmarked == true) binding.momentContainer.bookmarkImage.setImageResource(R.drawable.ic_setting_book_mark)
@@ -321,7 +321,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             onDeleteClick = { position: Int, item: CommentModel ->
                 binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.deleteComment(position = position, commentId = item.commentBy?._id.orEmpty())
-            }, onReportClick = { position: Int, item: CommentModel ->
+            }, onReportClick = { _: Int, item: CommentModel ->
                 findNavController().navigate(
                     HomeFragmentDirections.actionReportFragment(
                         type = ReportType.COMMENT.name,
@@ -339,10 +339,39 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         } else {
             binding.momentContainer.commentsContainer.visibility = View.VISIBLE
         }
-        if (momentDetailDataModel?.mediaContent.isNullOrEmpty())
-            binding.momentContainer.headerImageViewPager.visibility = View.GONE
-        else binding.momentContainer.headerImageViewPager.visibility = View.VISIBLE
-        momentImageLit.addAll(momentDetailDataModel?.mediaContent.orEmpty())
+
+        val mediaContent = momentDetailDataModel?.mediaContent.orEmpty()
+        binding.momentContainer.headerImageViewPager.run {
+            offscreenPageLimit = mediaContent.size
+            if (mediaContent.size > 1) {
+                clipToPadding = false
+                setPadding(0, 0, resourceProvider.getDimension(R.dimen.margin_40).toInt(), 0)
+                pageMargin = resourceProvider.getDimension(R.dimen.margin_10).toInt()
+            } else {
+                setPadding(0, 0, 0, 0)
+                pageMargin = 0
+            }
+            visibility = if (mediaContent.isEmpty()) View.GONE else View.VISIBLE
+        }
+
+        binding.momentContainer.lessDescriptionText.text = momentDetailDataModel?.description.orEmpty()
+        binding.momentContainer.moreDescriptionText.text = momentDetailDataModel?.description.orEmpty()
+        binding.momentContainer.readMoreText.run {
+            visibility = if (momentDetailDataModel?.description.orEmpty().length > 190) View.VISIBLE else View.GONE
+            setOnClickListener {
+                if (text.toString() == context.getString(R.string.read_more)) {
+                    binding.momentContainer.moreDescriptionText.visibility = View.VISIBLE
+                    binding.momentContainer.lessDescriptionText.visibility = View.GONE
+                    text = context.getString(R.string.view_less)
+                } else {
+                    binding.momentContainer.moreDescriptionText.visibility = View.GONE
+                    binding.momentContainer.lessDescriptionText.visibility = View.VISIBLE
+                    text = context.getString(R.string.read_more)
+                }
+            }
+        }
+
+        momentImageList.addAll(mediaContent)
         refreshAdapter()
     }
 
@@ -505,7 +534,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
     private fun setAdapter() {
         imageViewAdapter = ImageSliderAdapter(
             resourceProvider = resourceProvider,
-            imageList = momentImageLit,
+            imageList = momentImageList,
             context = requireContext(),
             onMediaClick = { type: String, url: String, isLocal: Boolean ->
                 if (type == MediaType.IMAGE.name || type == MediaType.OG_IMAGE.name) {
@@ -521,7 +550,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
     @SuppressLint("NotifyDataSetChanged")
     private fun refreshAdapter() {
         imageViewAdapter.notifyDataSetChanged()
-        val dots = arrayOfNulls<ImageView>(momentImageLit.size)
+        val dots = arrayOfNulls<ImageView>(momentImageList.size)
         binding.momentContainer.sliderDots.removeAllViews()
         if (dots.isNotEmpty() && dots.size > 1) {
             buildViewPagerSlidingDotPanels(binding.momentContainer.sliderDots, dots)
