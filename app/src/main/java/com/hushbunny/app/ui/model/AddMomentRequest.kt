@@ -19,3 +19,9 @@ data class AddMomentMediaRequest(
     val original: String? = null,
     val thumbnail: String? = null,
 )
+
+@Keep
+data class AddMomentImageUrl(
+    val link: String,
+    val fileName: String
+)

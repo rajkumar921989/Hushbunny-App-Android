@@ -11,4 +11,4 @@ data class MomentFileUploadResponse(val statusCode: Int, val message: String, va
 data class MomentUploadData(val url: MomentURLData)
 
 @Keep
-data class MomentURLData(val original: String?, val type: String?, val thumbnail: String?)
+data class MomentURLData(val original: String?, val type: String?, val thumbnail: String?, val text: String?)

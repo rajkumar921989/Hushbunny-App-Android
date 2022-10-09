@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
-import com.hushbunny.app.uitls.AppConstants
+import com.hushbunny.app.ui.model.FileRequest
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.createFileRequest
 import retrofit2.Response
 import java.io.File
@@ -159,24 +159,25 @@ class NetworkCallHandler(private val networkMonitor: NetworkMonitor, val network
     suspend inline fun <reified T : Any> uploadFileDataHandler(
         baseUrl: String,
         endPoint: String,
-        filePath: List<File>,
+        fileRequestList: List<FileRequest>,
         headers: Map<String, String>? = null
     ): T {
+        val gson = Gson()
         if (!isNetworkConnected()) {
-            return Gson().fromJson(getNoNetworkError(), T::class.java)
+            return gson.fromJson(getNoNetworkError(), T::class.java)
         }
 
         val retrofitResult = networkClient.getNetworkService(baseUrl).runCatching {
-            val fileUploadRequest = createFileRequest(filePath)
+            val fileUploadRequest = createFileRequest(fileRequestList, gson)
             fileUploadUsingCoroutine(endPoint, fileUploadRequest, headers)
         }
 
         val response = retrofitResult.getOrNull()
 
         return if (retrofitResult.isSuccess && response != null) {
-            Gson().fromJson(validateServerResponse(response), T::class.java)
+            gson.fromJson(validateServerResponse(response), T::class.java)
         } else {
-            Gson().fromJson(
+            gson.fromJson(
                 getServerUnhandledError(NO_SERVICE_RESPONSE_ERROR_CODE),
                 T::class.java
             )

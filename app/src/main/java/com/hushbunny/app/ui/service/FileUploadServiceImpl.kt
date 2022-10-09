@@ -2,11 +2,11 @@ package com.hushbunny.app.ui.service
 
 import com.hushbunny.app.R
 import com.hushbunny.app.providers.ResourceProvider
+import com.hushbunny.app.ui.model.FileRequest
 import com.hushbunny.app.ui.model.FileUploadResponse
 import com.hushbunny.app.ui.model.MomentFileUploadResponse
 import com.hushbunny.app.ui.network.NetworkCallHandler
 import com.hushbunny.app.uitls.APIConstants
-import com.hushbunny.app.uitls.AppConstants
 import java.io.File
 import javax.inject.Inject
 
@@ -16,15 +16,16 @@ class FileUploadServiceImpl @Inject constructor(
 ) : FileUploadService {
 
     override suspend fun uploadFile(filePath: File): FileUploadResponse {
+        val filesList = FileRequest(file = filePath)
         return networkCallHandler.uploadFileDataHandler(
             baseUrl = resourceProvider.getString(R.string.env_base_url),
             endPoint = "${resourceProvider.getString(R.string.env_upload_url)}${resourceProvider.getString(R.string.env_file_upload_url)}",
             headers = hashMapOf(Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)),
-            filePath = listOf(filePath)
+            fileRequestList = listOf(filesList)
         )
     }
 
-    override suspend fun uploadFileForMoment(filePath: List<File>): MomentFileUploadResponse {
+    override suspend fun uploadFileForMoment(fileRequestList: List<FileRequest>): MomentFileUploadResponse {
         return networkCallHandler.uploadFileDataHandler(
             baseUrl = resourceProvider.getString(R.string.env_base_url),
             endPoint = "${resourceProvider.getString(R.string.env_upload_url)}${resourceProvider.getString(R.string.env_upload_moment_file_url)}",
@@ -32,7 +33,7 @@ class FileUploadServiceImpl @Inject constructor(
                 Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
                 Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
             ),
-            filePath = filePath
+            fileRequestList = fileRequestList
         )
     }
 

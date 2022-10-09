@@ -118,31 +118,49 @@ class AddMomentViewModel(
                         AddMomentMediaRequest(
                             type = mediaFile.type,
                             original = mediaFile.original,
-                            thumbnail = mediaFile.thumbnail
+                            thumbnail = mediaFile.thumbnail,
+                            text = mediaFile.text
                         )
                     )
                 }
-                val fileList = mutableListOf<File>()
+                val fileRequestList = mutableListOf<FileRequest>()
                 updateFileList.forEach {
                     if (it.type == MediaType.VIDEO.name)
-                        fileList.add(File(it.thumbnail.orEmpty()))
-                    else fileList.add(File(it.original.orEmpty()))
+                        fileRequestList.add(
+                            FileRequest(
+                                file = File(it.thumbnail.orEmpty()),
+                                fileWebUrl = it.text
+                            )
+                        )
+                    else fileRequestList.add(
+                        FileRequest(
+                            file = File(it.original.orEmpty()),
+                            fileWebUrl = it.text
+                        )
+                    )
                 }
                 ioScope.launch {
-                    if (fileList.isNotEmpty()) {
-                        val uploadedFileResponse = fileUploadRepository?.uploadFileForMoment(fileList)
+                    if (fileRequestList.isNotEmpty()) {
+                        val uploadedFileResponse = fileUploadRepository?.uploadFileForMoment(fileRequestList)
                         if (uploadedFileResponse?.statusCode == APIConstants.API_RESPONSE_200) {
-                            fileList.forEach { fileName ->
-                                momentImageList.find { media ->
+                            val dataUrlTextList = hashSetOf<MomentMediaModel>()
+                            fileRequestList.forEach { fileName ->
+                                val moment = momentImageList.find { media ->
                                     fileName.toString() == media.original || fileName.toString() == media.thumbnail
-                                }?.isUploaded = true
+                                }
+                                moment?.let {
+                                    val indexOfElement = momentImageList.indexOf(it)
+                                    momentImageList[indexOfElement].isUploaded = true
+                                    dataUrlTextList.add(it)
+                                }
                             }
                             for (data in uploadedFileResponse.data.orEmpty()) {
                                 alreadyUpdatedFileList.add(
                                     AddMomentMediaRequest(
                                         type = data.url.type,
                                         original = data.url.original,
-                                        thumbnail = data.url.thumbnail
+                                        thumbnail = data.url.thumbnail,
+                                        text = data.url.text
                                     )
                                 )
                             }

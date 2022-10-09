@@ -6,12 +6,13 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import okhttp3.MediaType
+import com.google.gson.Gson
+import com.hushbunny.app.ui.model.AddMomentImageUrl
+import com.hushbunny.app.ui.model.FileRequest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
 
 
 object ImageViewAndFileUtils {
@@ -41,10 +42,22 @@ object ImageViewAndFileUtils {
             .into(this)
     }
 
-    fun createFileRequest(filePath: List<File>): RequestBody {
+    fun createFileRequest(fileRequestList: List<FileRequest>, gson: Gson): RequestBody {
         val multipartBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-        for (file in filePath) {
+        val ogFileUrlsList = arrayListOf<AddMomentImageUrl>()
+        for (fileRequest in fileRequestList) {
+            val file = fileRequest.file
             multipartBody.addFormDataPart("file", file.name, file.asRequestBody("application/octet-stream".toMediaTypeOrNull()))
+            fileRequest.fileWebUrl?.let {
+                val imageUrl = AddMomentImageUrl(
+                    fileName = file.name,
+                    link = it
+                )
+                ogFileUrlsList.add(imageUrl)
+            }
+        }
+        if(ogFileUrlsList.isNotEmpty()) {
+            multipartBody.addFormDataPart("ogurls", gson.toJson(ogFileUrlsList))
         }
         return multipartBody.build()
     }
@@ -54,4 +67,5 @@ object ImageViewAndFileUtils {
             hideSoftInputFromWindow(windowToken, 0)
         }
     }
+
 }
