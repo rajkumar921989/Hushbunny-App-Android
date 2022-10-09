@@ -79,6 +79,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     private var momentId: String = ""
     private var momentDetail: MomentListingModel? = null
     private var mediaImageUriList = listOf<Uri>()
+    private val allTextUrlsList = hashSetOf<String>()
 
     @Inject
     lateinit var momentRepository: MomentRepository
@@ -145,7 +146,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                                     format = Bitmap.CompressFormat.JPEG
                                 )
                             }
-                            addMomentViewModel.momentImageList.add(
+                            addMomentViewModel.momentImageList.add(0,
                                 MomentMediaModel(
                                     type = MediaType.IMAGE.name,
                                     isUploaded = false,
@@ -167,13 +168,12 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                                 format = Bitmap.CompressFormat.JPEG
                             )
                         }
-                        loadImageList(
-                            isRemove = false,
-                            MomentMediaModel(
+                        addImageToImageList(
+                            imageModel = MomentMediaModel(
                                 type = MediaType.IMAGE.name,
                                 isUploaded = false,
                                 original = if (compressedImageFile.exists()) compressedImageFile.toString() else imageFile.toString()
-                            )
+                            ),
                         )
                     }
                 }
@@ -192,7 +192,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                     for (i in 0 until count) {
                         val filePath = FileUtils.getImageFile(requireContext(), result.data?.clipData?.getItemAt(i)?.uri)
                         if (filePath.exists()) {
-                            addMomentViewModel.momentImageList.add(
+                            addMomentViewModel.momentImageList.add(0,
                                 MomentMediaModel(type = MediaType.VIDEO.name, isUploaded = false, thumbnail = filePath.toString())
                             )
                         }
@@ -203,9 +203,8 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                         videoFile = FileUtils.getImageFile(requireContext(), it)
                     }
                     if (videoFile.exists()) {
-                        loadImageList(
-                            isRemove = false,
-                            MomentMediaModel(type = MediaType.VIDEO.name, isUploaded = false, thumbnail = videoFile.toString())
+                        addImageToImageList(
+                            imageModel = MomentMediaModel(type = MediaType.VIDEO.name, isUploaded = false, thumbnail = videoFile.toString()),
                         )
                     }
                 }
@@ -255,7 +254,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     private fun updateUriMediaView() {
         if (mediaImageUriList.isNotEmpty()) {
             for (media in mediaImageUriList) {
-                addMomentViewModel.momentImageList.add(
+                addMomentViewModel.momentImageList.add(0,
                     MomentMediaModel(
                         type = if (media.toString().contains(".mp4")) MediaType.VIDEO.name else MediaType.IMAGE.name,
                         isUploaded = false,
@@ -266,7 +265,6 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             }
         }
         refreshAdapter()
-
     }
 
     private fun getMomentDetail() {
@@ -327,7 +325,10 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             if (text.isNotEmpty()) {
                 val urlToParse = getLastUrl(text)
                 if (urlToParse.isNotEmpty()) {
-                    addMomentViewModel.loadImageLink(urlToParse = urlToParse)
+                    if(!allTextUrlsList.contains(urlToParse)) {
+                        allTextUrlsList.add(urlToParse)
+                        addMomentViewModel.loadImageLink(urlToParse = urlToParse)
+                    }
                 }
             }
         }
@@ -494,22 +495,15 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                                     )
                                 }
                             }
-                            loadImageList(
-                                isRemove = false,
-                                MomentMediaModel(
+                            addImageToImageList(
+                                imageModel = MomentMediaModel(
                                     type = MediaType.IMAGE.name,
                                     isUploaded = false,
                                     text = response.imageText,
                                     original = if (compressedImageFile?.exists() == true) compressedImageFile.toString() else filePath.toString()
-                                )
+                                ),
                             )
                         }
-                    }
-                    is FileDownLoadState.Error -> {
-                        binding.progressIndicator.hideProgressbar()
-                    }
-                    is FileDownLoadState.Loading -> {
-                        binding.progressIndicator.showProgressbar()
                     }
                 }
         }
@@ -611,11 +605,15 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
         kidsAdapter.submitList(userList)
     }
 
+    private fun removeImageFromImageList(imageModel: MomentMediaModel) {
+        addMomentViewModel.momentImageList.remove(imageModel)
+        allTextUrlsList.remove(imageModel.text)
+        refreshAdapter()
+    }
 
-    private fun loadImageList(isRemove: Boolean, imageModel: MomentMediaModel) {
-        if (isRemove) addMomentViewModel.momentImageList.remove(imageModel)
-        else addMomentViewModel.momentImageList.add(imageModel)
-        refreshAdapter(isRefreshRequired = !isRemove)
+    private fun addImageToImageList(imageModel: MomentMediaModel) {
+        addMomentViewModel.momentImageList.add(imageModel)
+        refreshAdapter(isRefreshRequired = true)
     }
 
     private fun refreshAdapter(isRefreshRequired: Boolean = false) {
@@ -631,7 +629,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                     title = resourceProvider.getString(R.string.delete), positiveButtonText = resourceProvider.getString(R.string.yes),
                     negativeButtonText = resourceProvider.getString(R.string.cancel),
                     positiveButtonCallback = {
-                        loadImageList(isRemove = true, it)
+                        removeImageFromImageList(imageModel = it)
                     }
                 )
             },

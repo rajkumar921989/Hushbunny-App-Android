@@ -319,7 +319,6 @@ class AddMomentViewModel(
                 val content = OgTagParser().getContents(urlToParse)
                 content?.let { linkSource ->
                     if (linkSource.image.isNotEmpty()) {
-                        _loadImageResourceResponse.postValue(FileDownLoadState.Loading)
                         val url = URL(linkSource.image)
                         val connection: HttpURLConnection?
                         try {
@@ -332,11 +331,8 @@ class AddMomentViewModel(
                                 imageText = urlToParse
                             ))
                         } catch (e: IOException) {
-                            _loadImageResourceResponse.postValue(FileDownLoadState.Error)
                         }
                     }
-                } ?: run {
-                    _loadImageResourceResponse.postValue(FileDownLoadState.Error)
                 }
             }
         }
