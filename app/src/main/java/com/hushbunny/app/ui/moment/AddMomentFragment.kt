@@ -264,7 +264,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                 )
             }
         }
-        refreshAdapter()
+        refreshAdapter(true)
     }
 
     private fun getMomentDetail() {
@@ -608,15 +608,15 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     private fun removeImageFromImageList(imageModel: MomentMediaModel) {
         addMomentViewModel.momentImageList.remove(imageModel)
         allTextUrlsList.remove(imageModel.text)
-        refreshAdapter()
+        refreshAdapter(true)
     }
 
     private fun addImageToImageList(imageModel: MomentMediaModel) {
         addMomentViewModel.momentImageList.add(imageModel)
-        refreshAdapter(isRefreshRequired = true)
+        refreshAdapter(scrollToFirstItem = false)
     }
 
-    private fun refreshAdapter(isRefreshRequired: Boolean = false) {
+    private fun refreshAdapter(scrollToFirstItem: Boolean = false) {
         val imageViewAdapter = ImageSliderAdapter(
             isAddMoment = true,
             resourceProvider = resourceProvider,
@@ -665,8 +665,8 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             buildViewPagerSlidingDotPanels(binding.sliderDots, dots)
             setViewPagerPageChangeListener(binding.headerImageViewPager, dots)
         }
-        if (isRefreshRequired)
-            binding.headerImageViewPager.setCurrentItem(addMomentViewModel.momentImageList.size, true)
+        val scrollPosition = if (scrollToFirstItem) 0 else addMomentViewModel.momentImageList.size
+        binding.headerImageViewPager.setCurrentItem(scrollPosition, true)
     }
 
 
@@ -762,7 +762,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
         binding.saySomethingAboutThisMomentInput.setText(momentDetail?.description.orEmpty())
         isImportant = momentDetail?.isImportant ?: false
         updateImportantDetail()
-        refreshAdapter()
+        refreshAdapter(scrollToFirstItem = true)
     }
 
     private fun addImageOrVideo() {
