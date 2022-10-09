@@ -17,6 +17,7 @@ import com.hushbunny.app.uitls.BaseViewModel
 import com.hushbunny.app.uitls.DateFormatUtils.convertDateToISOFormat
 import com.hushbunny.app.uitls.DateFormatUtils.convertFilterDateIntoISODateFormat
 import com.hushbunny.app.uitls.EventWrapper
+import com.hushbunny.app.uitls.OgTagParser
 import kotlinx.coroutines.*
 import java.io.BufferedInputStream
 import java.io.File
@@ -71,8 +72,8 @@ class AddMomentViewModel(
     private val _kidDetailResponse: MutableLiveData<KidByIdResponseModel> = MutableLiveData()
     val kidDetailResponseObserver: LiveData<KidByIdResponseModel> = _kidDetailResponse
 
-    private val _downLoadImageResponse: MutableLiveData<EventWrapper<FileDownLoadState>> = MutableLiveData()
-    val downLoadImageResponseObserver: LiveData<EventWrapper<FileDownLoadState>> = _downLoadImageResponse
+    private val _loadImageResourceResponse: MutableLiveData<FileDownLoadState> = MutableLiveData()
+    val loadImageResourceResponseObserver: LiveData<FileDownLoadState> = _loadImageResourceResponse
 
     fun getKidsList(isOtherUser: Boolean = false, userId: String = "") {
         ioScope.launch {
@@ -311,18 +312,32 @@ class AddMomentViewModel(
         }
     }
 
-    fun downLoadImage(string: String) {
+    fun loadImageLink(urlToParse: String) {
         ioScope.launch {
-            val url = URL(string)
-            val connection: HttpURLConnection?
-            try {
-                connection = url.openConnection() as HttpURLConnection
-                connection.connect()
-                val inputStream: InputStream = connection.inputStream
-                val bufferedInputStream = BufferedInputStream(inputStream)
-                _downLoadImageResponse.postValue(EventWrapper(FileDownLoadState.Success(BitmapFactory.decodeStream(bufferedInputStream))))
-            } catch (e: IOException) {
-                _downLoadImageResponse.postValue(EventWrapper(FileDownLoadState.Error))
+            val isAlreadyNotAdded = momentImageList.firstOrNull { it.text.equals(urlToParse, true) } == null
+            if(isAlreadyNotAdded) {
+                val content = OgTagParser().getContents(urlToParse)
+                content?.let { linkSource ->
+                    if (linkSource.image.isNotEmpty()) {
+                        _loadImageResourceResponse.postValue(FileDownLoadState.Loading)
+                        val url = URL(linkSource.image)
+                        val connection: HttpURLConnection?
+                        try {
+                            connection = url.openConnection() as HttpURLConnection
+                            connection.connect()
+                            val inputStream: InputStream = connection.inputStream
+                            val bufferedInputStream = BufferedInputStream(inputStream)
+                            _loadImageResourceResponse.postValue(FileDownLoadState.Success(
+                                bitmap = BitmapFactory.decodeStream(bufferedInputStream),
+                                imageText = urlToParse
+                            ))
+                        } catch (e: IOException) {
+                            _loadImageResourceResponse.postValue(FileDownLoadState.Error)
+                        }
+                    }
+                } ?: run {
+                    _loadImageResourceResponse.postValue(FileDownLoadState.Error)
+                }
             }
         }
     }

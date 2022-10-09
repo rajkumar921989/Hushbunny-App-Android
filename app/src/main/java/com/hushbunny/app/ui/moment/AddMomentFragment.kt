@@ -1,6 +1,5 @@
 package com.hushbunny.app.ui.moment
 
-import android.R.attr.data
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
@@ -21,7 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
@@ -36,7 +35,6 @@ import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.enumclass.MediaType
 import com.hushbunny.app.ui.enumclass.MomentDateType
 import com.hushbunny.app.ui.enumclass.MomentType
-import com.hushbunny.app.ui.home.HomeFragmentDirections
 import com.hushbunny.app.ui.home.KidsAdapter
 import com.hushbunny.app.ui.model.KidsResponseModel
 import com.hushbunny.app.ui.model.MomentListingModel
@@ -324,25 +322,18 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                 description = binding.saySomethingAboutThisMomentInput.text.toString().trim()
             )
         }
-        binding.saySomethingAboutThisMomentInput.addTextChangedListener {
-            if (it?.isNotEmpty() == true) {
-                val linkArray = getFirstUrl(binding.saySomethingAboutThisMomentInput.text.toString().trim())
-                if (linkArray.isNotEmpty()) {
-                    val content = OgTagParser().getContents(linkArray)
-                    content?.let { linkSource ->
-                        binding.saySomethingAboutThisMomentInput.setText(linkSource.ogDescription)
-                        if (linkSource.image.isNotEmpty()) {
-                            binding.progressIndicator.showProgressbar()
-                            addMomentViewModel.downLoadImage(linkSource.image)
-                        }
-                    }
+        binding.saySomethingAboutThisMomentInput.doAfterTextChanged {
+            val text = it?.toString().orEmpty().trim()
+            if (text.isNotEmpty()) {
+                val urlToParse = getLastUrl(text)
+                if (urlToParse.isNotEmpty()) {
+                    addMomentViewModel.loadImageLink(urlToParse = urlToParse)
                 }
             }
         }
-
     }
 
-    private fun getFirstUrl(input: String): String {
+    private fun getLastUrl(input: String): String {
         val containedUrls = ArrayList<String>()
         val urlMatcher = getPatternMatcher(
             urlRegex = "(?:(?:https?|ftp):\\/\\/)?[\\w/\\-?=%.]+\\.[\\w/\\-?=%.]+",
@@ -356,7 +347,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                 )
             )
         }
-        return containedUrls.firstOrNull().orEmpty()
+        return containedUrls.lastOrNull().orEmpty()
     }
 
     private fun getPatternMatcher(urlRegex: String, input: String): Matcher {
@@ -488,8 +479,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
         setFragmentResultListener(AppConstants.MOMENT_DATE) { _, bundle ->
             binding.dateButton.text = bundle.getString(AppConstants.DATE)
         }
-        addMomentViewModel.downLoadImageResponseObserver.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { response ->
+        addMomentViewModel.loadImageResourceResponseObserver.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is FileDownLoadState.Success -> {
                         binding.progressIndicator.hideProgressbar()
@@ -509,17 +499,19 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                                 MomentMediaModel(
                                     type = MediaType.IMAGE.name,
                                     isUploaded = false,
+                                    text = response.imageText,
                                     original = if (compressedImageFile?.exists() == true) compressedImageFile.toString() else filePath.toString()
                                 )
                             )
                         }
-
                     }
                     is FileDownLoadState.Error -> {
                         binding.progressIndicator.hideProgressbar()
                     }
+                    is FileDownLoadState.Loading -> {
+                        binding.progressIndicator.showProgressbar()
+                    }
                 }
-            }
         }
         addMomentViewModel.errorValidationObserver.observe(viewLifecycleOwner) {
             when (it) {
@@ -662,7 +654,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             binding.headerImageViewPager.setPadding(0, 0, 0, 0)
             binding.headerImageViewPager.pageMargin = 0
         }
-        if (addMomentViewModel.momentImageList.isNullOrEmpty()) {
+        if (addMomentViewModel.momentImageList.isEmpty()) {
             binding.headerImageViewPager.visibility = View.GONE
             binding.dummyView.visibility = View.VISIBLE
         } else {
