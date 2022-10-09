@@ -12,6 +12,7 @@ import com.hushbunny.app.ui.enumclass.MediaType
 import com.hushbunny.app.ui.model.MomentMediaModel
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
+import com.hushbunny.app.uitls.browse
 
 class ImageSliderAdapter(
     private val isAddMoment: Boolean = false,
@@ -34,7 +35,7 @@ class ImageSliderAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageSliderItemBinding = ItemImageViewBinding.inflate(LayoutInflater.from(context))
-        imageList[position].apply {
+        imageList[position].run {
             val width = resourceProvider.getDimension(R.dimen.view_320).toInt()
             val height = resourceProvider.getDimension(R.dimen.view_270).toInt()
             if (this.type == MediaType.VIDEO.name) {
@@ -67,6 +68,12 @@ class ImageSliderAdapter(
                     else this.original.orEmpty()
                 }
                 onMediaClick?.invoke(this.type.orEmpty(), url, !this.isUploaded)
+            }
+            imageSliderItemBinding.linkImage.run {
+                visibility = if(text.isNullOrEmpty()) View.GONE else View.VISIBLE
+                setOnClickListener {
+                    this.context.browse(url = text.orEmpty())
+                }
             }
         }
         container.addView(imageSliderItemBinding.root, 0)
