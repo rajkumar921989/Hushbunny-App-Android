@@ -198,7 +198,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getKidsList()
         getMomentList(true)
         binding.pullRefresh.isRefreshing = false
-        homeSharedViewModel.onPullToRefresh()
+        homeSharedViewModel.refreshNotificationUnReadCount()
     }
 
     private fun setMomentListScrollBehaviour() {

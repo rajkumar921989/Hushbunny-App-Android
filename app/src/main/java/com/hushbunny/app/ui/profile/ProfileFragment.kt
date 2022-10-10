@@ -196,7 +196,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         getKidsList()
         getMomentList(true)
         binding.pullRefresh.isRefreshing = false
-        homeSharedViewModel.onPullToRefresh()
+        homeSharedViewModel.refreshNotificationUnReadCount()
     }
 
     private fun getKidsList() {

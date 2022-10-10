@@ -74,7 +74,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         binding.notificationList.visibility = View.GONE
         getNotificationList(true)
         binding.pullRefresh.isRefreshing = false
-        homeSharedViewModel.onPullToRefresh()
+        homeSharedViewModel.refreshNotificationUnReadCount()
     }
 
     override fun onResume() {
@@ -170,13 +170,16 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
     private fun setAdapter() {
         notificationAdapter = NotificationAdapter(onAcceptClick = {
+            homeSharedViewModel.refreshNotificationUnReadCount()
             binding.progressIndicator.showProgressbar()
             notificationsViewModel.acceptOrRejectNotification(type = APIConstants.ACCEPTED, shareId = it.shareId)
         }, onRejectClick = {
+            homeSharedViewModel.refreshNotificationUnReadCount()
             binding.progressIndicator.showProgressbar()
             notificationsViewModel.acceptOrRejectNotification(type = APIConstants.REJECTED, shareId = it.shareId)
         }, onItemClick = {
             notificationsViewModel.unReadNotification(it.notificationId)
+            homeSharedViewModel.refreshNotificationUnReadCount()
             when (it.type) {
                 NotificationType.COMMENT_ON_MOMENT.name -> {
                     findNavController().navigate(NotificationsFragmentDirections.actionCommentFragment(momentID = it.momentID))

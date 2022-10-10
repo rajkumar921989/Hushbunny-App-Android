@@ -30,7 +30,7 @@ class HomeSharedViewModel: BaseViewModel() {
         notificationTabClicked.postValue(true)
     }
 
-    fun onPullToRefresh() {
+    fun refreshNotificationUnReadCount() {
         notificationCountRefresh.postValue(true)
     }
 }
