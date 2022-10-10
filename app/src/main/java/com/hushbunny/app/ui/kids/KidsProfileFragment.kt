@@ -582,8 +582,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         if (uploadedFilePath.isNotEmpty()) {
             binding.userImage.visibility = View.VISIBLE
             binding.defaultImage.visibility = View.GONE
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_100).toInt()
-            binding.userImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${uploadedFilePath.replace(APIConstants.IMAGE_BASE_URL, "")}")
+            binding.userImage.loadImageFromURL(uploadedFilePath.replace(APIConstants.IMAGE_BASE_URL, ""))
         } else {
             binding.userImage.visibility = View.GONE
             binding.defaultImage.visibility = View.VISIBLE
@@ -592,8 +591,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
 
     private fun loadParentOneImage(imagePath: String) {
         if (imagePath.isNotEmpty()) {
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_70).toInt()
-            binding.parentImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${imagePath.replace(APIConstants.IMAGE_BASE_URL, "")}")
+            binding.parentImage.loadImageFromURL(imagePath.replace(APIConstants.IMAGE_BASE_URL, ""))
         } else {
             binding.parentImage.setImageResource(R.drawable.ic_no_kid_icon)
         }
@@ -603,8 +601,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         if (imagePath.isNotEmpty()) {
             binding.addSpouseImage.visibility = View.GONE
             binding.spouseImage.visibility = View.VISIBLE
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_70).toInt()
-            binding.spouseImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${imagePath.replace(APIConstants.IMAGE_BASE_URL, "")}")
+            binding.spouseImage.loadImageFromURL(imagePath.replace(APIConstants.IMAGE_BASE_URL, ""))
         } else {
             binding.addSpouseImage.visibility = View.VISIBLE
             binding.spouseImage.visibility = View.GONE

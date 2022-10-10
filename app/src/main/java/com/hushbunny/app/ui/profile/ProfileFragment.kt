@@ -28,7 +28,6 @@ import com.hushbunny.app.ui.moment.AddMomentViewModel
 import com.hushbunny.app.ui.moment.MomentAdapter
 import com.hushbunny.app.ui.home.HomeViewModel
 import com.hushbunny.app.ui.home.KidsAdapter
-import com.hushbunny.app.ui.kids.KidsProfileFragmentArgs
 import com.hushbunny.app.ui.model.FilterModel
 import com.hushbunny.app.ui.model.MomentListingModel
 import com.hushbunny.app.ui.repository.FileUploadRepository
@@ -560,14 +559,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         if (imageUrl.isNotEmpty()) {
             binding.profileContainer.defaultImage.visibility = View.GONE
             binding.profileContainer.userImage.visibility = View.VISIBLE
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_100).toInt()
             binding.profileContainer.userImage.loadImageFromURL(
-                "h_${widthAndHeight},w_${widthAndHeight}/${
-                    imageUrl.replace(
-                        APIConstants.IMAGE_BASE_URL,
-                        ""
-                    )
-                }"
+                imageUrl.replace(
+                    APIConstants.IMAGE_BASE_URL,
+                    ""
+                )
             )
         } else {
             binding.profileContainer.defaultImage.visibility = View.VISIBLE

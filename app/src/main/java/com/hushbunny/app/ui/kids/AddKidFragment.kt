@@ -159,16 +159,13 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
             binding.addProfilePhotoText.text = resourceProvider.getString(R.string.profile_photo)
             binding.addKidImage.visibility = View.GONE
             binding.userImage.visibility = View.VISIBLE
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_85).toInt()
             if (imageFile != null && imageFile?.exists() == true)
                 binding.userImage.loadImageFromURL(imageFile.toString(), isLocal = true)
             else binding.userImage.loadImageFromURL(
-                "h_${widthAndHeight},w_${widthAndHeight}/${
-                    uploadedFilePath.replace(
-                        APIConstants.IMAGE_BASE_URL,
-                        ""
-                    )
-                }"
+                uploadedFilePath.replace(
+                    APIConstants.IMAGE_BASE_URL,
+                    ""
+                )
             )
         } else {
             binding.addProfilePhotoText.text = resourceProvider.getString(R.string.add_profile_photo)

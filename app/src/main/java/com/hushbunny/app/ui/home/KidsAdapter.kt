@@ -52,8 +52,7 @@ class KidsAdapter(
                 binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_no_kid_icon))
             } else {
                 binding.userImage.visibility = View.VISIBLE
-                val widthAndHeight = resourceProvider.getDimension(R.dimen.view_85).toInt()
-                binding.userImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${item.image.replace(APIConstants.IMAGE_BASE_URL, "")}")
+                binding.userImage.loadImageFromURL(item.image.replace(APIConstants.IMAGE_BASE_URL, ""))
             }
         } else {
             binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_add_kid))

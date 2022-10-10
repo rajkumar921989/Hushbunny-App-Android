@@ -36,8 +36,7 @@ class KidsListAdapter(
         if (item.image.isNullOrEmpty())
             binding.addKidImage.setImageDrawable(ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.ic_no_kid_icon))
         else {
-            val widthAndHeight = resourceProvider.getDimension(R.dimen.view_70).toInt()
-            binding.addKidImage.loadImageFromURL("h_${widthAndHeight},w_${widthAndHeight}/${item.image.replace(APIConstants.IMAGE_BASE_URL, "")}")
+            binding.addKidImage.loadImageFromURL(item.image.replace(APIConstants.IMAGE_BASE_URL, ""))
         }
         binding.viewProfileButton.setOnClickListener {
             onViewProfileClick?.invoke(item)
