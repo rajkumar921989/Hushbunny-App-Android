@@ -497,7 +497,15 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         }
         loadKidImage(kidByIdResponseModel?.image.orEmpty())
         val parentOneDetail = kidByIdResponseModel?.parents?.firstOrNull()
-        binding.parentNameText.text = parentOneDetail?.name.orEmpty()
+        binding.parentImageContainer.setOnClickListener {
+            navigateToParentDetail(userId = parentOneDetail?._id.orEmpty())
+        }
+        binding.parentNameText.run {
+            text = parentOneDetail?.name.orEmpty()
+            setOnClickListener {
+                navigateToParentDetail(userId = parentOneDetail?._id.orEmpty())
+            }
+        }
         binding.parentAssociateText.text = setAssociate(parentOneDetail?.associatedAs.orEmpty())
         loadParentOneImage(parentOneDetail?.image.orEmpty())
         loadSpouseDetail()
@@ -513,6 +521,22 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         }
     }
 
+    private fun navigateToParentDetail(userId: String) {
+        val loggedInUserId = AppConstants.getUserID()
+        if(userId.equals(loggedInUserId, true)) {
+            findNavController().navigate(
+                KidsProfileFragmentDirections.actionProfileFragment(isBackArrowEnabled = true)
+            )
+        } else {
+            findNavController().navigate(
+                KidsProfileFragmentDirections.actionOtherUserProfileFragment(
+                    userID = userId,
+                    isOtherParent = true
+                )
+            )
+        }
+    }
+
     private fun loadSpouseDetail() {
         if (kidByIdResponseModel?.parents.orEmpty().size > 1) {
             val parentTwoDetail = kidByIdResponseModel?.parents?.lastOrNull()
@@ -521,20 +545,10 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
             binding.spouseAssociateText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             loadSpouseImage(parentTwoDetail?.image.orEmpty())
             binding.spouseImageContainer.setOnClickListener {
-                findNavController().navigate(
-                    KidsProfileFragmentDirections.actionOtherUserProfileFragment(
-                        userID = parentTwoDetail?._id.orEmpty(),
-                        isOtherParent = true
-                    )
-                )
+                navigateToParentDetail(userId = parentTwoDetail?._id.orEmpty())
             }
             binding.spouseNameText.setOnClickListener {
-                findNavController().navigate(
-                    KidsProfileFragmentDirections.actionOtherUserProfileFragment(
-                        userID = parentTwoDetail?._id.orEmpty(),
-                        isOtherParent = true
-                    )
-                )
+                navigateToParentDetail(userId = parentTwoDetail?._id.orEmpty())
             }
         } else if (kidByIdResponseModel?.inviteInfo?.status == "PENDING") {
             binding.spouseNameText.text = resourceProvider.getString(R.string.invite_pending)

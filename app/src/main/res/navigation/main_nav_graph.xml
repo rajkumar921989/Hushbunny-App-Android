@@ -173,6 +173,10 @@
         <action
             android:id="@+id/actionVideoPlayerFragment"
             app:destination="@+id/videoPlayerFragment" />
+        <argument
+            android:name="isBackArrowEnabled"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/addKidsFragment"
@@ -340,6 +344,9 @@
         <action
             android:id="@+id/actionOtherUserProfileFragment"
             app:destination="@+id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/actionProfileFragment"
+            app:destination="@+id/profileFragment" />
         <action
             android:id="@+id/actionUserImageDialog"
             app:destination="@+id/userImageDialog" />

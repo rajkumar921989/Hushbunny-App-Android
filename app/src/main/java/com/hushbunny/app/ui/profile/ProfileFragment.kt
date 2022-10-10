@@ -10,12 +10,12 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hushbunny.app.R
 import com.hushbunny.app.core.HomeSharedViewModel
@@ -28,6 +28,7 @@ import com.hushbunny.app.ui.moment.AddMomentViewModel
 import com.hushbunny.app.ui.moment.MomentAdapter
 import com.hushbunny.app.ui.home.HomeViewModel
 import com.hushbunny.app.ui.home.KidsAdapter
+import com.hushbunny.app.ui.kids.KidsProfileFragmentArgs
 import com.hushbunny.app.ui.model.FilterModel
 import com.hushbunny.app.ui.model.MomentListingModel
 import com.hushbunny.app.ui.repository.FileUploadRepository
@@ -41,7 +42,6 @@ import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.getAge
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
-import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadLocalImage
 import com.hushbunny.app.uitls.dialog.DialogUtils
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.default
@@ -56,6 +56,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val binding get() = _binding!!
     private lateinit var kidsAdapter: KidsAdapter
     private lateinit var momentAdapter: MomentAdapter
+    private val navigationArgs: ProfileFragmentArgs by navArgs()
     private var momentList = ArrayList<MomentListingModel>()
     private var isLoading = true
     var currentPage = 1
@@ -138,6 +139,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileContainer.countryValueText.text = AppConstants.getCountryNameByCode(PrefsManager.get().getString(AppConstants.USER_COUNTRY, ""))
         binding.profileContainer.ageCountText.text = PrefsManager.get().getString(AppConstants.USER_DATE_OF_BIRTH, "").getAge()
         binding.profileContainer.totalMomentCountText.text = PrefsManager.get().getString(AppConstants.USER_MOMENT_COUNT, "00").prependZeroToStringIfSingleDigit()
+        binding.backImage.run {
+            visibility = if(navigationArgs.isBackArrowEnabled) View.VISIBLE else View.GONE
+            setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
         loadUserImage()
     }
 
