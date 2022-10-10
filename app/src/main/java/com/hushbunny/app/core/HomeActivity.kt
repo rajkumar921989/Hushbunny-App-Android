@@ -82,6 +82,9 @@ class HomeActivity : BaseActivity() {
         homeViewModel.notificationCountObserver.observe(this) {
             updateNotificationBadge(it?.data?.unreadCount ?: 0)
         }
+        homeSharedViewModel.notificationCountRefreshObserver.observe(this) {
+            homeViewModel.getNotificationCount()
+        }
     }
 
     private fun updateNotificationBadge(count: Int) {

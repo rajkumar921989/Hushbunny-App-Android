@@ -74,6 +74,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         binding.notificationList.visibility = View.GONE
         getNotificationList(true)
         binding.pullRefresh.isRefreshing = false
+        homeSharedViewModel.onPullToRefresh()
     }
 
     override fun onResume() {

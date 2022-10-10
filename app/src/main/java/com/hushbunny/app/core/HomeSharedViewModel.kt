@@ -15,6 +15,9 @@ class HomeSharedViewModel: BaseViewModel() {
     private val profileTabClicked: MutableLiveData<Boolean> = MutableLiveData()
     val profileTabClickedTabClickedObserver: LiveData<Boolean> = profileTabClicked
 
+    private val notificationCountRefresh: MutableLiveData<Boolean> = MutableLiveData()
+    val notificationCountRefreshObserver: LiveData<Boolean> = notificationCountRefresh
+
     fun onProfileTabClicked() {
         profileTabClicked.postValue(true)
     }
@@ -25,5 +28,9 @@ class HomeSharedViewModel: BaseViewModel() {
 
     fun onNotificationTabClicked() {
         notificationTabClicked.postValue(true)
+    }
+
+    fun onPullToRefresh() {
+        notificationCountRefresh.postValue(true)
     }
 }
