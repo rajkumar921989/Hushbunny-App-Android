@@ -178,9 +178,14 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun getKidsList() {
-        binding.kidsShimmerContainer.visibility = View.VISIBLE
-        binding.kidsList.visibility = View.GONE
-        momentViewModel.getKidsList(true, userId = userID)
+        if(isOtherParent) {
+            binding.kidsShimmerContainer.visibility = View.VISIBLE
+            binding.kidsList.visibility = View.GONE
+            momentViewModel.getKidsList(true, userId = userID)
+        } else {
+            binding.kidsShimmerContainer.visibility = View.GONE
+            binding.kidsList.visibility = View.GONE
+        }
     }
 
     private fun getUserDetail() {
