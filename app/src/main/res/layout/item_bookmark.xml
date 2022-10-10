@@ -60,6 +60,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reaction_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/reaction_text"
+                app:layout_constraintBottom_toBottomOf="@id/reaction_text"
+                tools:text="Elon musk" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reaction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_18"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:drawablePadding="@dimen/margin_5"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintStart_toEndOf="@id/reaction_user_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:drawableEnd="@drawable/ic_heart_reaction"
+                tools:text=" loves this" />
+
+            <View
+                android:id="@+id/view_react"
+                android:layout_width="@dimen/view_constraint"
+                android:layout_height="@dimen/view_1"
+                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_13"
+                android:background="@color/block_people_view_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reaction_text" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/reaction_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="reaction_user_name, view_react, reaction_text"/>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/star_image"
                 android:layout_width="wrap_content"
@@ -68,7 +116,7 @@
                 android:layout_marginTop="@dimen/margin_20"
                 android:src="@drawable/ic_important"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/view_react" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/more_image"
@@ -79,7 +127,7 @@
                 android:padding="@dimen/padding_7"
                 android:src="@drawable/ic_more"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/view_react" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/date_text"

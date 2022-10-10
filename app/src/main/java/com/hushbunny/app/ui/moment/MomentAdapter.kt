@@ -18,6 +18,8 @@ import com.hushbunny.app.databinding.PopupReactionBinding
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.comment.CommentListAdapter
 import com.hushbunny.app.ui.enumclass.ReactionPageName
+import com.hushbunny.app.ui.enumclass.reactionText
+import com.hushbunny.app.ui.enumclass.getImage
 import com.hushbunny.app.ui.model.*
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
@@ -28,6 +30,7 @@ import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadCircleImageFromURL
 
 
 class MomentAdapter(
+    private val isOtherUser: Boolean = false,
     private val isKidsProfile: Boolean = false,
     private val resourceProvider: ResourceProvider,
     private val onItemClick: ((View, Int, String, MomentListingModel) -> Unit)? = null,
@@ -231,6 +234,24 @@ class MomentAdapter(
         if (dots.isNotEmpty() && dots.size > 1) {
             buildViewPagerSlidingDotPanels(binding.headerImageViewPager.context, binding.sliderDots, dots)
             setViewPagerPageChangeListener(binding.headerImageViewPager.context, binding.headerImageViewPager, dots)
+        }
+
+        if (item.otherUserReaction != null) {
+            binding.reactionGroup.visibility = if(isOtherUser) View.VISIBLE else View.GONE
+            binding.reactionUserName.text = item.otherUserReaction.reactedBy?.name.orEmpty()
+            binding.reactionText.run {
+                val emojiType = item.otherUserReaction.emojiType
+                text = emojiType.reactionText()
+                emojiType.getImage()?.let { resId ->
+                    setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0)
+                }
+            }
+        } else if (item.otherUserComment != null) {
+            binding.reactionGroup.visibility = if(isOtherUser) View.VISIBLE else View.GONE
+            binding.reactionUserName.text = item.otherUserComment.commentBy?.name.orEmpty()
+            binding.reactionText.text = binding.reactionText.context.getString(R.string.commented_on_this)
+        } else {
+            binding.reactionGroup.visibility = View.GONE
         }
     }
 

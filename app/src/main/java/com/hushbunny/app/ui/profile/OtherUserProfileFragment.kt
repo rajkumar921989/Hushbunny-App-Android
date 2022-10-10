@@ -218,7 +218,9 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         kidsAdapter = KidsAdapter(resourceProvider = resourceProvider, isOtherUser = true)
         binding.kidsList.adapter = kidsAdapter
         momentAdapter =
-            MomentAdapter(resourceProvider = resourceProvider, onItemClick = { view: View, position: Int, type: String, item: MomentListingModel ->
+            MomentAdapter(
+                isOtherUser = !isOtherParent,
+                resourceProvider = resourceProvider, onItemClick = { view: View, position: Int, type: String, item: MomentListingModel ->
                 when (type) {
                     resourceProvider.getString(R.string.bookmarks) -> {
                         if (item.isBookmarked == true) {

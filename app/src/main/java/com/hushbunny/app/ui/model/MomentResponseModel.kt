@@ -29,7 +29,9 @@ data class MomentListingModel(
     val updatedAt: String?,
     var isReacted: Boolean?,
     var reactedInfo: MomentReactionModel?,
-    val comments: List<MomentCommentModel>?
+    val comments: List<MomentCommentModel>?,
+    val otherUserReaction: OtherUserReactionModel?,
+    val otherUserComment: MomentCommentModel?
 ) : Serializable
 
 @Keep
@@ -96,4 +98,18 @@ data class MomentReactionModel(
     val status: String?,
     val createdAt: String,
     val updatedAt: String?
+) : Serializable
+
+@Keep
+data class OtherUserReactionModel(
+    val _id: String?,
+    val momentId: String?,
+    val reactedBy: OtherUserReactedByModel?,
+    val emojiType: String?,
+) : Serializable
+
+@Keep
+data class OtherUserReactedByModel(
+    val _id: String?,
+    val name: String?,
 ) : Serializable
