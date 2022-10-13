@@ -1,12 +1,12 @@
 package com.hushbunny.app.ui.filter
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -23,7 +23,7 @@ import com.hushbunny.app.ui.model.FilterModel
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.DateFormatUtils.convertIntoFilterDateFormat
 import com.hushbunny.app.uitls.dialog.DialogUtils
-import java.lang.reflect.Field
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -272,50 +272,92 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
-    private fun showCalender(type: String) {
+    private fun showDateMonthYearPicker(textView: TextView) {
         val calendar = Calendar.getInstance()
-        val dpd = DatePickerDialog(
-            requireContext(),
-            { _, year, monthOfYear, dayOfMonth ->
-                when (type) {
-                    FilterType.DATE.name -> {
-                        binding.dateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("dd MMM, yyyy"))
-                    }
-                    FilterType.MONTH.name -> {
-                        binding.dateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("MMM, yyyy"))
-                    }
-                    FilterType.YEAR.name -> {
-                        binding.dateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("yyyy"))
-                    }
-                    FilterType.FROM_DATE_RANGE.name -> {
-                        binding.fromDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("dd MMM, yyyy"))
-                    }
-                    FilterType.TO_DATE_RANGE.name -> {
-                        binding.toDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("dd MMM, yyyy"))
-                    }
-                    FilterType.FROM_MONTH_RANGE.name -> {
-                        binding.fromDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("MMM, yyyy"))
-                    }
-                    FilterType.TO_MONTH_RANGE.name -> {
-                        binding.toDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("MMM, yyyy"))
-                    }
-                    FilterType.FROM_YEAR_RANGE.name -> {
-                        binding.fromDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("yyyy"))
-                    }
-                    FilterType.TO_YEAR_RANGE.name -> {
-                        binding.toDateText.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("yyyy"))
-                    }
+        context?.let { withContext ->
+            SpinnerDatePickerDialogBuilder()
+                .context(withContext)
+                .callback { _, year, monthOfYear, dayOfMonth ->
+                    textView.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("dd MMM, yyyy"))
                 }
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        dpd.show()
+                .onCancel {  }
+                .defaultDate(calendar.get(
+                    Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH))
+                .build()
+                .show()
+        }
     }
-    fun showYearCalender(){
-    }
-    fun showMonthAndYearCalender(){
 
+    private fun showMonthYearPicker(textView: TextView) {
+        val calendar = Calendar.getInstance()
+        context?.let { withContext ->
+            SpinnerDatePickerDialogBuilder()
+                .context(withContext)
+                .callback { _, year, monthOfYear, dayOfMonth ->
+                    textView.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("MMM, yyyy"))
+                }
+                .onCancel {  }
+                .showDaySpinner(false)
+                .defaultDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH))
+                .build()
+                .show()
+        }
+    }
+
+    private fun showYearPicker(textView: TextView) {
+        val calendar = Calendar.getInstance()
+        context?.let { withContext ->
+            SpinnerDatePickerDialogBuilder()
+                .context(withContext)
+                .callback { _, year, monthOfYear, dayOfMonth ->
+                    textView.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("yyyy"))
+                }
+                .onCancel {  }
+                .showDaySpinner(false)
+                .showMonthSpinner(false)
+                .defaultDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH))
+                .build()
+                .show()
+        }
+    }
+
+    private fun showCalender(type: String) {
+        when (type) {
+            FilterType.DATE.name -> {
+                showDateMonthYearPicker(binding.dateText)
+            }
+            FilterType.MONTH.name -> {
+                showMonthYearPicker(binding.dateText)
+            }
+            FilterType.YEAR.name -> {
+                showYearPicker(binding.dateText)
+            }
+            FilterType.FROM_DATE_RANGE.name -> {
+                showDateMonthYearPicker(binding.fromDateText)
+            }
+            FilterType.TO_DATE_RANGE.name -> {
+                showDateMonthYearPicker(binding.toDateText)
+            }
+            FilterType.FROM_MONTH_RANGE.name -> {
+                showMonthYearPicker(binding.fromDateText)
+            }
+            FilterType.TO_MONTH_RANGE.name -> {
+                showMonthYearPicker(binding.toDateText)
+            }
+            FilterType.FROM_YEAR_RANGE.name -> {
+                showYearPicker(binding.fromDateText)
+            }
+            FilterType.TO_YEAR_RANGE.name -> {
+                showYearPicker(binding.toDateText)
+            }
+        }
     }
 }
