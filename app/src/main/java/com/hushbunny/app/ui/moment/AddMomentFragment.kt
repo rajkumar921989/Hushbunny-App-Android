@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -29,6 +30,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.FragmentAddMomentBinding
 import com.hushbunny.app.di.AppComponentProvider
@@ -76,7 +80,6 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     private var isImportant = false
     private var isEdit = false
     private var isSpouseAdded = false
-    private var isKidDetailUpdated = false
     private var momentId: String = ""
     private var momentDetail: MomentListingModel? = null
     private var mediaImageUriList = listOf<Uri>()
@@ -128,6 +131,33 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             )
         }
     }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            result.uriContent?.let {
+                imageFile = FileUtils.getImageFile(requireContext(), it)
+            }
+        }
+        lifecycleScope.launch {
+            if (imageFile.exists()) {
+                val compressedImageFile = Compressor.compress(requireContext(), imageFile) {
+                    default(
+                        width = resourceProvider.getDimension(R.dimen.view_320).toInt(),
+                        height = resourceProvider.getDimension(R.dimen.view_270).toInt(),
+                        format = Bitmap.CompressFormat.JPEG
+                    )
+                }
+                addImageToImageList(
+                    imageModel = MomentMediaModel(
+                        type = MediaType.IMAGE.name,
+                        isUploaded = false,
+                        original = if (compressedImageFile.exists()) compressedImageFile.toString() else imageFile.toString()
+                    ),
+                )
+            }
+        }
+    }
+
     private var imageIntentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             if (!::lastCapturedImageUri.isInitialized) {
@@ -162,20 +192,13 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                         imageFile = FileUtils.getImageFile(requireContext(), it)
                     }
                     if (imageFile.exists()) {
-                        val compressedImageFile = Compressor.compress(requireContext(), imageFile) {
-                            default(
-                                width = resourceProvider.getDimension(R.dimen.view_320).toInt(),
-                                height = resourceProvider.getDimension(R.dimen.view_270).toInt(),
-                                format = Bitmap.CompressFormat.JPEG
-                            )
-                        }
-                        addImageToImageList(
-                            imageModel = MomentMediaModel(
-                                type = MediaType.IMAGE.name,
-                                isUploaded = false,
-                                original = if (compressedImageFile.exists()) compressedImageFile.toString() else imageFile.toString()
-                            ),
-                        )
+                        cropImage.launch(options(
+                            uri = imageFile.toUri()
+                        ) {
+                            setGuidelines(CropImageView.Guidelines.ON)
+                            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                            setToolbarColor(color = ContextCompat.getColor(requireContext(), R.color.colorAccent))
+                        })
                     }
                 }
             }
@@ -432,10 +455,14 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             val pickIntent = Intent()
             pickIntent.type = FileUtils.INTENT_TYPE_IMAGE
             pickIntent.action = Intent.ACTION_GET_CONTENT
-            val intent = if (isCamera) Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
-                MediaStore.EXTRA_OUTPUT,
-                lastCapturedImageUri
-            ) else Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val intent = if (isCamera) {
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
+                    MediaStore.EXTRA_OUTPUT,
+                    lastCapturedImageUri
+                )
+            } else {
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            }
             if (!isCamera) {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }

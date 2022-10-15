@@ -74,7 +74,8 @@
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait" />
-
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
         <service
             android:name=".ui.notifications.MessageService"
             android:exported="false">
