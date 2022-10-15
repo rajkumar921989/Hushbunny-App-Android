@@ -9,7 +9,9 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.net.Uri
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.view.View
 import android.view.ViewTreeObserver
@@ -47,7 +49,6 @@ import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.convertDateIntoAppDateFormat
 import com.hushbunny.app.uitls.DateFormatUtils.convertISODateIntoAppDateFormat
-import com.hushbunny.app.uitls.FileUtils
 import com.hushbunny.app.uitls.FileUtils.Companion.saveImage
 import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.dialog.SuccessDialog
@@ -448,15 +449,15 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
         try {
             videoFile = FileUtils.getVideoFilePath(requireContext())
             lastCapturedVideoUri = FileProvider.getUriForFile(requireContext(), FileUtils.getAuthorities(requireContext()), videoFile)
-            val pickIntent = Intent()
-            pickIntent.type = FileUtils.INTENT_TYPE_VIDEO
-            pickIntent.action = Intent.ACTION_GET_CONTENT
-            val intent = if (isCamera) Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(
-                MediaStore.EXTRA_OUTPUT,
-                lastCapturedVideoUri
-            ) else Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
-            if (!isCamera) {
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            val intent = if (isCamera) {
+                Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(
+                    MediaStore.EXTRA_OUTPUT,
+                    lastCapturedVideoUri
+                )
+            } else {
+                val videoPickIntent = Intent(Intent.ACTION_PICK)
+                videoPickIntent.type = FileUtils.INTENT_TYPE_VIDEO
+                videoPickIntent
             }
             videoIntentLauncher.launch(intent)
         } catch (e: Exception) {
