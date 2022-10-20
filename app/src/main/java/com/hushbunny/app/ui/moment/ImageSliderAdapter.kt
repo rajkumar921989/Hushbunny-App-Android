@@ -40,15 +40,11 @@ class ImageSliderAdapter(
             val height = resourceProvider.getDimension(R.dimen.view_270).toInt()
             if (this.type == MediaType.VIDEO.name) {
                 imageSliderItemBinding.playImage.visibility = View.VISIBLE
-                val imageUrl = if (this.isUploaded) "h_${height},w_${width}/${
-                    this.thumbnail.orEmpty().replace(APIConstants.VIDEO_BASE_URL, "")
-                }" else this.thumbnail.orEmpty()
+                val imageUrl = if (this.isUploaded) this.thumbnail.orEmpty().replace(APIConstants.VIDEO_BASE_URL, "") else this.thumbnail.orEmpty()
                 imageSliderItemBinding.momentImage.loadImageFromURL(imageUrl = imageUrl, isVideo = true, isLocal = !this.isUploaded)
             } else {
                 imageSliderItemBinding.playImage.visibility = View.GONE
-                val imageUrl = if (this.isUploaded) "h_${height},w_${width}/${
-                    this.original.orEmpty().replace(APIConstants.IMAGE_BASE_URL, "")
-                }" else this.original.orEmpty()
+                val imageUrl = if (this.isUploaded) this.original.orEmpty().replace(APIConstants.IMAGE_BASE_URL, "") else this.original.orEmpty()
                 imageSliderItemBinding.momentImage.loadImageFromURL(imageUrl = imageUrl, isLocal = !this.isUploaded)
             }
             if (isAddMoment)
