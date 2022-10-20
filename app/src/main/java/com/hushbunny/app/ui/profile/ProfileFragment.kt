@@ -506,6 +506,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setMomentListScrollBehaviour() {
+        binding.kidsList.smoothScrollToPosition(0)
         val isFirstItem = binding.scrollView.scrollY == 0
         if (isFirstItem) {
             binding.pullRefresh.run {

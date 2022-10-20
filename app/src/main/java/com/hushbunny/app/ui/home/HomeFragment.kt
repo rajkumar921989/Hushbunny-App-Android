@@ -203,6 +203,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setMomentListScrollBehaviour() {
         if (binding.momentList.isVisible && momentList.isNotEmpty()) {
+            binding.kidsList.smoothScrollToPosition(0)
             val isFirstItem = binding.scrollView.scrollY == 0
             if (isFirstItem) {
                 binding.pullRefresh.run {
