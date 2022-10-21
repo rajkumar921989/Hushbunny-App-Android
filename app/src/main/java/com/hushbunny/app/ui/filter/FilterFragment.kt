@@ -281,6 +281,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                     textView.text = "$dayOfMonth/${monthOfYear + 1}/$year".convertIntoFilterDateFormat(SimpleDateFormat("dd MMM, yyyy"))
                 }
                 .onCancel {  }
+                .showTitle(false)
                 .defaultDate(calendar.get(
                     Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
@@ -300,6 +301,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 }
                 .onCancel {  }
                 .showDaySpinner(false)
+                .showTitle(false)
                 .defaultDate(
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
@@ -319,6 +321,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 }
                 .onCancel {  }
                 .showDaySpinner(false)
+                .showTitle(false)
                 .showMonthSpinner(false)
                 .defaultDate(
                     calendar.get(Calendar.YEAR),
