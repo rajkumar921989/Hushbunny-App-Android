@@ -76,7 +76,7 @@
     <string name="sign_up_terms_condition">By clicking Create account, you accept our terms &amp; conditions</string>
     <string name="set_up_your_family">Set up your family</string>
     <string name="add_your_kids">Add your kids</string>
-    <string name="add_your_spouse">Add your spouse</string>
+    <string name="add_your_spouse">Add other Parent</string>
     <string name="capture_all_moments_as_your_kids_grow">Capture all moments as your kids grow</string>
     <string name="give_your_kids_their_best_gift">Give your kids their best gift.\nTheir memory lane, chronologically</string>
     <string name="share_moments_with_your_family_and_friends">Share moments with your family and friends</string>
@@ -151,11 +151,11 @@
     <string name="share_the_app_message">Download Hushbunny app at</string>
     <string name="share_the_app_link">Download Hushbunny app at\nhttps://hushbunny.page.link/app</string>
     <string name="session_expired_message">Your session has expired. Please login again.</string>
-    <string name="add_spouse">+ Add Spouse</string>
-    <string name="title_add_spouse">Add Spouse</string>
+    <string name="add_spouse">+ Add other Parent</string>
+    <string name="title_add_spouse">Add other Parent</string>
     <string name="profile_update_successfully">Profile updated successfully</string>
     <string name="resend_invite_successfully">resend invite send successfully</string>
-    <string name="share_with_spouse">Share with spouse</string>
+    <string name="share_with_spouse">Share with other Parent</string>
     <string name="name_optional">Name (optional)</string>
     <string name="send_invite">Send invite</string>
     <string name="add_comment_hint">Add Comment..</string>
