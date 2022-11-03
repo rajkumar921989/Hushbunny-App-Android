@@ -293,7 +293,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
 
     private fun getMomentDetail() {
         binding.progressIndicator.showProgressbar()
-        addMomentViewModel.getMomentList(currentPage = 1, type = MomentType.ALL.name, momentID = momentId, sortBy = MomentDateType.MOMENT_DATE.name)
+        addMomentViewModel.getMomentList(currentPage = 1, type = MomentType.ALL.name, momentID = momentId, sortBy = MomentDateType.CREATED_DATE.name)
     }
 
     private fun initializeClickListener() {

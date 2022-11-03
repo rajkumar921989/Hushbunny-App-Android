@@ -210,7 +210,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
             date = filterModel?.date,
             filterType = filterModel?.type,
             userId = userID,
-            sortBy = MomentDateType.MOMENT_DATE.name
+            sortBy = MomentDateType.CREATED_DATE.name
         )
     }
 

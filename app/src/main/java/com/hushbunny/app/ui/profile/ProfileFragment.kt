@@ -220,7 +220,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             endDate = filterModel?.toDate,
             date = filterModel?.date,
             filterType = filterModel?.type,
-            sortBy = MomentDateType.MOMENT_DATE.name
+            sortBy = MomentDateType.CREATED_DATE.name
         )
     }
 

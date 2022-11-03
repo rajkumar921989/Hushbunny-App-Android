@@ -94,7 +94,7 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
             binding.bookMarkList.visibility = View.GONE
         }
         bookmarkViewModel.getMomentList(
-            currentPage = currentPage, sortBy = MomentDateType.MOMENT_DATE.name,
+            currentPage = currentPage, sortBy = MomentDateType.CREATED_DATE.name,
             type = if (navigationArgs.type == resourceProvider.getString(R.string.important_moments)) MomentType.IMPORTANT.name
             else MomentType.BOOKMARKED.name
         )
