@@ -481,7 +481,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                 popUp.menuInflater.inflate(R.menu.user_menu, popUp.menu)
             else popUp.menuInflater.inflate(R.menu.other_user_menu, popUp.menu)
             if (momentDetailDataModel?.isAddedBySpouse == true || momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID())
-                popUp.menu.findItem(R.id.actionMarkImportant).title = binding.momentContainer.moreImage.context.getString(R.string.menu_mark_important)
+                popUp.menu.findItem(R.id.actionMarkImportant).title = binding.momentContainer.moreImage.context.getString(R.string.mark_as_important_moment)
             popUp.show()
             popUp.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {

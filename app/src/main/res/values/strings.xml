@@ -172,7 +172,7 @@
     <string name="please_enter_description">Please enter description</string>
     <string name="please_select_kid">Please select kid</string>
     <string name="please_upload_atleast_one_file">Please upload at least one media file</string>
-    <string name="un_mark_from_important_moment">UnMark from important moment</string>
+    <string name="un_mark_from_important_moment">Unmark as important moment</string>
     <string name="moment_date">Moment Date</string>
     <string name="moment_count">Moment Count</string>
     <string name="moment_added_successfully">Moment added successfully</string>

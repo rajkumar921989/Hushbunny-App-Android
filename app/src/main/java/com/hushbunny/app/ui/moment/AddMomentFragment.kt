@@ -393,12 +393,13 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     }
 
     private fun updateImportantDetail() {
-        binding.markAsImportantMomentButton.buttonTitle.text = resourceProvider.getString(R.string.mark_as_important_moment)
         if (isImportant) {
+        binding.markAsImportantMomentButton.buttonTitle.text = resourceProvider.getString(R.string.un_mark_from_important_moment)
             binding.markAsImportantMomentButton.momentImage.setImageResource(R.drawable.ic_important_marked)
             binding.starImage.setImageResource(R.drawable.ic_important_marked)
             binding.importantMomentImage.setImageResource(R.drawable.ic_important_marked)
         } else {
+            binding.markAsImportantMomentButton.buttonTitle.text = resourceProvider.getString(R.string.mark_as_important_moment)
             binding.markAsImportantMomentButton.momentImage.setImageResource(R.drawable.ic_important)
             binding.starImage.setImageResource(R.drawable.ic_important)
             binding.importantMomentImage.setImageResource(R.drawable.ic_important)

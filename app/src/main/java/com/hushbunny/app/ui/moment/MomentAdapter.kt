@@ -200,8 +200,8 @@ class MomentAdapter(
             else popUp.menuInflater.inflate(R.menu.other_user_menu, popUp.menu)
             if (item.isAddedBySpouse == true || item.addedBy?._id.orEmpty() == AppConstants.getUserID())
                 popUp.menu.findItem(R.id.actionMarkImportant).title =
-                    if (item.isImportant == true) binding.moreImage.context.getString(R.string.menu_remove_important_moment) else binding.moreImage.context.getString(
-                        R.string.menu_mark_important
+                    if (item.isImportant == true) binding.moreImage.context.getString(R.string.un_mark_from_important_moment) else binding.moreImage.context.getString(
+                        R.string.mark_as_important_moment
                     )
             popUp.show()
             popUp.setOnMenuItemClickListener { menuItem ->
