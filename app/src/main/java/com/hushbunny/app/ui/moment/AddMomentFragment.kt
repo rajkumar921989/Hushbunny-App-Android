@@ -485,6 +485,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             } else {
                 val videoPickIntent = Intent(Intent.ACTION_PICK)
                 videoPickIntent.type = FileUtils.INTENT_TYPE_VIDEO
+                videoPickIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                 videoPickIntent
             }
             videoIntentLauncher.launch(intent)
