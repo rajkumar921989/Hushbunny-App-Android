@@ -230,7 +230,7 @@
     <string name="user_detail">User Detail</string>
     <string name="more">More</string>
     <string name="other_user_message">Hi %1$s!\n %2$s hasn\'t done any activity on your\nposted moments yet. Add moments for\nyour kids and share with family and friends</string>
-    <string name="other_parent_message">Hi %1$s,\n Now that you have added %2$s as other parent on %3$s's, both of you can add moments and build memory lane for %4$s</string>
+    <string name="other_parent_message">Hi %1$s,\n Now that you have added %2$s as other parent on %3$s\'s, both of you can add moments and build memory lane for %4$s</string>
     <string name="delete_comment">Are you sure you want to remove the comment?</string>
     <string name="report_reason">Please select reason</string>
     <string name="report_inappropriate">Inappropriate</string>
