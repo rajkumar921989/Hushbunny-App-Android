@@ -237,8 +237,9 @@ class MomentAdapter(
         }
 
         if (item.otherUserReaction != null) {
-            binding.reactionGroup.visibility = if(isOtherUser) View.VISIBLE else View.GONE
-            binding.reactionUserName.text = item.otherUserReaction.reactedBy?.name.orEmpty()
+            val otherUserName = item.otherUserReaction.reactedBy?.name.orEmpty()
+            binding.reactionGroup.visibility = if(isOtherUser && otherUserName.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.reactionUserName.text = otherUserName
             binding.reactionText.run {
                 val emojiType = item.otherUserReaction.emojiType
                 text = emojiType.reactionText()
@@ -247,8 +248,9 @@ class MomentAdapter(
                 }
             }
         } else if (item.otherUserComment != null) {
-            binding.reactionGroup.visibility = if(isOtherUser) View.VISIBLE else View.GONE
-            binding.reactionUserName.text = item.otherUserComment.commentBy?.name.orEmpty()
+            val otherUserName = item.otherUserComment.commentBy?.name.orEmpty()
+            binding.reactionGroup.visibility = if(isOtherUser && otherUserName.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.reactionUserName.text = otherUserName
             binding.reactionText.text = binding.reactionText.context.getString(R.string.commented_on_this)
         } else {
             binding.reactionGroup.visibility = View.GONE
