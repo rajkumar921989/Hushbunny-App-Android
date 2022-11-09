@@ -320,8 +320,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             requestVideoPermission()
         }
         binding.markAsImportantMomentButton.root.setOnClickListener {
-            isImportant = !isImportant
-            updateImportantDetail()
+            updateMarkUnMarkMomentState()
         }
         binding.addMediaImage.setOnClickListener {
             requestImagePermission()
@@ -330,8 +329,10 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
             requestVideoPermission()
         }
         binding.importantMomentImage.setOnClickListener {
-            isImportant = !isImportant
-            updateImportantDetail()
+            updateMarkUnMarkMomentState()
+        }
+        binding.starImage.setOnClickListener {
+            updateMarkUnMarkMomentState()
         }
         binding.header.postButton.setOnClickListener {
             addMomentViewModel.selectedKidList.clear()
@@ -356,6 +357,11 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
                 }
             }
         }
+    }
+
+    private fun updateMarkUnMarkMomentState() {
+        isImportant = !isImportant
+        updateImportantDetail()
     }
 
     private fun getLastUrl(input: String): String {
