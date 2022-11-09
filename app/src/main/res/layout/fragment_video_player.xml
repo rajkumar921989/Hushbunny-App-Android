@@ -4,7 +4,7 @@
     android:id="@+id/root_video_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/black">
 
     <VideoView
         android:id="@+id/product_description_video_view"
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/white" />
+        android:backgroundTint="@color/black" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/action_close_image"
