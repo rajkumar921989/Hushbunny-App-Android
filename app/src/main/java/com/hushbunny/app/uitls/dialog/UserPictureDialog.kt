@@ -14,6 +14,8 @@ import com.hushbunny.app.databinding.PopupUserImageBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
+import com.hushbunny.app.uitls.SwipeGestureListener
+import com.hushbunny.app.uitls.SwipeGestureInterface
 import javax.inject.Inject
 
 class UserPictureDialog : DialogFragment(R.layout.popup_user_image) {
@@ -47,8 +49,18 @@ class UserPictureDialog : DialogFragment(R.layout.popup_user_image) {
         super.onViewCreated(view, savedInstanceState)
         _binding = PopupUserImageBinding.bind(view)
         initClickListener()
-        binding.productHeaderImage.isZoomEnabled = true
-        binding.productHeaderImage.loadImageFromURL(navigationArgs.imagePath, isLocal = navigationArgs.isLocal)
+        val swipeGesture = SwipeGestureListener(object : SwipeGestureInterface {
+            override fun onRightToLeftSwipe(v: View?) {}
+            override fun onLeftToRightSwipe(v: View?) {}
+            override fun onTopToBottomSwipe(v: View?) {
+                this@UserPictureDialog.dismiss()
+            }
+            override fun onBottomToTopSwipe(v: View?) {}
+        })
+        binding.productHeaderImage.run {
+            loadImageFromURL(navigationArgs.imagePath, isLocal = navigationArgs.isLocal)
+            setOnTouchListener(swipeGesture)
+        }
     }
 
 

@@ -12,6 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.hushbunny.app.databinding.FragmentVideoPlayerBinding
 import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.uitls.APIConstants
+import com.hushbunny.app.uitls.SwipeGestureInterface
+import com.hushbunny.app.uitls.SwipeGestureListener
 
 class VideoPlayerFragment : Fragment() {
 
@@ -46,7 +48,18 @@ class VideoPlayerFragment : Fragment() {
         videoPlayerBinding?.actionCloseImage?.setOnClickListener { onBackPressed() }
         val controller = MediaController(context)
         controller.setMediaPlayer(videoPlayerBinding?.productDescriptionVideoView)
-        videoPlayerBinding?.productDescriptionVideoView?.setMediaController(controller)
+        val swipeGesture = SwipeGestureListener(object : SwipeGestureInterface {
+            override fun onRightToLeftSwipe(v: View?) {}
+            override fun onLeftToRightSwipe(v: View?) {}
+            override fun onTopToBottomSwipe(v: View?) {
+                onBackPressed()
+            }
+            override fun onBottomToTopSwipe(v: View?) {}
+        })
+        videoPlayerBinding?.productDescriptionVideoView?.run {
+            setMediaController(controller)
+            setOnTouchListener(swipeGesture)
+        }
     }
 
     private fun onBackPressed() {
