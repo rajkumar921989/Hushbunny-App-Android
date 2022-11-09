@@ -14,5 +14,6 @@ data class VerifyNewUserOTPRequest(
     val deviceType:String = APIConstants.ANDROID,
     val version: String = BuildConfig.VERSION_NAME,
     val model: String = Build.MODEL,
-    val timeZone: String = ZoneId.systemDefault().toString()
+    val timeZone: String = ZoneId.systemDefault().toString(),
+    val deviceID: String
 )

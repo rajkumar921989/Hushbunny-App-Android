@@ -1,8 +1,10 @@
 package com.hushbunny.app.ui.onboarding.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -56,6 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         initializeClickListener()
     }
 
+    @SuppressLint("HardwareIds")
     private fun initializeClickListener() {
         fragmentLoginBinding.loginButton.setOnClickListener {
             loginViewModel.onLoginClick(
@@ -63,7 +66,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 callingCode = fragmentLoginBinding.mobileNumberContainer.countrySelection.selectedCountryCodeWithPlus,
                 email = fragmentLoginBinding.emailContainer.emailInput.text.toString().trim(),
                 phoneNumber = fragmentLoginBinding.mobileNumberContainer.mobileNumberInput.text.toString().trim(),
-                password = fragmentLoginBinding.passwordContainer.passwordInput.text.toString().trim()
+                password = fragmentLoginBinding.passwordContainer.passwordInput.text.toString().trim(),
+                deviceID = Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
             )
         }
         fragmentLoginBinding.loginTabContainer.emilButton.setOnClickListener {

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.text.*
 import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
@@ -126,6 +127,7 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
         fragmentCreateAccountBinding.termsConditionText.text = termsConditionText
     }
 
+    @SuppressLint("HardwareIds")
     private fun initializeClickListener() {
         Handler(Looper.getMainLooper()).postDelayed({
             fragmentCreateAccountBinding.tabContainer.emilButton.performClick()
@@ -142,7 +144,8 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account), TextWa
                     otpOne = fragmentCreateAccountBinding.otpContainer.inputOne.text.toString().trim(),
                     otpTwo = fragmentCreateAccountBinding.otpContainer.inputTwo.text.toString().trim(),
                     otpThree = fragmentCreateAccountBinding.otpContainer.inputThree.text.toString().trim(),
-                    otpFour = fragmentCreateAccountBinding.otpContainer.inputFour.text.toString().trim()
+                    otpFour = fragmentCreateAccountBinding.otpContainer.inputFour.text.toString().trim(),
+                    deviceID = Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
                 )
             } else {
                 createAccountViewModel.getOTPForNewAccount(

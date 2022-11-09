@@ -62,7 +62,8 @@ class LoginViewModel(
         email: String,
         phoneNumber: String,
         password: String,
-        callingCode: String? = null
+        callingCode: String? = null,
+        deviceID: String
     ) {
         when {
             type == APIConstants.EMAIL && email.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(
@@ -99,7 +100,8 @@ class LoginViewModel(
                                 password = password,
                                 deviceToken = AppConstants.getFireBaseToken().ifEmpty { null },
                                 phoneNumber = if (type == APIConstants.PHONE_NUMBER) phoneNumber else null,
-                                callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null
+                                callingCode = if (type == APIConstants.PHONE_NUMBER) callingCode else null,
+                                deviceID = deviceID
                             )
                         )
                     )
@@ -326,7 +328,8 @@ class LoginViewModel(
         otpOne: String,
         otpTwo: String,
         otpThree: String,
-        otpFour: String
+        otpFour: String,
+        deviceID: String
     ) {
         if (otpOne.isEmpty() || otpTwo.isEmpty() || otpThree.isEmpty() || otpFour.isEmpty()) {
             _errorValidation.postValue(resourceProvider.getString(
@@ -339,7 +342,8 @@ class LoginViewModel(
                     onBoardingRepository.verifyNewAccountOTP(
                         verifyNewUserOTPRequest = VerifyNewUserOTPRequest(
                             otpId = otpID,
-                            otp = "$otpOne$otpTwo$otpThree$otpFour"
+                            otp = "$otpOne$otpTwo$otpThree$otpFour",
+                            deviceID = deviceID
                         )
                     )
                 )
