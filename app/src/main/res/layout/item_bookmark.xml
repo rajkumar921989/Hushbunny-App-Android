@@ -458,6 +458,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="1"
                         tools:listitem="@layout/item_comment_list" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -484,6 +485,7 @@
             </androidx.cardview.widget.CardView>
 
             <Space
+                android:id="@+id/bottom_space"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/view_20"
                 app:layout_constraintEnd_toEndOf="parent"

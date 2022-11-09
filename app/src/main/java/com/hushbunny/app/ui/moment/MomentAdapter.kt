@@ -141,8 +141,12 @@ class MomentAdapter(
         commentAdapter.submitList(AppConstants.createCommentList(item))
         binding.viewAllCommentText.text = binding.viewAllCommentText.context.getString(R.string.view_all_comment, item.commentCount.orEmpty())
         if (item.comments.isNullOrEmpty()) {
+            binding.actionView.visibility = View.INVISIBLE
+            binding.bottomSpace.visibility = View.GONE
             binding.commentsContainer.visibility = View.GONE
         } else {
+            binding.actionView.visibility = View.VISIBLE
+            binding.bottomSpace.visibility = View.VISIBLE
             binding.commentsContainer.visibility = View.VISIBLE
         }
 
