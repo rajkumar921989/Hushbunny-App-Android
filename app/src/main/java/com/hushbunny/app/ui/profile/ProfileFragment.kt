@@ -393,6 +393,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             it.getContentIfNotHandled()?.let { response ->
                 when (response) {
                     is MomentResponseInfo.MomentList -> {
+                        if(currentPage == 1)  momentList.clear()
                         if (isFilterAPICalled) {
                             momentList.clear()
                             isFilterAPICalled = false
