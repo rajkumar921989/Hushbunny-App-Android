@@ -14,7 +14,6 @@ import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.enumclass.*
-import com.hushbunny.app.ui.model.MomentKidsModel
 import com.hushbunny.app.ui.model.MomentListingModel
 import com.hushbunny.app.ui.moment.AddMomentViewModel
 import com.hushbunny.app.ui.moment.MomentAdapter
@@ -300,7 +299,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.orEmpty())
                     }
                 }
-            }, onKidClick = { item: MomentListingModel, kidsModel: MomentKidsModel ->
+            }, onKidClick = { _ , kidsModel ->
+                val loggedInUserId = AppConstants.getUserID()
+                val kidParents = kidsModel.parents.orEmpty()
+                val isParentFound = kidParents.contains(loggedInUserId)
+                if(isParentFound) {
+                    findNavController().navigate(HomeFragmentDirections.actionKidsProfileFragment(kidId = kidsModel._id.orEmpty()))
+                }
             }, onCommentClick = { position: Int, type: String, commentId: String ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {

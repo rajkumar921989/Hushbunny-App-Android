@@ -66,6 +66,7 @@ data class MomentKidsModel(
     val birthCountryISO2: String? = null,
     val birtCity: String? = null,
     val image: String? = null,
+    val parents: List<String>? = null,
 ) : Serializable
 
 @Keep
