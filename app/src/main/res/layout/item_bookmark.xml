@@ -88,7 +88,7 @@
                 app:layout_constraintStart_toEndOf="@id/reaction_user_name"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:drawableEnd="@drawable/ic_heart_reaction"
-                tools:text=" loves this" />
+                tools:text="loves this" />
 
             <View
                 android:id="@+id/view_react"
