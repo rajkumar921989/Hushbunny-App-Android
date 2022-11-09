@@ -26,7 +26,6 @@ import com.hushbunny.app.databinding.FragmentKidsProfileBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
-import com.hushbunny.app.ui.bookmark.BookMarkFragmentDirections
 import com.hushbunny.app.ui.enumclass.*
 import com.hushbunny.app.ui.home.HomeViewModel
 import com.hushbunny.app.ui.model.FilterModel
@@ -42,7 +41,9 @@ import com.hushbunny.app.ui.repository.MomentRepository
 import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.ui.sealedclass.BookMarkResponseInfo
 import com.hushbunny.app.ui.sealedclass.CommentDeletedResponseInfo
+import com.hushbunny.app.ui.sealedclass.MomentDeletedResponseInfo
 import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
+import com.hushbunny.app.ui.setting.SettingActionDialog
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.getAge
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
@@ -184,6 +185,13 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                         AppConstants.IMPORTANT_MOMENT -> {
                             binding.progressIndicator.showProgressbar()
                             momentViewModel.markMomentAsImportant(position = position, momentId = item._id.orEmpty())
+                        }
+                        AppConstants.DELETE_MOMENT -> {
+                            val dialog = SettingActionDialog(requireContext(), resourceProvider.getString(R.string.delete_moment)) {
+                                binding.progressIndicator.showProgressbar()
+                                momentViewModel.deleteMoment(position = position, momentId = item._id.orEmpty())
+                            }
+                            dialog.show()
                         }
                         AppConstants.MOMENT_REPORT -> {
                             findNavController().navigate(
@@ -404,6 +412,25 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                 }
                 is CommentDeletedResponseInfo.HaveError -> {
                     binding.progressIndicator.hideProgressbar()
+                    DialogUtils.showErrorDialog(
+                        requireActivity(),
+                        buttonText = resourceProvider.getString(R.string.ok),
+                        message = it.message,
+                        title = resourceProvider.getString(R.string.app_name)
+                    )
+                }
+            }
+        }
+        momentViewModel.deleteMomentObserver.observe(viewLifecycleOwner) {
+            binding.progressIndicator.hideProgressbar()
+            when (it) {
+                is MomentDeletedResponseInfo.MomentDelete -> {
+                    momentAdapter.updateDeletedMoment(it.position)
+                }
+                is MomentDeletedResponseInfo.ApiError -> {
+                    activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
+                }
+                is MomentDeletedResponseInfo.HaveError -> {
                     DialogUtils.showErrorDialog(
                         requireActivity(),
                         buttonText = resourceProvider.getString(R.string.ok),

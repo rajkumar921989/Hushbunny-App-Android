@@ -112,6 +112,7 @@
     <string name="logout">Logout</string>
     <string name="deactivate_account">Deactivate account</string>
     <string name="delete_account">Delete account</string>
+    <string name="delete_moment">Delete moment</string>
     <string name="app_version">v1.0.0</string>
     <string name="association_with_kids">Association with kids</string>
     <string name="add_email_address">Add Email address</string>
@@ -126,6 +127,7 @@
     <string name="logout_message">Are you sure you want to Logout?</string>
     <string name="deactivate_account_message">Are you sure you want to deactivate the account?</string>
     <string name="delete_account_message">Are you sure you want to delete the account?</string>
+    <string name="delete_moment_message">Are you sure you want to delete moment?</string>
     <string name="cancel">Cancel</string>
     <string name="camera_permission_rationale">Camera Permission needed to add image</string>
     <string name="write_permission_rationale">Write Permission needed to add image</string>

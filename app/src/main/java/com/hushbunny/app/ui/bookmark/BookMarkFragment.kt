@@ -16,7 +16,6 @@ import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.enumclass.*
-import com.hushbunny.app.ui.home.HomeFragmentDirections
 import com.hushbunny.app.ui.moment.AddMomentViewModel
 import com.hushbunny.app.ui.moment.MomentAdapter
 import com.hushbunny.app.ui.home.HomeViewModel
@@ -26,7 +25,9 @@ import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.repository.MomentRepository
 import com.hushbunny.app.ui.sealedclass.BookMarkResponseInfo
 import com.hushbunny.app.ui.sealedclass.CommentDeletedResponseInfo
+import com.hushbunny.app.ui.sealedclass.MomentDeletedResponseInfo
 import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
+import com.hushbunny.app.ui.setting.SettingActionDialog
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.dialog.DialogUtils
@@ -158,6 +159,13 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                         binding.progressIndicator.showProgressbar()
                         bookmarkViewModel.markMomentAsImportant(position = position, momentId = item._id.orEmpty())
                     }
+                    AppConstants.DELETE_MOMENT -> {
+                        val dialog = SettingActionDialog(requireContext(), resourceProvider.getString(R.string.delete_moment)) {
+                            binding.progressIndicator.showProgressbar()
+                            bookmarkViewModel.deleteMoment(position = position, momentId = item._id.orEmpty())
+                        }
+                        dialog.show()
+                    }
                     AppConstants.MOMENT_REPORT -> {
                         findNavController().navigate(
                             BookMarkFragmentDirections.actionReportFragment(
@@ -288,6 +296,25 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                             title = resourceProvider.getString(R.string.app_name)
                         )
                     }
+                }
+            }
+        }
+        bookmarkViewModel.deleteMomentObserver.observe(viewLifecycleOwner) {
+            binding.progressIndicator.hideProgressbar()
+            when (it) {
+                is MomentDeletedResponseInfo.MomentDelete -> {
+                    bookmarkAdapter.updateDeletedMoment(it.position)
+                }
+                is MomentDeletedResponseInfo.ApiError -> {
+                    activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
+                }
+                is MomentDeletedResponseInfo.HaveError -> {
+                    DialogUtils.showErrorDialog(
+                        requireActivity(),
+                        buttonText = resourceProvider.getString(R.string.ok),
+                        message = it.message,
+                        title = resourceProvider.getString(R.string.app_name)
+                    )
                 }
             }
         }

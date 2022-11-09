@@ -25,6 +25,7 @@
     <color name="switch_color">#BCBCBC</color>
     <color name="other_switch_color">#EBEBEB</color>
     <color name="switch_default_color">#D8D8D8</color>
+    <color name="red">#FE0500</color>
     <color name="progress_background_color">#0D000000</color>
 
 </resources>

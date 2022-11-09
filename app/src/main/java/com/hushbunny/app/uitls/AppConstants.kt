@@ -41,6 +41,7 @@ class AppConstants {
         const val IMPORTANT_MOMENT = "Important Moment"
         const val MOMENT_EDIT = "Moment Edit"
         const val MOMENT_REPORT = "Moment Report"
+        const val DELETE_MOMENT = "Delete Moment"
         const val COMMENT_REPORT = "Comment Report"
         const val COMMENT_DELETE = "Comment Delete"
         const val IN_APP_IMPORTANT_NOTIFICATION = "IN_APP_IMPORTANT_NOTIFICATION"

@@ -38,6 +38,10 @@ class SettingActionDialog(context: Context, val type: String, private val positi
                 binding?.titleText?.text = context.getString(R.string.deactivate_account)
                 binding?.descriptionText?.text = context.getString(R.string.deactivate_account_message)
             }
+            context.getString(R.string.delete_moment) -> {
+                binding?.titleText?.text = context.getString(R.string.delete_moment)
+                binding?.descriptionText?.text = context.getString(R.string.delete_moment_message)
+            }
         }
         binding?.okButton?.setOnClickListener {
             dismiss()

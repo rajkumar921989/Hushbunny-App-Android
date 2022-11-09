@@ -1,6 +1,9 @@
 package com.hushbunny.app.ui.moment
 
 import android.content.Context
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +21,8 @@ import com.hushbunny.app.databinding.PopupReactionBinding
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.comment.CommentListAdapter
 import com.hushbunny.app.ui.enumclass.ReactionPageName
-import com.hushbunny.app.ui.enumclass.reactionText
 import com.hushbunny.app.ui.enumclass.getImage
+import com.hushbunny.app.ui.enumclass.reactionText
 import com.hushbunny.app.ui.model.*
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
@@ -207,6 +210,25 @@ class MomentAdapter(
                     if (item.isImportant == true) binding.moreImage.context.getString(R.string.un_mark_from_important_moment) else binding.moreImage.context.getString(
                         R.string.mark_as_important_moment
                     )
+            val deleteMomentMenuItem =  popUp.menu.findItem(R.id.deleteMoment)
+            deleteMomentMenuItem?.let {
+                val title = it.title
+                if (!title.isNullOrEmpty()) {
+                    val coloredTitle = SpannableString(title)
+                    coloredTitle.setSpan(
+                        ForegroundColorSpan(
+                            ContextCompat.getColor(
+                                binding.moreImage.context,
+                                R.color.red
+                            )
+                        ),
+                        0,
+                        coloredTitle.length,
+                        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+                    it.title = coloredTitle
+                }
+            }
             popUp.show()
             popUp.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
@@ -228,7 +250,9 @@ class MomentAdapter(
                     R.id.actionReport -> {
                         onItemClick?.invoke(view, position, AppConstants.MOMENT_REPORT, item)
                     }
-
+                    R.id.deleteMoment -> {
+                        onItemClick?.invoke(view, position, AppConstants.DELETE_MOMENT, item)
+                    }
                 }
                 true
             }
@@ -335,6 +359,14 @@ class MomentAdapter(
         currentList[position].isReacted = model.isReacted
         currentList[position].reactedInfo = model.reactedInfo
         notifyItemChanged(position)
+    }
+
+    fun updateDeletedMoment(position: Int) {
+        val newList = arrayListOf<MomentListingModel>().apply {
+            addAll(currentList)
+            removeAt(position)
+        }
+        submitList(newList)
     }
 
     fun setTotalMomentCount(count: Int?) {

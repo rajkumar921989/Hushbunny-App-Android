@@ -209,6 +209,21 @@ class MomentRepositoryImpl @Inject constructor(private val resourceProvider: Res
         }
     }
 
+    override suspend fun deleteMoment(position: Int, momentId: String): MomentDeletedResponseInfo {
+        val response = momentService.deleteMoment(momentId)
+        return when (response.statusCode) {
+            APIConstants.API_RESPONSE_200 -> {
+                MomentDeletedResponseInfo.MomentDelete(position)
+            }
+            APIConstants.UNAUTHORIZED_CODE -> {
+                MomentDeletedResponseInfo.ApiError
+            }
+            else -> {
+                MomentDeletedResponseInfo.HaveError(response.message.orEmpty())
+            }
+        }
+    }
+
     override suspend fun deleteComment(position: Int, commentId: String): CommentDeletedResponseInfo {
         val response = momentService.deleteComment(commentId)
         return when (response.statusCode) {

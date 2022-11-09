@@ -34,10 +34,8 @@ import com.hushbunny.app.ui.repository.FileUploadRepository
 import com.hushbunny.app.ui.repository.HomeRepository
 import com.hushbunny.app.ui.repository.MomentRepository
 import com.hushbunny.app.ui.repository.UserActionRepository
-import com.hushbunny.app.ui.sealedclass.BookMarkResponseInfo
-import com.hushbunny.app.ui.sealedclass.CommentDeletedResponseInfo
-import com.hushbunny.app.ui.sealedclass.KidsStatusInfo
-import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
+import com.hushbunny.app.ui.sealedclass.*
+import com.hushbunny.app.ui.setting.SettingActionDialog
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.getAge
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
@@ -269,6 +267,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     AppConstants.MOMENT_EDIT -> {
                         findNavController().navigate(ProfileFragmentDirections.actionAddMomentFragment(isEdit = true, momentID = item._id.orEmpty()))
                     }
+                    AppConstants.DELETE_MOMENT -> {
+                        val dialog = SettingActionDialog(requireContext(), resourceProvider.getString(R.string.delete_moment)) {
+                            binding.progressIndicator.showProgressbar()
+                            momentViewModel.deleteMoment(position = position, momentId = item._id.orEmpty())
+                        }
+                        dialog.show()
+                    }
                     AppConstants.ADD_YOUR_KID -> {
                         findNavController().navigate(
                             ProfileFragmentDirections.actionAddMomentFragment(
@@ -476,6 +481,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                             title = resourceProvider.getString(R.string.app_name)
                         )
                     }
+                }
+            }
+        }
+        momentViewModel.deleteMomentObserver.observe(viewLifecycleOwner) {
+            binding.progressIndicator.hideProgressbar()
+            when (it) {
+                is MomentDeletedResponseInfo.MomentDelete -> {
+                    momentAdapter.updateDeletedMoment(it.position)
+                }
+                is MomentDeletedResponseInfo.ApiError -> {
+                    activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
+                }
+                is MomentDeletedResponseInfo.HaveError -> {
+                    DialogUtils.showErrorDialog(
+                        requireActivity(),
+                        buttonText = resourceProvider.getString(R.string.ok),
+                        message = it.message,
+                        title = resourceProvider.getString(R.string.app_name)
+                    )
                 }
             }
         }

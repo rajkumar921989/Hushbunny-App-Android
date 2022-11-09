@@ -19,6 +19,7 @@ interface MomentRepository {
     suspend fun getReportReasonList(queryParams: Map<String, Any>): ReportReasonInfo
     suspend fun markMomentAsImportant(position: Int, momentId: String): BookMarkResponseInfo
     suspend fun deleteComment(position: Int, commentId: String): CommentDeletedResponseInfo
+    suspend fun deleteMoment(position: Int, momentId: String): MomentDeletedResponseInfo
     suspend fun getMomentDetail(queryParams: Map<String, Any>): MomentDetailResponseModel
     suspend fun getKidDetailByKidId(queryParams: Map<String, Any>): KidByIdResponseModel
     suspend fun shareMoment(shareMomentRequest: ShareMomentRequest): BaseResponse

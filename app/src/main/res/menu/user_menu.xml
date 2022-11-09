@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionEditMoment"
         android:title="@string/menu_edit_moment" />
@@ -9,4 +10,7 @@
     <item
         android:id="@+id/actionCopyUrl"
         android:title="@string/menu_copy_url" />
+    <item
+        android:id="@+id/deleteMoment"
+        android:title="@string/delete_moment" />
 </menu>

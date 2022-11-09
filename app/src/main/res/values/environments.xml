@@ -45,6 +45,7 @@
     <string name="env_report_reason_url">listReportReason</string>
     <string name="env_important_moment_url">momentImportant/</string>
     <string name="env_delete_comment_url">deleteComment/</string>
+    <string name="env_delete_moment_url">deleteMoment/</string>
     <string name="env_moment_detail_url">detail</string>
     <string name="env_update_profile_picture_url">updateProfileImage</string>
     <string name="env_kid_by_id_url">kidById</string>

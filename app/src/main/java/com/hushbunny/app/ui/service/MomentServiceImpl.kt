@@ -184,6 +184,17 @@ class MomentServiceImpl @Inject constructor(
         )
     }
 
+    override suspend fun deleteMoment(momentId: String): BaseResponse {
+        return networkCallHandler.deleteDataHandler(
+            baseUrl = resourceProvider.getString(R.string.env_base_url),
+            endPoint = "${resourceProvider.getString(R.string.env_moment_url)}${resourceProvider.getString(R.string.env_delete_moment_url)}$momentId",
+            headers = hashMapOf(
+                Pair(APIConstants.AUTHORIZATION, APIConstants.getAuthorization()),
+                Pair(APIConstants.ACCEPT_LANGUAGE, APIConstants.ENGLISH)
+            ), queryParams = hashMapOf()
+        )
+    }
+
     override suspend fun deleteComment(commentId: String): BaseResponse {
         return networkCallHandler.deleteDataHandler(
             baseUrl = resourceProvider.getString(R.string.env_base_url),

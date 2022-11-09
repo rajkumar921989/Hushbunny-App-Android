@@ -69,6 +69,9 @@ class AddMomentViewModel(
     private val _deleteCommentResponse: MutableLiveData<CommentDeletedResponseInfo> = MutableLiveData()
     val deleteCommentObserver: LiveData<CommentDeletedResponseInfo> = _deleteCommentResponse
 
+    private val _deleteMomentResponse: MutableLiveData<MomentDeletedResponseInfo> = MutableLiveData()
+    val deleteMomentObserver: LiveData<MomentDeletedResponseInfo> = _deleteMomentResponse
+
     private val _kidDetailResponse: MutableLiveData<KidByIdResponseModel> = MutableLiveData()
     val kidDetailResponseObserver: LiveData<KidByIdResponseModel> = _kidDetailResponse
 
@@ -306,6 +309,12 @@ class AddMomentViewModel(
     fun markMomentAsImportant(position: Int, momentId: String) {
         ioScope.launch {
             _markAsImportantMomentResponse.postValue(EventWrapper(momentRepository.markMomentAsImportant(position = position, momentId = momentId)))
+        }
+    }
+
+    fun deleteMoment(position: Int, momentId: String) {
+        ioScope.launch {
+            _deleteMomentResponse.postValue(momentRepository.deleteMoment(position = position, momentId = momentId))
         }
     }
 
