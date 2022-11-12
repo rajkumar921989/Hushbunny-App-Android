@@ -522,7 +522,6 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileContainer.associateWithText.text = userDetail?.associatedAs.orEmpty()
         binding.profileContainer.countryValueText.text = AppConstants.getCountryNameByCode(userDetail?.countryId.orEmpty())
         binding.profileContainer.ageCountText.text = userDetail?.dob?.getAge()
-        binding.profileContainer.totalMomentCountText.text = userDetail?.totalMoments.prependZeroToStringIfSingleDigit()
         if (userDetail?.image?.isNotEmpty() == true) {
             binding.profileContainer.userImage.visibility = View.VISIBLE
             binding.profileContainer.defaultImage.visibility = View.GONE
