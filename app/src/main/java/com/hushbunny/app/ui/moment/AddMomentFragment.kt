@@ -278,17 +278,23 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
     private fun updateUriMediaView() {
         if (mediaImageUriList.isNotEmpty()) {
             for (media in mediaImageUriList) {
+                val isVideoFile = isVideoFile(media)
                 addMomentViewModel.momentImageList.add(0,
                     MomentMediaModel(
-                        type = if (media.toString().contains(".mp4")) MediaType.VIDEO.name else MediaType.IMAGE.name,
+                        type = if (isVideoFile) MediaType.VIDEO.name else MediaType.IMAGE.name,
                         isUploaded = false,
-                        original = if (media.toString().contains(".mp4")) null else FileUtils.getImageFile(requireContext(), media).toString(),
-                        thumbnail = if (media.toString().contains(".mp4")) FileUtils.getImageFile(requireContext(), media).toString() else null
+                        original = if (isVideoFile) null else FileUtils.getImageFile(requireContext(), media).toString(),
+                        thumbnail = if (isVideoFile) FileUtils.getImageFile(requireContext(), media).toString() else null
                     )
                 )
             }
         }
         refreshAdapter(true)
+    }
+
+    private fun isVideoFile(uri: Uri): Boolean {
+        val type = context?.contentResolver?.getType(uri)
+        return type?.contains("video", ignoreCase = true) ?: false
     }
 
     private fun getMomentDetail() {
