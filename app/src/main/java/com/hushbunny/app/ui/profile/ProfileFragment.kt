@@ -316,8 +316,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         momentViewModel.deleteComment(position = position, commentId = commentId)
                     }
                 }
-
-            })
+            }, onMediaClick = { type: String, url: String ->
+                    if (type == MediaType.IMAGE.name || type == MediaType.OG_IMAGE.name) {
+                        findNavController().navigate(ProfileFragmentDirections.actionUserImageDialog(url))
+                    } else if (type == MediaType.VIDEO.name) {
+                        findNavController().navigate(ProfileFragmentDirections.actionVideoPlayerFragment(isLocal = false, url = url))
+                    }
+                }
+            )
         binding.momentList.adapter = momentAdapter
     }
 
