@@ -298,6 +298,14 @@
         <argument
             android:name="momentID"
             app:argType="string" />
+        <argument
+            android:name="parentOneId"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="parentTwoId"
+            android:defaultValue=""
+            app:argType="string" />
         <action
             android:id="@+id/actionReportFragment"
             app:destination="@+id/reportReasonFragment" />

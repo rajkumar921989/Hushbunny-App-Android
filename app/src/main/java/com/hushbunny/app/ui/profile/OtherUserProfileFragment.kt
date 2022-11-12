@@ -245,7 +245,9 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                         }
                     }
                     resourceProvider.getString(R.string.comments) -> {
-                        findNavController().navigate(OtherUserProfileFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty()))
+                        val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
+                        val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
+                        findNavController().navigate(OtherUserProfileFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
                     }
                     resourceProvider.getString(R.string.share) -> {
                         AppConstants.shareTheAPP(

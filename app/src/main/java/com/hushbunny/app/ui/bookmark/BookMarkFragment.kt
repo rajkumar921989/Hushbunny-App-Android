@@ -121,7 +121,9 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                         }
                     }
                     resourceProvider.getString(R.string.comments) -> {
-                        findNavController().navigate(BookMarkFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty()))
+                        val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
+                        val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
+                        findNavController().navigate(BookMarkFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
                     }
                     resourceProvider.getString(R.string.share) -> {
                         bookmarkViewModel.shareMoment(item._id.orEmpty())

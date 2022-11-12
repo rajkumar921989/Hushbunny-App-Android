@@ -168,7 +168,9 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                             }
                         }
                         resourceProvider.getString(R.string.comments) -> {
-                            findNavController().navigate(KidsProfileFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty()))
+                            val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
+                            val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
+                            findNavController().navigate(KidsProfileFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
                         }
                         resourceProvider.getString(R.string.share) -> {
                             momentViewModel.shareMoment(item._id.orEmpty())

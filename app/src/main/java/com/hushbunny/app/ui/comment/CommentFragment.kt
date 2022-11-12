@@ -37,6 +37,8 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
     private var isLoading = true
     var currentPage = 1
     var momentId = ""
+    var parentOneId = ""
+    var parentTwoId = ""
 
     @Inject
     lateinit var momentRepository: MomentRepository
@@ -62,6 +64,8 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         momentId = navigationArgs.momentID
+        parentOneId = navigationArgs.parentOneId
+        parentTwoId = navigationArgs.parentTwoId
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -181,7 +185,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
         commentListAdapter = CommentListAdapter(onDeleteClick = { position: Int, item: CommentModel ->
             binding.progressIndicator.showProgressbar()
             commentViewModel.deleteComment(position, commentId = item._id.orEmpty())
-        }, onReportClick = { position: Int, item: CommentModel ->
+        }, onReportClick = { _: Int, item: CommentModel ->
             findNavController().navigate(
                 CommentFragmentDirections.actionReportFragment(
                     type = ReportType.COMMENT.name,
@@ -189,10 +193,12 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
                 )
             )
         }, onUserClick = {
-            if (it.commentBy?._id.orEmpty() == AppConstants.getUserID()) {
+            val commentId = it.commentBy?._id.orEmpty()
+            if (commentId == AppConstants.getUserID()) {
                 findNavController().navigate(CommentFragmentDirections.actionProfileFragment())
             } else {
-                findNavController().navigate(CommentFragmentDirections.actionOtherUserProfileFragment(it.commentBy?._id.orEmpty()))
+                val isOtherParent = parentOneId.equals(commentId, true) || parentTwoId.equals(commentId, true)
+                findNavController().navigate(CommentFragmentDirections.actionOtherUserProfileFragment(userID = it.commentBy?._id.orEmpty(), isOtherParent = isOtherParent))
             }
         })
         binding.commentList.adapter = commentListAdapter

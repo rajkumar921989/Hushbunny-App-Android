@@ -425,16 +425,22 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             }
         }
         binding.momentContainer.commentImage.setOnClickListener {
-            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty()))
+            val parentOne = momentDetailDataModel?.parents?.firstOrNull()?._id.orEmpty()
+            val parentTwo = momentDetailDataModel?.parents?.lastOrNull()?._id.orEmpty()
+            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
         }
         binding.momentContainer.commentCountText.setOnClickListener {
-            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty()))
+            val parentOne = momentDetailDataModel?.parents?.firstOrNull()?._id.orEmpty()
+            val parentTwo = momentDetailDataModel?.parents?.lastOrNull()?._id.orEmpty()
+            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
         }
         binding.momentContainer.favoriteCountText.setOnClickListener {
             findNavController().navigate(MomentDetailFragmentDirections.actionReactionListFragment(momentID = momentDetailDataModel?._id.orEmpty()))
         }
         binding.momentContainer.viewAllCommentText.setOnClickListener {
-            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty()))
+            val parentOne = momentDetailDataModel?.parents?.firstOrNull()?._id.orEmpty()
+            val parentTwo = momentDetailDataModel?.parents?.lastOrNull()?._id.orEmpty()
+            findNavController().navigate(MomentDetailFragmentDirections.actionCommentFragment(momentID = momentDetailDataModel?._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
         }
         binding.momentContainer.shareImage.setOnClickListener { view ->
             momentDetailViewModel.shareMoment(momentDetailDataModel?._id.orEmpty())
