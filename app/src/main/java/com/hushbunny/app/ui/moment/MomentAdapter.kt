@@ -386,11 +386,11 @@ class MomentAdapter(
 
     class ItemDiffCallback : DiffUtil.ItemCallback<MomentListingModel>() {
         override fun areItemsTheSame(oldItem: MomentListingModel, newItem: MomentListingModel): Boolean {
-            return oldItem == newItem
+            return false
         }
 
         override fun areContentsTheSame(oldItem: MomentListingModel, newItem: MomentListingModel): Boolean {
-            return oldItem == newItem
+            return false
         }
     }
 }

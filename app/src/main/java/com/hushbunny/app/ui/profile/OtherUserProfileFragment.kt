@@ -175,6 +175,10 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                 true
             }
         }
+        binding.filterReset.setOnClickListener {
+            filterModel = FilterModel(type = FilterType.NO_SELECTION.name)
+            loadFilterData()
+        }
     }
 
     private fun getKidsList() {
@@ -200,6 +204,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
             binding.momentGroup.visibility = View.GONE
         }
         isLoading = true
+        showFilterReset(isVisible = false)
         isFilterApplied = if (filterModel?.type == FilterType.NO_SELECTION.name) false else filterModel?.type.orEmpty().isNotEmpty()
         if (isFilterApplied) setFilterData()
         momentViewModel.getMomentList(
@@ -299,15 +304,19 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
 
+    private fun loadFilterData() {
+        isFilterAPICalled = true
+        currentPage = 1
+        momentList.clear()
+        setFilterData()
+        momentViewModel.cancelCurrentJob()
+        getMomentList(true)
+    }
+
     private fun setObserver() {
         setFragmentResultListener(APIConstants.IS_FILTER_APPLIED) { _, bundle ->
             filterModel = bundle.getSerializable(APIConstants.FILTER_MODEL) as FilterModel?
-            isFilterAPICalled = true
-            currentPage = 1
-            momentList.clear()
-            setFilterData()
-            momentViewModel.cancelCurrentJob()
-            getMomentList(true)
+            loadFilterData()
         }
         homeViewModel.blockedUserObserver.observe(viewLifecycleOwner) {
             binding.progressIndicator.hideProgressbar()
@@ -377,7 +386,6 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                             isFilterAPICalled = false
                         } else {
                             PrefsManager.get().saveStringValue(AppConstants.USER_MOMENT_COUNT, response.count)
-                            binding.profileContainer.totalMomentCountText.text = response.count.prependZeroToStringIfSingleDigit()
                         }
                         isLoading = response.momentList.size < 30
                         momentList.addAll(response.momentList)
@@ -460,21 +468,29 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    private fun showFilterReset(isVisible: Boolean) {
+        binding.filterReset.visibility = if(isVisible) View.VISIBLE else View.GONE
+    }
+
     private fun setFilterData() {
         when (filterModel?.type) {
             FilterType.DATE.name, FilterType.MONTH.name, FilterType.YEAR.name -> {
                 binding.filterButton.text = filterModel?.date
+                showFilterReset(isVisible = true)
             }
             FilterType.DATE_RANGE.name, FilterType.MONTH_RANGE.name, FilterType.YEAR_RANGE.name -> {
                 binding.filterButton.text = "${filterModel?.fromDate} - ${filterModel?.toDate}"
+                showFilterReset(isVisible = true)
             }
             else -> {
                 binding.filterButton.text = resourceProvider.getString(R.string.filter)
+                showFilterReset(isVisible = false)
             }
         }
     }
 
     private fun setTotalMomentCount(count: Int?) {
+        binding.profileContainer.totalMomentCountText.text = count.toString().prependZeroToStringIfSingleDigit()
         momentAdapter.setTotalMomentCount(count)
     }
 

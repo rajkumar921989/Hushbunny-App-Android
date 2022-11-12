@@ -252,25 +252,36 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         when (filterModel?.type) {
             FilterType.DATE.name, FilterType.MONTH.name, FilterType.YEAR.name -> {
                 binding.filterButton.text = filterModel?.date
+                showFilterReset(isVisible = true)
             }
             FilterType.DATE_RANGE.name, FilterType.MONTH_RANGE.name, FilterType.YEAR_RANGE.name -> {
                 binding.filterButton.text = "${filterModel?.fromDate} - ${filterModel?.toDate}"
+                showFilterReset(isVisible = true)
             }
             else -> {
                 binding.filterButton.text = resourceProvider.getString(R.string.filter)
+                showFilterReset(isVisible = false)
             }
         }
+    }
+
+    private fun showFilterReset(isVisible: Boolean) {
+        binding.filterReset.visibility = if(isVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun loadFilterData() {
+        isFilterAPICalled = true
+        currentPage = 1
+        momentList.clear()
+        setFilterData()
+        momentViewModel.cancelCurrentJob()
+        getMomentList(true)
     }
 
     private fun setObserver() {
         setFragmentResultListener(APIConstants.IS_FILTER_APPLIED) { _, bundle ->
             filterModel = bundle.getSerializable(APIConstants.FILTER_MODEL) as FilterModel?
-            isFilterAPICalled = true
-            currentPage = 1
-            momentList.clear()
-            setFilterData()
-            momentViewModel.cancelCurrentJob()
-            getMomentList(true)
+            loadFilterData()
         }
         setFragmentResultListener(APIConstants.IS_SPOUSE_INVITED) { _, bundle ->
             if (bundle.getBoolean(APIConstants.SUCCESS)) {
@@ -648,6 +659,10 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()
         }
+        binding.filterReset.setOnClickListener {
+            filterModel = FilterModel(type = FilterType.NO_SELECTION.name)
+            loadFilterData()
+        }
         binding.pullRefresh.setOnRefreshListener {
             onPullToRefreshCalled()
         }
@@ -687,6 +702,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
             binding.momentGroup.visibility = View.GONE
         }
         isLoading = true
+        showFilterReset(isVisible = false)
         isFilterApplied = if (filterModel?.type == FilterType.NO_SELECTION.name) false else filterModel?.type.orEmpty().isNotEmpty()
         if (isFilterApplied) setFilterData()
         momentViewModel.getMomentList(
