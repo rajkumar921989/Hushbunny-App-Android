@@ -67,6 +67,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCommentBinding.bind(view)
+        currentPage = 1
         initClickListener()
         setAdapter()
         setObserver()
@@ -96,31 +97,33 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
         commentViewModel.commentListObserver.observe(viewLifecycleOwner) {
             binding.commentInput.setText("")
             binding.progressIndicator.hideProgressbar()
-            when (it) {
-                is CommentResponseInfo.ApiError -> {
-                    activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
-                }
-                is CommentResponseInfo.NoComment -> {
-                    isLoading = true
-                    loadCommentList()
-                }
-                is CommentResponseInfo.HaveError -> {
-                    isLoading = true
-                    DialogUtils.showErrorDialog(
-                        requireActivity(),
-                        buttonText = resourceProvider.getString(R.string.ok),
-                        message = it.message,
-                        title = resourceProvider.getString(R.string.app_name)
-                    )
-                }
-                is CommentResponseInfo.HaveCommentList -> {
-                    if (it.type == "Post Comment") {
-                        commentList.clear()
-                        currentPage = 1
+            it.getContentIfNotHandled()?.let { response ->
+                when (response) {
+                    is CommentResponseInfo.ApiError -> {
+                        activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }
                     }
-                    isLoading = it.CommentList.size < 30
-                    commentList.addAll(it.CommentList)
-                    loadCommentList()
+                    is CommentResponseInfo.NoComment -> {
+                        isLoading = true
+                        loadCommentList()
+                    }
+                    is CommentResponseInfo.HaveError -> {
+                        isLoading = true
+                        DialogUtils.showErrorDialog(
+                            requireActivity(),
+                            buttonText = resourceProvider.getString(R.string.ok),
+                            message = response.message,
+                            title = resourceProvider.getString(R.string.app_name)
+                        )
+                    }
+                    is CommentResponseInfo.HaveCommentList -> {
+                        if (response.type == "Post Comment" || currentPage == 1) {
+                            commentList.clear()
+                            currentPage = 1
+                        }
+                        isLoading = response.CommentList.size < 30
+                        commentList.addAll(response.CommentList)
+                        loadCommentList()
+                    }
                 }
             }
         }

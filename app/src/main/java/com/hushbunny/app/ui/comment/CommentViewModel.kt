@@ -15,6 +15,7 @@ import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.BaseViewModel
 import com.hushbunny.app.uitls.DateFormatUtils.convertDateToISOFormat
+import com.hushbunny.app.uitls.EventWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,8 +29,8 @@ class CommentViewModel(
 
     private var ioScope = CoroutineScope(ioDispatcher + cancellableJob)
 
-    private val _commentListResponse: MutableLiveData<CommentResponseInfo> = MutableLiveData()
-    val commentListObserver: LiveData<CommentResponseInfo> = _commentListResponse
+    private val _commentListResponse: MutableLiveData<EventWrapper<CommentResponseInfo>> = MutableLiveData()
+    val commentListObserver: LiveData<EventWrapper<CommentResponseInfo>> = _commentListResponse
 
     private val _deleteCommentResponse: MutableLiveData<CommentDeletedResponseInfo> = MutableLiveData()
     val deleteCommentObserver: LiveData<CommentDeletedResponseInfo> = _deleteCommentResponse
@@ -46,7 +47,7 @@ class CommentViewModel(
         queryParams[APIConstants.QUERY_PARAMS_PER_PAGE] = APIConstants.QUERY_PARAMS_PER_PAGE_VALUE
         queryParams[APIConstants.QUERY_PARAMS_MOMENT_ID] = momentId
         ioScope.launch {
-            _commentListResponse.postValue(momentRepository.getCommentList(queryParams = queryParams))
+            _commentListResponse.postValue(EventWrapper(momentRepository.getCommentList(queryParams = queryParams)))
         }
     }
 
@@ -57,12 +58,13 @@ class CommentViewModel(
             _errorValidation.postValue(APIConstants.SUCCESS)
             ioScope.launch {
                 _commentListResponse.postValue(
+                    EventWrapper(
                     momentRepository.postComment(
                         addNewCommentRequest = AddNewCommentRequest(
                             comment = comment,
                             momentId = momentId
                         )
-                    )
+                    ))
                 )
             }
         }
