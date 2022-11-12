@@ -130,6 +130,14 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         getMomentList(true)
     }
 
+    private fun onPullToRefreshCalled() {
+        currentPage = 1
+        momentList.clear()
+        getKidDetail()
+        getMomentList(true)
+        binding.pullRefresh.isRefreshing = false
+    }
+
     private fun getKidDetail() {
         binding.profileContainer.visibility = View.GONE
         binding.profileShimmerContainer.visibility = View.VISIBLE
@@ -639,6 +647,9 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
     private fun initializeClickListener() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()
+        }
+        binding.pullRefresh.setOnRefreshListener {
+            onPullToRefreshCalled()
         }
         binding.backImage.setOnClickListener {
             findNavController().popBackStack()
