@@ -215,7 +215,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                         }
                     }
                 },
-                onCommentClick = { position: Int, type: String, commentId: String ->
+                onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
                     when (type) {
                         AppConstants.COMMENT_REPORT -> {
                             findNavController().navigate(

@@ -38,7 +38,7 @@ class MomentAdapter(
     private val isKidsProfile: Boolean = false,
     private val resourceProvider: ResourceProvider,
     private val onItemClick: ((View, Int, String, MomentListingModel) -> Unit)? = null,
-    private val onCommentClick: ((Int, String, String) -> Unit)? = null,
+    private val onCommentClick: ((Int, String, String, MomentListingModel) -> Unit)? = null,
     private val onMediaClick: ((String, String) -> Unit)? = null,
     private val onKidClick: ((MomentListingModel, MomentKidsModel) -> Unit)? = null
 ) : BaseListAdapter<MomentListingModel, ItemBookmarkBinding>(ItemDiffCallback()) {
@@ -134,12 +134,12 @@ class MomentAdapter(
         else binding.headerImageViewPager.visibility = View.VISIBLE
 
         val commentAdapter = CommentListAdapter(
-            onDeleteClick = { position: Int, item: CommentModel ->
-                onCommentClick?.invoke(position, AppConstants.COMMENT_DELETE, item._id.orEmpty())
-            }, onReportClick = { position: Int, item: CommentModel ->
-                onCommentClick?.invoke(position, AppConstants.COMMENT_REPORT, item._id.orEmpty())
+            onDeleteClick = { pos: Int, commentModel: CommentModel ->
+                onCommentClick?.invoke(pos, AppConstants.COMMENT_DELETE, commentModel._id.orEmpty(), item)
+            }, onReportClick = { pos: Int, commentModel: CommentModel ->
+                onCommentClick?.invoke(pos, AppConstants.COMMENT_REPORT, commentModel._id.orEmpty(), item)
             }, onUserClick = {
-                onCommentClick?.invoke(position, AppConstants.USER_PROFILE, it.commentBy?._id.orEmpty())
+                onCommentClick?.invoke(position, AppConstants.USER_PROFILE, it.commentBy?._id.orEmpty(), item)
             }
         )
         binding.commentList.adapter = commentAdapter

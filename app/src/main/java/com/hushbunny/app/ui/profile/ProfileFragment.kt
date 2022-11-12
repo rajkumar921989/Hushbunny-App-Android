@@ -306,7 +306,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                     }
                 }
-            }, onCommentClick = { position: Int, type: String, commentId: String ->
+            }, onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {
                         findNavController().navigate(

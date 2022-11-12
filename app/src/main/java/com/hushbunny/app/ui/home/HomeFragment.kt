@@ -311,7 +311,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 if(isParentFound) {
                     findNavController().navigate(HomeFragmentDirections.actionKidsProfileFragment(kidId = kidsModel._id.orEmpty()))
                 }
-            }, onCommentClick = { position: Int, type: String, commentId: String ->
+            }, onCommentClick = { position: Int, type: String, commentId: String, item: MomentListingModel ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {
                         findNavController().navigate(
@@ -329,7 +329,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         if (commentId == AppConstants.getUserID()) {
                             findNavController().navigate(HomeFragmentDirections.actionProfileFragment())
                         } else {
-                            findNavController().navigate(HomeFragmentDirections.actionOtherUserProfileFragment(commentId))
+                            val isOtherParent = item.parents?.any { it._id == commentId } ?: false
+                            findNavController().navigate(HomeFragmentDirections.actionOtherUserProfileFragment(userID = commentId, isOtherParent = isOtherParent))
                         }
                     }
                 }

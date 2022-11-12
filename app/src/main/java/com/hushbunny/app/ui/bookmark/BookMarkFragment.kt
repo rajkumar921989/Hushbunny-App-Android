@@ -182,7 +182,7 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                         bookmarkViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                     }
                 }
-            }, onCommentClick = { position: Int, type: String, commentId: String ->
+            }, onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {
                         findNavController().navigate(
