@@ -123,7 +123,7 @@
                 android:id="@+id/deactivate_account_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_20"
                 android:background="@null"
                 android:fontFamily="@font/roboto"
                 android:gravity="center|start"
