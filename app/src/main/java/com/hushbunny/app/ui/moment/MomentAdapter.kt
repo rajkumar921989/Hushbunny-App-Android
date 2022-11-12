@@ -30,6 +30,7 @@ import com.hushbunny.app.uitls.BaseListAdapter
 import com.hushbunny.app.uitls.DateFormatUtils.convertISODateIntoAppDateFormat
 import com.hushbunny.app.uitls.DateFormatUtils.getTimeAgo
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadCircleImageFromURL
+import com.hushbunny.app.uitls.toIntOrZero
 
 
 class MomentAdapter(
@@ -64,7 +65,8 @@ class MomentAdapter(
         binding.userNameText.text = item.addedBy?.name.orEmpty()
         binding.momentCountText.text = (totalMomentCount.minus(position)).toString()
         binding.favoriteCountText.text = item.reactionCount.orEmpty()
-        binding.commentCountText.text = item.commentCount.orEmpty()
+        val commentCount = item.commentCount
+        binding.commentCountText.text = commentCount.orEmpty()
         binding.lessDescriptionText.text = item.description.orEmpty()
         binding.moreDescriptionText.text = item.description.orEmpty()
         binding.dateGroup.visibility = if (isKidsProfile) getDateVisibility(position) else View.GONE
@@ -142,7 +144,10 @@ class MomentAdapter(
         )
         binding.commentList.adapter = commentAdapter
         commentAdapter.submitList(AppConstants.createCommentList(item))
-        binding.viewAllCommentText.text = binding.viewAllCommentText.context.getString(R.string.view_all_comment, item.commentCount.orEmpty())
+        binding.viewAllCommentText.run {
+            visibility = if(commentCount.toIntOrZero() > 2) View.VISIBLE else View.GONE
+            text = binding.viewAllCommentText.context.getString(R.string.view_all_comment, commentCount.orEmpty())
+        }
         if (item.comments.isNullOrEmpty()) {
             binding.actionView.visibility = View.INVISIBLE
             binding.bottomSpace.visibility = View.GONE

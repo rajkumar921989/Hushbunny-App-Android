@@ -474,12 +474,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/comment_list" />
 
-                    <androidx.constraintlayout.widget.Group
-                        android:id="@+id/comment_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:constraint_referenced_ids="comment_list, view_all_comment_text" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
