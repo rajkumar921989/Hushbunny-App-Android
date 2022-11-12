@@ -220,7 +220,9 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setAdapter() {
-        kidsAdapter = KidsAdapter(resourceProvider = resourceProvider, isOtherUser = true)
+        kidsAdapter = KidsAdapter(resourceProvider = resourceProvider, isOtherUser = true) {
+            findNavController().navigate(OtherUserProfileFragmentDirections.actionKidsProfileFragment(kidId = it._id.orEmpty()))
+        }
         binding.kidsList.adapter = kidsAdapter
         momentAdapter =
             MomentAdapter(

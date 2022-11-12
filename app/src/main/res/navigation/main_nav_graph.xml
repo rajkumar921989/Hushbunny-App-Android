@@ -397,6 +397,9 @@
             android:id="@+id/actionVideoPlayerFragment"
             app:destination="@+id/videoPlayerFragment" />
         <action
+            android:id="@+id/actionKidsProfileFragment"
+            app:destination="@+id/kidsProfileFragment" />
+        <action
             android:id="@+id/actionUserImageDialog"
             app:destination="@+id/userImageDialog" />
         <argument
