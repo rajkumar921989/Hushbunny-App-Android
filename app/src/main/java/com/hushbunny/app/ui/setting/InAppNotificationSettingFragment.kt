@@ -137,7 +137,10 @@ class InAppNotificationSettingFragment : Fragment(R.layout.fragment_in_app_notif
         binding.optionalNotificationsSwitch.setOnTouchListener { _, event ->
             event.actionMasked == MotionEvent.ACTION_MOVE
         }
-
+        binding.pullRefresh.setOnRefreshListener {
+            updateToggleCheck()
+            binding.pullRefresh.isRefreshing = false
+        }
     }
 
     private fun updateNotificationSettings() {

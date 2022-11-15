@@ -136,6 +136,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         }
         editProfileViewModel.userDetailObserver.observe(viewLifecycleOwner) { response ->
             binding.progressIndicator.hideProgressbar()
+            binding.pullRefresh.isRefreshing = false
             when (response.statusCode) {
                 APIConstants.API_RESPONSE_200 -> {
                     AppConstants.saveUserDetail(response.data)
@@ -307,6 +308,9 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 image = ""
 
             )
+        }
+        binding.pullRefresh.setOnRefreshListener {
+            getUserProfileDetails()
         }
     }
 
