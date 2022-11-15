@@ -200,6 +200,7 @@
     <string name="no_sad_reaction_found">No sad reaction found!</string>
     <string name="invite_pending">Invite pending…</string>
     <string name="resend_invite">(Resend Invite)</string>
+    <string name="resend_invite_without_brackets">Resend Invite</string>
     <string name="kids_add_moment_message">Add moments and build memory\nlane for %1$s</string>
     <string name="memory_lane">Memory lane</string>
     <string name="clear_all"><u>Clear all</u></string>

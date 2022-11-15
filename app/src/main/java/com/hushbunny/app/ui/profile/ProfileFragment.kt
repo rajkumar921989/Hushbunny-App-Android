@@ -231,8 +231,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             findNavController().navigate(ProfileFragmentDirections.actionAddKidFragment(isEditKid = false))
         }, kidsClick = {
             findNavController().navigate(ProfileFragmentDirections.actionKidsProfileFragment(kidId = it._id.orEmpty()))
-        }, addSpouseClick = {
-            findNavController().navigate(ProfileFragmentDirections.actionInviteSpouseFragment(kidId = it))
+        }, addSpouseClick = { id, inviteInfoModel ->
+            findNavController().navigate(ProfileFragmentDirections.actionInviteSpouseFragment(kidId = id, inviteInfo = inviteInfoModel))
         })
         binding.kidsList.adapter = kidsAdapter
         momentAdapter =

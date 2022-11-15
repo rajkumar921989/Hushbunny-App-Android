@@ -220,8 +220,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(HomeFragmentDirections.actionAddKidFragment(isEditKid = false))
         }, kidsClick = {
             findNavController().navigate(HomeFragmentDirections.actionKidsProfileFragment(kidId = it._id.orEmpty()))
-        }, addSpouseClick = {
-            findNavController().navigate(HomeFragmentDirections.actionInviteSpouseFragment(kidId = it))
+        }, addSpouseClick = { id, inviteInfoModel ->
+            findNavController().navigate(HomeFragmentDirections.actionInviteSpouseFragment(kidId = id, inviteInfo = inviteInfoModel))
         })
         binding.kidsList.adapter = kidsAdapter
         momentAdapter =

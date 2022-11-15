@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.hushbunny.app.R
 import com.hushbunny.app.databinding.ItemAddKidViewBinding
 import com.hushbunny.app.providers.ResourceProvider
+import com.hushbunny.app.ui.model.InviteInfoModel
 import com.hushbunny.app.ui.model.KidsResponseModel
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.BaseListAdapter
@@ -19,7 +20,7 @@ class KidsAdapter(
     private val isOtherUser: Boolean = false,
     private val isFromHome: Boolean = false,
     private val addKidsClick: ((String) -> Unit)? = null,
-    private val addSpouseClick: ((String) -> Unit)? = null,
+    private val addSpouseClick: ((String, InviteInfoModel?) -> Unit)? = null,
     private val kidsClick: ((KidsResponseModel) -> Unit)? = null
 ) :
     BaseListAdapter<KidsResponseModel, ItemAddKidViewBinding>(ItemDiffCallback()) {
@@ -41,6 +42,21 @@ class KidsAdapter(
         }
         if (isFromHome && item.isSpouseAdded == false && item.type == APIConstants.KIDS_LIST) {
             binding.addSpouseGroup.visibility = View.VISIBLE
+            item.inviteInfo?.let {
+                binding.addSpouseButton.run {
+                    text = context.getString(R.string.resend_invite_without_brackets)
+                    setOnClickListener {
+                        addSpouseClick?.invoke(item._id.orEmpty(), item.inviteInfo)
+                    }
+                }
+            }?: run {
+                binding.addSpouseButton.run {
+                    text = context.getString(R.string.add_spouse)
+                    setOnClickListener {
+                        addSpouseClick?.invoke(item._id.orEmpty(), null)
+                    }
+                }
+            }
         } else {
             binding.addSpouseGroup.visibility = View.GONE
         }
@@ -69,9 +85,6 @@ class KidsAdapter(
                     kidsClick?.invoke(item)
                 }
             }
-        }
-        binding.addSpouseButton.setOnClickListener {
-            addSpouseClick?.invoke(item._id.orEmpty())
         }
     }
 
