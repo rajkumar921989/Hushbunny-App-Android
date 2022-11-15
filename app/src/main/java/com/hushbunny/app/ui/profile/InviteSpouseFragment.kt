@@ -15,6 +15,7 @@ import com.hushbunny.app.databinding.FragmentShareWithSpouseBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
+import com.hushbunny.app.ui.model.InviteInfoModel
 import com.hushbunny.app.ui.repository.UserActionRepository
 import com.hushbunny.app.uitls.APIConstants
 import com.hushbunny.app.uitls.dialog.DialogUtils
@@ -27,6 +28,7 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
     private var _binding: FragmentShareWithSpouseBinding? = null
     private val binding get() = _binding!!
     private var type = APIConstants.EMAIL
+    private var inviteInfoModel: InviteInfoModel? = null
     private val navigationArgs: InviteSpouseFragmentArgs by navArgs()
 
     @Inject
@@ -51,6 +53,8 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShareWithSpouseBinding.bind(view)
+        inviteInfoModel = navigationArgs.inviteInfo
+        initData()
         initClickListener()
         setObserver()
     }
@@ -100,6 +104,14 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
         }
     }
 
+    private fun initData() {
+        inviteInfoModel?.let { data ->
+            binding.emailContainer.emailInput.setText(data.email)
+            binding.mobileNumberContainer.mobileNumberInput.setText(data.phoneNumber)
+            binding.nameInput.setText(data.name)
+        }
+    }
+
     private fun initClickListener() {
         binding.tabContainer.emilButton.setOnClickListener {
             binding.emailContainer.container.visibility = View.VISIBLE
@@ -108,6 +120,7 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
             clearInput()
             binding.tabContainer.emilButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.drawable_button_white)
             binding.tabContainer.mobileNumberButton.background = null
+            initData()
         }
         binding.tabContainer.mobileNumberButton.setOnClickListener {
             binding.emailContainer.container.visibility = View.GONE
@@ -116,6 +129,7 @@ class InviteSpouseFragment : Fragment(R.layout.fragment_share_with_spouse) {
             binding.tabContainer.emilButton.background = null
             binding.tabContainer.mobileNumberButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.drawable_button_white)
             clearInput()
+            initData()
         }
         binding.backImage.setOnClickListener {
             findNavController().popBackStack()

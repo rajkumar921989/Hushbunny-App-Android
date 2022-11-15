@@ -200,6 +200,11 @@
         <argument
             android:name="kidId"
             app:argType="string" />
+        <argument
+            android:name="inviteInfo"
+            app:argType="com.hushbunny.app.ui.model.InviteInfoModel"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
 
     <fragment

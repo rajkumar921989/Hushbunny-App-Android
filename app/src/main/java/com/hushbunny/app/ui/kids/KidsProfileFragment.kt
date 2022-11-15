@@ -606,13 +606,13 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
             binding.spouseImage.visibility = View.GONE
             binding.addSpouseImage.setImageResource(R.drawable.ic_pending)
             binding.spouseImageContainer.setOnClickListener {
-                resendInvite()
+                navigateToInviteScreen()
             }
             binding.spouseNameText.setOnClickListener {
-                resendInvite()
+                navigateToInviteScreen()
             }
             binding.spouseAssociateText.setOnClickListener {
-                resendInvite()
+                navigateToInviteScreen()
             }
         } else if (kidByIdResponseModel?.isSpouseAdded == false) {
             binding.spouseNameText.text = resourceProvider.getString(R.string.title_add_spouse)
@@ -621,9 +621,13 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         }
     }
 
-    private fun resendInvite() {
-        binding.progressIndicator.showProgressbar()
-        editProfileViewModel.reSendInvite(kidByIdResponseModel?.inviteInfo?._id.orEmpty())
+    private fun navigateToInviteScreen() {
+        findNavController().navigate(
+            KidsProfileFragmentDirections.actionInviteSpouseFragment(
+                kidId = navigationArgs.kidId,
+                inviteInfo = kidByIdResponseModel?.inviteInfo
+            )
+        )
     }
 
     private fun loadKidImage(uploadedFilePath: String) {
