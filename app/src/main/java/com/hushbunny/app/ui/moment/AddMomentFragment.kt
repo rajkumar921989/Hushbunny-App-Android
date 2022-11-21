@@ -714,7 +714,7 @@ class AddMomentFragment : Fragment(R.layout.fragment_add_moment) {
 
     private fun showBottomMediaView() {
         binding.scrollView.post {
-            binding.space.layoutParams.height = (Resources.getSystem().displayMetrics.heightPixels.div(3.5).toInt())
+            binding.space.layoutParams.height = Resources.getSystem().displayMetrics.heightPixels.div(4).toInt()
             binding.space.visibility = View.VISIBLE
             binding.mediaContainer.visibility = View.VISIBLE
             binding.addAPhotoVideoButton.root.visibility = View.GONE
