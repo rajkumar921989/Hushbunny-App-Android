@@ -107,6 +107,9 @@ class AddMomentViewModel(
             description.isEmpty() && momentImageList.isEmpty() -> {
                 _errorValidation.postValue(resourceProvider.getString(R.string.media_or_description_error))
             }
+            momentImageList.size > 10 -> {
+                _errorValidation.postValue(resourceProvider.getString(R.string.media_greater_than_error))
+            }
             selectedKidList.isEmpty() -> _errorValidation.postValue(resourceProvider.getString(R.string.please_select_kid))
             else -> {
                 _errorValidation.postValue(APIConstants.SUCCESS)

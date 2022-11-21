@@ -171,6 +171,7 @@
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
     <string name="media_or_description_error">Please enter description or upload at least one media file</string>
+    <string name="media_greater_than_error">Maximum 10 media files allowed</string>
     <string name="please_enter_description">Please enter description</string>
     <string name="please_select_kid">Please select kid</string>
     <string name="please_upload_atleast_one_file">Please upload at least one media file</string>
