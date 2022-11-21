@@ -2,7 +2,10 @@ package com.hushbunny.app.ui.comment
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -10,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hushbunny.app.R
+import com.hushbunny.app.core.HomeActivity
 import com.hushbunny.app.databinding.FragmentCommentBinding
 import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
@@ -39,6 +43,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
     var momentId = ""
     var parentOneId = ""
     var parentTwoId = ""
+    var inputMode: Int? = null
 
     @Inject
     lateinit var momentRepository: MomentRepository
@@ -66,6 +71,16 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
         momentId = navigationArgs.momentID
         parentOneId = navigationArgs.parentOneId
         parentTwoId = navigationArgs.parentTwoId
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        inputMode = (activity as? HomeActivity)?.window?.attributes?.softInputMode
+        (activity as? HomeActivity)?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -249,6 +264,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        inputMode?.let { (activity as? HomeActivity)?.window?.setSoftInputMode(it)}
         _binding = null
     }
 
