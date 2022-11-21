@@ -250,6 +250,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                         findNavController().navigate(OtherUserProfileFragmentDirections.actionCommentFragment(momentID = item._id.orEmpty(), parentOneId = parentOne, parentTwoId = parentTwo))
                     }
                     resourceProvider.getString(R.string.share) -> {
+                        momentViewModel.shareMoment(item._id.orEmpty())
                         AppConstants.shareTheAPP(
                             requireActivity(),
                             title = resourceProvider.getString(R.string.share),
