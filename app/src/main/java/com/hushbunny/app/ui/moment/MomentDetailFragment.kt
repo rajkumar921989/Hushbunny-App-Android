@@ -313,7 +313,17 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                 )
             )
         else binding.momentContainer.userImage.loadCircleImageFromURL(momentDetailDataModel?.addedBy?.image.orEmpty())
-        val kidsAdapter = MomentKidsListAdapter(onItemClick = {
+        val kidsAdapter = MomentKidsListAdapter(onItemClick = { kidsModel ->
+            val loggedInUserId = AppConstants.getUserID()
+            val kidParents = kidsModel.parents.orEmpty()
+            val isParentFound = kidParents.contains(loggedInUserId)
+            if (isParentFound) {
+                findNavController().navigate(
+                    MomentDetailFragmentDirections.actionKidsProfileFragment(
+                        kidId = kidsModel._id.orEmpty()
+                    )
+                )
+            }
         })
         binding.momentContainer.kidsList.adapter = kidsAdapter
         kidsAdapter.submitList(momentDetailDataModel?.kidId)

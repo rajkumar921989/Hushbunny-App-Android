@@ -277,7 +277,18 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                     }
                 }
-            }, onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
+            }, onKidClick = { _, kidsModel ->
+                    val loggedInUserId = AppConstants.getUserID()
+                    val kidParents = kidsModel.parents.orEmpty()
+                    val isParentFound = kidParents.contains(loggedInUserId)
+                    if (isParentFound) {
+                        findNavController().navigate(
+                            OtherUserProfileFragmentDirections.actionKidsProfileFragment(
+                                kidId = kidsModel._id.orEmpty()
+                            )
+                        )
+                    }
+                }, onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {
                         findNavController().navigate(

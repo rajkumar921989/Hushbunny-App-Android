@@ -217,6 +217,18 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                         }
                     }
                 },
+                onKidClick = { _, kidsModel ->
+                    val loggedInUserId = AppConstants.getUserID()
+                    val kidParents = kidsModel.parents.orEmpty()
+                    val isParentFound = kidParents.contains(loggedInUserId)
+                    if (isParentFound) {
+                        findNavController().navigate(
+                            KidsProfileFragmentDirections.actionKidsProfileFragment(
+                                kidId = kidsModel._id.orEmpty()
+                            )
+                        )
+                    }
+                },
                 onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
                     when (type) {
                         AppConstants.COMMENT_REPORT -> {
