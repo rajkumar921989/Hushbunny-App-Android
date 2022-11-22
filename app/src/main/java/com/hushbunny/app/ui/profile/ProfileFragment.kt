@@ -135,6 +135,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             resourceProvider.getString(R.string.home_page_welcome_message, AppConstants.getUserFirstName())
         binding.profileContainer.countryValueText.text = AppConstants.getCountryNameByCode(PrefsManager.get().getString(AppConstants.USER_COUNTRY, ""))
         binding.profileContainer.ageCountText.text = PrefsManager.get().getString(AppConstants.USER_DATE_OF_BIRTH, "").getAge()
+        setProfileMomentCount(0)
         binding.backImage.run {
             visibility = if(navigationArgs.isBackArrowEnabled) View.VISIBLE else View.GONE
             setOnClickListener {
@@ -443,6 +444,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                     else -> {
                         isLoading = true
+                        setProfileMomentCount(0)
                         loadMomentList()
                     }
                 }
@@ -593,8 +595,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.filterReset.visibility = if(isVisible) View.VISIBLE else View.GONE
     }
 
-    private fun setTotalMomentCount(count: Int?) {
+    private fun setProfileMomentCount(count: Int?) {
         binding.profileContainer.totalMomentCountText.text = count.toString().prependZeroToStringIfSingleDigit()
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        setProfileMomentCount(count)
         momentAdapter.setTotalMomentCount(count)
     }
 

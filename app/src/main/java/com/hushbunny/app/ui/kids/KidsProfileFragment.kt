@@ -123,6 +123,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         isFilterApplied = false
         currentPage = 1
         momentList.clear()
+        setProfileMomentCount(0)
         initializeClickListener()
         getKidDetail()
         setObserver()
@@ -385,6 +386,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                     }
                     else -> {
                         isLoading = true
+                        setProfileMomentCount(0)
                         loadMomentList()
                     }
                 }
@@ -522,8 +524,12 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
         }
     }
 
-    private fun setTotalMomentCount(count: Int?) {
+    private fun setProfileMomentCount(count: Int?) {
         binding.momentCountText.text = count.toString().prependZeroToStringIfSingleDigit()
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        setProfileMomentCount(count)
         momentAdapter.setTotalMomentCount(count)
     }
 

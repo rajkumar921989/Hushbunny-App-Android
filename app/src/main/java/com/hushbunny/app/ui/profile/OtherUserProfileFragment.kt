@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -21,7 +20,6 @@ import com.hushbunny.app.ui.moment.AddMomentViewModel
 import com.hushbunny.app.ui.moment.MomentAdapter
 import com.hushbunny.app.ui.home.HomeViewModel
 import com.hushbunny.app.ui.home.KidsAdapter
-import com.hushbunny.app.ui.kids.KidsProfileFragmentDirections
 import com.hushbunny.app.ui.model.FilterModel
 import com.hushbunny.app.ui.model.MomentListingModel
 import com.hushbunny.app.ui.onboarding.model.UserData
@@ -35,7 +33,6 @@ import com.hushbunny.app.ui.sealedclass.MomentResponseInfo
 import com.hushbunny.app.uitls.*
 import com.hushbunny.app.uitls.DateFormatUtils.getAge
 import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadImageFromURL
-import com.hushbunny.app.uitls.ImageViewAndFileUtils.loadLocalImage
 import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.ui.sealedclass.CommentDeletedResponseInfo
 import kotlinx.coroutines.Dispatchers
@@ -117,6 +114,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun initView() {
+        setProfileMomentCount(0)
         binding.editImage.visibility = View.GONE
         binding.profileContainer.editProfileButton.visibility = View.GONE
         binding.profileContainer.space.visibility = View.VISIBLE
@@ -413,6 +411,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                     else -> {
                         isLoading = true
+                        setProfileMomentCount(0)
                         loadMomentList()
                     }
                 }
@@ -505,8 +504,12 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun setTotalMomentCount(count: Int?) {
+    private fun setProfileMomentCount(count: Int?) {
         binding.profileContainer.totalMomentCountText.text = count.toString().prependZeroToStringIfSingleDigit()
+    }
+
+    private fun setTotalMomentCount(count: Int?) {
+        setProfileMomentCount(count)
         momentAdapter.setTotalMomentCount(count)
     }
 
