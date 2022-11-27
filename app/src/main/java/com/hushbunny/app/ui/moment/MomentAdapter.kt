@@ -91,7 +91,7 @@ class MomentAdapter(
         if (item.addedBy?.image.isNullOrEmpty())
             binding.userImage.setImageDrawable(ContextCompat.getDrawable(binding.userImage.context, R.drawable.ic_no_kid_icon))
         else binding.userImage.loadCircleImageFromURL(item.addedBy?.image.orEmpty())
-        if (item.description.orEmpty().length > 190)
+        if (item.description.orEmpty().length > binding.readMoreText.textSize)
             binding.readMoreText.visibility = View.VISIBLE
         else binding.readMoreText.visibility = View.GONE
         binding.readMoreText.setOnClickListener {

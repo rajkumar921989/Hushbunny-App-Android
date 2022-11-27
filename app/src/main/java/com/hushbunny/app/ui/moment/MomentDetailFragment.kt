@@ -369,7 +369,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         binding.momentContainer.lessDescriptionText.text = momentDetailDataModel?.description.orEmpty()
         binding.momentContainer.moreDescriptionText.text = momentDetailDataModel?.description.orEmpty()
         binding.momentContainer.readMoreText.run {
-            visibility = if (momentDetailDataModel?.description.orEmpty().length > 190) View.VISIBLE else View.GONE
+            visibility = if (momentDetailDataModel?.description.orEmpty().length > binding.momentContainer.lessDescriptionText.textSize) View.VISIBLE else View.GONE
             setOnClickListener {
                 if (text.toString() == context.getString(R.string.read_more)) {
                     binding.momentContainer.moreDescriptionText.visibility = View.VISIBLE
