@@ -346,8 +346,10 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             binding.momentContainer.viewAllCommentText.context.getString(R.string.view_all_comment, momentDetailDataModel?.commentCount.orEmpty())
         if (momentDetailDataModel?.comments.isNullOrEmpty()) {
             binding.momentContainer.commentsContainer.visibility = View.GONE
+            binding.momentContainer.bottomSpace.visibility = View.GONE
         } else {
             binding.momentContainer.commentsContainer.visibility = View.VISIBLE
+            binding.momentContainer.bottomSpace.visibility = View.VISIBLE
         }
 
         val mediaContent = momentDetailDataModel?.mediaContent.orEmpty()
