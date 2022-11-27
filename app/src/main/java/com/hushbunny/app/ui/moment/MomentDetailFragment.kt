@@ -483,12 +483,18 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         binding.momentContainer.userImage.setOnClickListener {
             if (momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID())
                 findNavController().navigate(MomentDetailFragmentDirections.actionProfileFragment())
-            else findNavController().navigate(MomentDetailFragmentDirections.actionOtherUserProfileFragment(userID = momentDetailDataModel?.addedBy?._id.orEmpty()))
+            else {
+                val isOtherParent = momentDetailDataModel?.parents?.any { it._id == momentDetailDataModel?.addedBy?._id } ?: false
+                findNavController().navigate(MomentDetailFragmentDirections.actionOtherUserProfileFragment(userID = momentDetailDataModel?.addedBy?._id.orEmpty(), isOtherParent = isOtherParent))
+            }
         }
         binding.momentContainer.userNameText.setOnClickListener {
             if (momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID())
                 findNavController().navigate(MomentDetailFragmentDirections.actionProfileFragment())
-            else findNavController().navigate(MomentDetailFragmentDirections.actionOtherUserProfileFragment(userID = momentDetailDataModel?.addedBy?._id.orEmpty()))
+            else {
+                val isOtherParent = momentDetailDataModel?.parents?.any { it._id == momentDetailDataModel?.addedBy?._id } ?: false
+                findNavController().navigate(MomentDetailFragmentDirections.actionOtherUserProfileFragment(userID = momentDetailDataModel?.addedBy?._id.orEmpty(), isOtherParent = isOtherParent))
+            }
 
         }
         binding.momentContainer.moreImage.setOnClickListener { view ->
