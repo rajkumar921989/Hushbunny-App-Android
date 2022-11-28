@@ -445,7 +445,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     else -> {
                         isLoading = true
                         setProfileMomentCount(0)
-                        loadMomentList()
+                        if (!isFilterAPICalled) loadMomentList()
                     }
                 }
             }
@@ -606,7 +606,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun loadMomentList() {
         binding.momentsShimmerContainer.visibility = View.GONE
-        if (!isFilterAPICalled && isFilterApplied && momentList.isEmpty()) {
+        if (isFilterApplied && momentList.isEmpty()) {
             binding.momentGroup.visibility = View.VISIBLE
             momentAdapter.submitList(momentList.toList())
             binding.noMomentFound.visibility = View.VISIBLE
