@@ -338,6 +338,14 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                         commentId = item.commentBy?._id.orEmpty()
                     )
                 )
+            }, onUserClick = { commentModel ->
+                val commentId = commentModel.commentBy?._id.orEmpty()
+                if (commentId == AppConstants.getUserID()) {
+                    findNavController().navigate(HomeFragmentDirections.actionProfileFragment())
+                } else {
+                    val isOtherParent = momentDetailDataModel?.parents?.any { it._id == commentId } ?: false
+                    findNavController().navigate(HomeFragmentDirections.actionOtherUserProfileFragment(userID = commentId, isOtherParent = isOtherParent))
+                }
             }
         )
         binding.momentContainer.commentList.adapter = commentAdapter
