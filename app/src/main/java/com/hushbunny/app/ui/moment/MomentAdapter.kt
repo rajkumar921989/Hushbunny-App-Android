@@ -240,9 +240,9 @@ class MomentAdapter(
                     R.id.actionEditMoment -> {
                         onItemClick?.invoke(view, position, AppConstants.MOMENT_EDIT, item)
                     }
-                    R.id.actionAddYourKid -> {
-                        onItemClick?.invoke(view, position, AppConstants.ADD_YOUR_KID, item)
-                    }
+//                    R.id.actionAddYourKid -> {
+//                        onItemClick?.invoke(view, position, AppConstants.ADD_YOUR_KID, item)
+//                    }
                     R.id.actionMarkImportant -> {
                         onItemClick?.invoke(view, position, AppConstants.IMPORTANT_MOMENT, item)
                     }

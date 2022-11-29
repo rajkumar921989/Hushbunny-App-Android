@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/actionAddYourKid"
-        android:title="@string/menu_add_your_kid" />
+<!--    <item-->
+<!--        android:id="@+id/actionAddYourKid"-->
+<!--        android:title="@string/menu_add_your_kid" />-->
     <item
         android:id="@+id/actionMarkImportant"
         android:title="@string/mark_as_important_moment" />

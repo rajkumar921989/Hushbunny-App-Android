@@ -525,14 +525,14 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                             )
                         )
                     }
-                    R.id.actionAddYourKid -> {
-                        findNavController().navigate(
-                            MomentDetailFragmentDirections.actionAddMomentFragment(
-                                isSpouseAdded = true,
-                                momentID = momentDetailDataModel?._id.orEmpty()
-                            )
-                        )
-                    }
+//                    R.id.actionAddYourKid -> {
+//                        findNavController().navigate(
+//                            MomentDetailFragmentDirections.actionAddMomentFragment(
+//                                isSpouseAdded = true,
+//                                momentID = momentDetailDataModel?._id.orEmpty()
+//                            )
+//                        )
+//                    }
                     R.id.actionMarkImportant -> {
                         binding.progressIndicator.showProgressbar()
                         bookmarkViewModel.markMomentAsImportant(
