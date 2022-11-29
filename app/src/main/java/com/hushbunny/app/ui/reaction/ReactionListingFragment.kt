@@ -14,9 +14,9 @@ import com.hushbunny.app.di.AppComponentProvider
 import com.hushbunny.app.providers.ResourceProvider
 import com.hushbunny.app.ui.BaseActivity
 import com.hushbunny.app.ui.enumclass.ReactionPageName
-import com.hushbunny.app.ui.profile.ProfileFragmentDirections
 import com.hushbunny.app.ui.repository.MomentRepository
 import com.hushbunny.app.ui.sealedclass.ReactionResponseInfo
+import com.hushbunny.app.uitls.AppConstants
 import com.hushbunny.app.uitls.dialog.DialogUtils
 import com.hushbunny.app.uitls.viewModelBuilderActivityScope
 import kotlinx.coroutines.Dispatchers
@@ -67,7 +67,9 @@ class ReactionListingFragment : Fragment(R.layout.fragment_reaction_listing) {
 
     private fun setAdapter() {
         reactionListAdapter = ReactionListAdapter(onItemClick = {
-            findNavController().navigate(ReactionLandingFragmentDirections.actionOtherUserProfileFragment(userID = it.reactedBy?._id.orEmpty()))
+            if (it.reactedBy?._id.orEmpty() == AppConstants.getUserID())
+                findNavController().navigate(ReactionLandingFragmentDirections.actionProfileFragment())
+            else findNavController().navigate(ReactionLandingFragmentDirections.actionOtherUserProfileFragment(userID = it.reactedBy?._id.orEmpty()))
         })
         binding.reactionList.adapter = reactionListAdapter
     }

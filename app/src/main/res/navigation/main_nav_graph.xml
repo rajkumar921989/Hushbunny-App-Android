@@ -383,6 +383,9 @@
         <action
             android:id="@+id/actionOtherUserProfileFragment"
             app:destination="@+id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/actionProfileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/filterFragment"
