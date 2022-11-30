@@ -146,7 +146,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             NotificationType.WELCOME_NOTIFICATION.name, NotificationType.ADD_KID.name, NotificationType.REMINDER_ADD_KID.name, NotificationType.REMINDER_TO_ADD_KID_AFTER_72_HOURS.name, NotificationType.ADD_KID_WITHOUT_ADDED_SPOUSE.name -> {
                 findNavController().navigate(NotificationsFragmentDirections.actionAddKidFragment())
             }
-            NotificationType.ADD_OTHER_PARENT.name, NotificationType.OTHER_PARENT_INVITATION.name, NotificationType.REMINDER_OTHER_PARENT_INVITATION.name, NotificationType.FINAL_REMINDER_OTHER_PARENT_INVITATION.name, NotificationType.OTHER_PARENT_ACCEPTED_INVITATION.name, NotificationType.PARENT_DELETED_ACCOUNT.name, NotificationType.PARENT_DEACTIVATED_ACCOUNT.name -> {
+            NotificationType.ADD_OTHER_PARENT.name, NotificationType.OTHER_PARENT_ACCEPTED_INVITATION.name, NotificationType.PARENT_DELETED_ACCOUNT.name, NotificationType.PARENT_DEACTIVATED_ACCOUNT.name -> {
                 findNavController().navigate(NotificationsFragmentDirections.actionKidsProfileFragment(kidId = kidID))
             }
             NotificationType.PARENT_REACTIVATED_ACCOUNT.name -> {
