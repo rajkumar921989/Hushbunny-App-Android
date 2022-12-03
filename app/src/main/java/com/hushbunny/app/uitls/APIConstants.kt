@@ -39,8 +39,8 @@ class APIConstants {
         const val QUERY_PARAMS_START_DATE = "startDate"
         const val QUERY_PARAMS_END_DATE = "endDate"
         const val QUERY_PARAMS_SORT = "sort"
-        const val IMAGE_BASE_URL = "https://res.cloudinary.com/hushbunny/image/upload/"
-        const val VIDEO_BASE_URL = "https://res.cloudinary.com/hushbunny/video/upload/"
+        const val IMAGE_BASE_URL = "https://res.cloudinary.com/hushbunny/image/upload/c_fill,g_face,q_100/"
+        const val VIDEO_BASE_URL = "https://res.cloudinary.com/hushbunny/video/upload/c_fill,g_face,q_100/"
         const val IS_SPOUSE_INVITED = "IS_SPOUSE_INVITED"
 
 
