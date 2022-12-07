@@ -424,6 +424,12 @@
         <action
             android:id="@+id/actionUserImageDialog"
             app:destination="@+id/userImageDialog" />
+        <action
+            android:id="@+id/actionOtherUserProfileFragment"
+            app:destination="@+id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/actionProfileFragment"
+            app:destination="@+id/profileFragment" />
         <argument
             android:name="userID"
             app:argType="string" />

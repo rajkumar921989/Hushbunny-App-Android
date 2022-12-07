@@ -259,6 +259,11 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                     resourceProvider.getString(R.string.like) -> {
                         findNavController().navigate(OtherUserProfileFragmentDirections.actionReactionListFragment(momentID = item._id.orEmpty()))
                     }
+                    resourceProvider.getString(R.string.user_detail) -> {
+                        if (item.addedBy?._id.orEmpty() == AppConstants.getUserID())
+                            findNavController().navigate(OtherUserProfileFragmentDirections.actionProfileFragment())
+                        else findNavController().navigate(OtherUserProfileFragmentDirections.actionOtherUserProfileFragment(userID = item.addedBy?._id.orEmpty()))
+                    }
                     AppConstants.MOMENT_REPORT -> {
                         findNavController().navigate(
                             OtherUserProfileFragmentDirections.actionReportFragment(
@@ -286,7 +291,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                             )
                         )
                     }
-                }, onCommentClick = { position: Int, type: String, commentId: String, _: MomentListingModel ->
+                }, onCommentClick = { position: Int, type: String, commentId: String, item: MomentListingModel ->
                 when (type) {
                     AppConstants.COMMENT_REPORT -> {
                         findNavController().navigate(
@@ -299,6 +304,14 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                     AppConstants.COMMENT_DELETE -> {
                         binding.progressIndicator.showProgressbar()
                         momentViewModel.deleteComment(position = position, commentId = commentId)
+                    }
+                    AppConstants.USER_PROFILE -> {
+                        if (commentId == AppConstants.getUserID()) {
+                            findNavController().navigate(OtherUserProfileFragmentDirections.actionProfileFragment())
+                        } else {
+                            val isOtherParent = item.parents?.any { it._id == commentId } ?: false
+                            findNavController().navigate(OtherUserProfileFragmentDirections.actionOtherUserProfileFragment(userID = commentId, isOtherParent = isOtherParent))
+                        }
                     }
                 }
 
