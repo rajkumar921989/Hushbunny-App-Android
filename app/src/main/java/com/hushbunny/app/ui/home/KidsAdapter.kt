@@ -40,25 +40,23 @@ class KidsAdapter(
         } else {
             binding.kidsContainer.background = ContextCompat.getDrawable(binding.addKidImage.context, R.drawable.kids_background)
         }
-        if (isFromHome && item.isSpouseAdded == false && item.type == APIConstants.KIDS_LIST) {
-            binding.addSpouseGroup.visibility = View.VISIBLE
-            item.inviteInfo?.let {
-                binding.addSpouseButton.run {
-                    text = context.getString(R.string.resend_invite_without_brackets)
-                    setOnClickListener {
-                        addSpouseClick?.invoke(item._id.orEmpty(), item.inviteInfo)
-                    }
-                }
-            }?: run {
-                binding.addSpouseButton.run {
-                    text = context.getString(R.string.add_spouse)
-                    setOnClickListener {
-                        addSpouseClick?.invoke(item._id.orEmpty(), null)
-                    }
+        val isSpouseGroupVisible = isFromHome && item.isSpouseAdded == false && item.type == APIConstants.KIDS_LIST
+        binding.addSpouseButton.visibility = if(isSpouseGroupVisible) View.VISIBLE else View.INVISIBLE
+        binding.viewSpouse.visibility = if(isSpouseGroupVisible) View.VISIBLE else View.INVISIBLE
+        item.inviteInfo?.let {
+            binding.addSpouseButton.run {
+                text = context.getString(R.string.resend_invite_without_brackets)
+                setOnClickListener {
+                    addSpouseClick?.invoke(item._id.orEmpty(), item.inviteInfo)
                 }
             }
-        } else {
-            binding.addSpouseGroup.visibility = View.GONE
+        }?: run {
+            binding.addSpouseButton.run {
+                text = context.getString(R.string.add_spouse)
+                setOnClickListener {
+                    addSpouseClick?.invoke(item._id.orEmpty(), null)
+                }
+            }
         }
         binding.addKidImage.visibility = View.GONE
         binding.userImage.visibility = View.GONE
