@@ -382,7 +382,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                 if (text.toString() == context.getString(R.string.read_more)) {
                     binding.momentContainer.moreDescriptionText.visibility = View.VISIBLE
                     binding.momentContainer.lessDescriptionText.visibility = View.GONE
-                    text = context.getString(R.string.view_less)
+                    //text = context.getString(R.string.view_less)
                 } else {
                     binding.momentContainer.moreDescriptionText.visibility = View.GONE
                     binding.momentContainer.lessDescriptionText.visibility = View.VISIBLE

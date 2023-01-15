@@ -91,14 +91,14 @@ class MomentAdapter(
         if (item.addedBy?.image.isNullOrEmpty())
             binding.userImage.setImageDrawable(ContextCompat.getDrawable(binding.userImage.context, R.drawable.ic_no_kid_icon))
         else binding.userImage.loadCircleImageFromURL(item.addedBy?.image.orEmpty())
-        if (item.description.orEmpty().length > binding.readMoreText.textSize)
+        if (item.description.orEmpty().length > 300)
             binding.readMoreText.visibility = View.VISIBLE
         else binding.readMoreText.visibility = View.GONE
         binding.readMoreText.setOnClickListener {
             if (binding.readMoreText.text.toString() == binding.readMoreText.context.getString(R.string.read_more)) {
                 binding.moreDescriptionText.visibility = View.VISIBLE
                 binding.lessDescriptionText.visibility = View.GONE
-                binding.readMoreText.text = binding.readMoreText.context.getString(R.string.view_less)
+                //binding.readMoreText.text = binding.readMoreText.context.getString(R.string.view_less)
             } else {
                 binding.moreDescriptionText.visibility = View.GONE
                 binding.lessDescriptionText.visibility = View.VISIBLE

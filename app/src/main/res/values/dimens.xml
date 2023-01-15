@@ -195,6 +195,9 @@
     <dimen name="view_320">320dp</dimen>
     <!--    Text Size-->
     <dimen name="text_size_8">8sp</dimen>
+    <!--Added  By Rajkumar-->
+    <dimen name="text_size_4">4sp</dimen>
+    <!--Ended by rajkumar-->
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_12">12sp</dimen>

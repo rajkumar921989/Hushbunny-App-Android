@@ -66,7 +66,7 @@ class CommentListAdapter(
         binding.descriptionText.text = item.comment
         binding.moreDescriptionText.text = item.comment
         binding.dateTimeText.text = item.updatedAt?.getTimeAgo()
-        if (item.comment.orEmpty().length > 190)
+        if (item.comment.orEmpty().length > 300)
             binding.readMoreText.visibility = View.VISIBLE
         else binding.readMoreText.visibility = View.GONE
         binding.userImage.setOnClickListener {
@@ -79,7 +79,7 @@ class CommentListAdapter(
             if (binding.readMoreText.text.toString() == binding.readMoreText.context.getString(R.string.read_more)) {
                 binding.moreDescriptionText.visibility = View.VISIBLE
                 binding.descriptionText.visibility = View.GONE
-                binding.readMoreText.text = binding.readMoreText.context.getString(R.string.view_less)
+                //binding.readMoreText.text = binding.readMoreText.context.getString(R.string.view_less)
             } else {
                 binding.moreDescriptionText.visibility = View.GONE
                 binding.descriptionText.visibility = View.VISIBLE
