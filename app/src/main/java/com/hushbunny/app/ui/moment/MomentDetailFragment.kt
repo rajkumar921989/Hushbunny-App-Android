@@ -282,14 +282,14 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         binding.momentContainer.dateText.text = momentDetailDataModel?.updatedAt?.getTimeAgo()
         binding.momentContainer.dateValueText.text = momentDetailDataModel?.momentDate?.convertISODateIntoAppDateFormat()
         binding.momentContainer.userNameText.text = momentDetailDataModel?.addedBy?.name.orEmpty()
-        binding.momentContainer.momentCountText.text = momentDetailDataModel?.momentCount ?: "0"
+        binding.momentContainer.momentCountText.text = momentDetailDataModel?.momentCount ?: "1"
         binding.momentContainer.favoriteCountText.text = momentDetailDataModel?.reactionCount.orEmpty()
         binding.momentContainer.commentCountText.text = momentDetailDataModel?.commentCount.orEmpty()
         binding.momentContainer.lessDescriptionText.text = momentDetailDataModel?.description.orEmpty()
         binding.momentContainer.moreDescriptionText.text = momentDetailDataModel?.description.orEmpty()
         if (momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID() || momentDetailDataModel?.isAddedBySpouse == true)
             binding.momentContainer.moreImage.visibility = View.VISIBLE
-        else binding.momentContainer.moreImage.visibility = View.INVISIBLE
+        else binding.momentContainer.moreImage.visibility = View.VISIBLE
         if (momentDetailDataModel?.isReacted == true) {
             when (momentDetailDataModel?.reactedInfo?.emojiType) {
                 ReactionPageName.LAUGH.name -> {
@@ -511,7 +511,8 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                 popUp.menuInflater.inflate(R.menu.spouse_menu, popUp.menu)
             else if (momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID())
                 popUp.menuInflater.inflate(R.menu.user_menu, popUp.menu)
-            else popUp.menuInflater.inflate(R.menu.other_user_menu, popUp.menu)
+            /*Added By RajKumar*/
+            else popUp.menuInflater.inflate(R.menu.spouse_menu, popUp.menu)
             if (momentDetailDataModel?.isAddedBySpouse == true || momentDetailDataModel?.addedBy?._id.orEmpty() == AppConstants.getUserID())
                 popUp.menu.findItem(R.id.actionMarkImportant).title = binding.momentContainer.moreImage.context.getString(R.string.mark_as_important_moment)
             popUp.show()
