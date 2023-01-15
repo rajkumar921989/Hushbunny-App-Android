@@ -197,6 +197,16 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                     if (it.status.equals("ACCEPTED", true))
                         findNavController().navigate(NotificationsFragmentDirections.actionKidsProfileFragment(kidId = it.kidID))
                 }
+                /*Addede By Raj Kumar*/
+                NotificationType.OTHER_PARENT_INVITATION.name -> {
+                    if (it.status.equals("ACCEPTED", true))
+                        findNavController().navigate(NotificationsFragmentDirections.actionKidsProfileFragment(kidId = it.kidID))
+                }
+                NotificationType.REMINDER_OTHER_PARENT_INVITATION.name -> {
+                    if (it.status.equals("ACCEPTED", true))
+                        findNavController().navigate(NotificationsFragmentDirections.actionKidsProfileFragment(kidId = it.kidID))
+                }
+                /*Ended By RajKumar*/
                 NotificationType.OTHER_PARENT_ACCEPTED_INVITATION.name, NotificationType.PARENT_DELETED_ACCOUNT.name, NotificationType.PARENT_DEACTIVATED_ACCOUNT.name -> {
                     findNavController().navigate(NotificationsFragmentDirections.actionKidsProfileFragment(kidId = it.kidID))
                 }
