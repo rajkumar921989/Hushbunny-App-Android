@@ -276,7 +276,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
                         AppConstants.copyURL(activity, item.shortLink)
                     }
                     ReactionPageName.LAUGH.name, ReactionPageName.SAD.name, ReactionPageName.HEART.name -> {
-                        binding.progressIndicator.showProgressbar()
+                        //binding.progressIndicator.showProgressbar()
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                     }
                 }
@@ -327,7 +327,7 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun callBookMarkAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+        //binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
     private fun loadFilterData() {

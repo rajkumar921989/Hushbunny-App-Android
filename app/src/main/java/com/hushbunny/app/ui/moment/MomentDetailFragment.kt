@@ -329,7 +329,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
         kidsAdapter.submitList(momentDetailDataModel?.kidId)
         val commentAdapter = CommentListAdapter(
             onDeleteClick = { position: Int, item: CommentModel ->
-                binding.progressIndicator.showProgressbar()
+                //binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.deleteComment(position = position, commentId = item.commentBy?._id.orEmpty())
             }, onReportClick = { _: Int, item: CommentModel ->
                 findNavController().navigate(
@@ -418,7 +418,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             popupWindow.showAsDropDown(binding.momentContainer.favoriteImage, leftToRight, -bottomToTop)
             popupReactionBinding.heartImage.setOnClickListener {
                 popupWindow.dismiss()
-                binding.progressIndicator.showProgressbar()
+                //binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.addReaction(
                     position = AppConstants.DEFAULT_POSITION,
                     emojiType = ReactionPageName.HEART.name,
@@ -427,7 +427,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             }
             popupReactionBinding.laughImage.setOnClickListener {
                 popupWindow.dismiss()
-                binding.progressIndicator.showProgressbar()
+                //binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.addReaction(
                     position = AppConstants.DEFAULT_POSITION,
                     emojiType = ReactionPageName.LAUGH.name,
@@ -436,7 +436,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
             }
             popupReactionBinding.sadImage.setOnClickListener {
                 popupWindow.dismiss()
-                binding.progressIndicator.showProgressbar()
+                //binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.addReaction(
                     position = AppConstants.DEFAULT_POSITION,
                     emojiType = ReactionPageName.SAD.name,
@@ -479,12 +479,12 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
                     title = resourceProvider.getString(R.string.delete), positiveButtonText = resourceProvider.getString(R.string.yes),
                     negativeButtonText = resourceProvider.getString(R.string.cancel),
                     positiveButtonCallback = {
-                        binding.progressIndicator.showProgressbar()
+                        //binding.progressIndicator.showProgressbar()
                         bookmarkViewModel.bookMarkMoment(position = AppConstants.DEFAULT_POSITION, momentId = momentDetailDataModel?._id.orEmpty())
                     }
                 )
             } else {
-                binding.progressIndicator.showProgressbar()
+                //binding.progressIndicator.showProgressbar()
                 bookmarkViewModel.bookMarkMoment(position = AppConstants.DEFAULT_POSITION, momentId = momentDetailDataModel?._id.orEmpty())
             }
         }
@@ -534,7 +534,7 @@ class MomentDetailFragment : Fragment(R.layout.fragment_moment_detail) {
 //                        )
 //                    }
                     R.id.actionMarkImportant -> {
-                        binding.progressIndicator.showProgressbar()
+                        //binding.progressIndicator.showProgressbar()
                         bookmarkViewModel.markMomentAsImportant(
                             position = AppConstants.DEFAULT_POSITION,
                             momentId = momentDetailDataModel?._id.orEmpty()

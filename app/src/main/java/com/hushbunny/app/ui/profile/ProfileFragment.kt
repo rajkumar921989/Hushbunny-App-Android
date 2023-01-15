@@ -306,7 +306,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         )
                     }
                     AppConstants.IMPORTANT_MOMENT -> {
-                        binding.progressIndicator.showProgressbar()
+                        //binding.progressIndicator.showProgressbar()
                         momentViewModel.markMomentAsImportant(position = position, momentId = item._id.orEmpty())
                     }
                     AppConstants.MOMENT_REPORT -> {
@@ -321,7 +321,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         AppConstants.copyURL(activity, item.shortLink)
                     }
                     ReactionPageName.LAUGH.name, ReactionPageName.SAD.name, ReactionPageName.HEART.name -> {
-                        binding.progressIndicator.showProgressbar()
+                       // binding.progressIndicator.showProgressbar()
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                     }
                 }
@@ -363,12 +363,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun callBookMarkAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+        //binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
     /*Added By RajKumar*/
     private fun callImportantMomentAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+        //binding.progressIndicator.showProgressbar()
         momentViewModel.markMomentAsImportant(position = position, momentId = momentId)
     }
 

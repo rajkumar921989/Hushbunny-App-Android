@@ -297,7 +297,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         )
                     }
                     AppConstants.IMPORTANT_MOMENT -> {
-                        binding.progressIndicator.showProgressbar()
+                       // binding.progressIndicator.showProgressbar()
                         momentViewModel.markMomentAsImportant(position = position, momentId = item._id.orEmpty())
                     }
                     AppConstants.MOMENT_REPORT -> {
@@ -312,7 +312,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         AppConstants.copyURL(activity, item.shortLink)
                     }
                     ReactionPageName.LAUGH.name, ReactionPageName.SAD.name, ReactionPageName.HEART.name -> {
-                        binding.progressIndicator.showProgressbar()
+                       // binding.progressIndicator.showProgressbar()
                         momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.orEmpty())
                     }
                     AppConstants.DELETE_MOMENT -> {
@@ -366,11 +366,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun callBookMarkAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+        //binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
     private fun callImportatMomentAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+        //binding.progressIndicator.showProgressbar()
         momentViewModel.markMomentAsImportant(position = position, momentId = momentId)
     }
 

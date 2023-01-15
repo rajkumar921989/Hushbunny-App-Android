@@ -149,7 +149,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
         commentViewModel.errorValidationObserver.observe(viewLifecycleOwner) {
             when (it) {
                 APIConstants.SUCCESS -> {
-                    binding.progressIndicator.showProgressbar()
+                    //binding.progressIndicator.showProgressbar()
                 }
                 else -> {
                     binding.progressIndicator.hideProgressbar()
@@ -198,7 +198,7 @@ class CommentFragment : Fragment(R.layout.fragment_comment) {
 
     private fun setAdapter() {
         commentListAdapter = CommentListAdapter(onDeleteClick = { position: Int, item: CommentModel ->
-            binding.progressIndicator.showProgressbar()
+           // binding.progressIndicator.showProgressbar()
             commentViewModel.deleteComment(position, commentId = item._id.orEmpty())
         }, onReportClick = { _: Int, item: CommentModel ->
             findNavController().navigate(

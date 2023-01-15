@@ -199,7 +199,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                             )
                         }
                         AppConstants.IMPORTANT_MOMENT -> {
-                            binding.progressIndicator.showProgressbar()
+                            //binding.progressIndicator.showProgressbar()
                             momentViewModel.markMomentAsImportant(position = position, momentId = item._id.orEmpty())
                         }
                         AppConstants.DELETE_MOMENT -> {
@@ -218,7 +218,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                             )
                         }
                         ReactionPageName.LAUGH.name, ReactionPageName.SAD.name, ReactionPageName.HEART.name -> {
-                            binding.progressIndicator.showProgressbar()
+                           // binding.progressIndicator.showProgressbar()
                             momentViewModel.addReaction(position = position, emojiType = type, momentId = item._id.toString())
                         }
                     }
@@ -272,7 +272,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
     }
 
     private fun callBookMarkAPI(position: Int, momentId: String) {
-        binding.progressIndicator.showProgressbar()
+       // binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
 
@@ -797,7 +797,7 @@ class KidsProfileFragment : Fragment(R.layout.fragment_kids_profile) {
                     findNavController().navigate(KidsProfileFragmentDirections.actionUserImageDialog(kidByIdResponseModel?.image.orEmpty()))
                 }
                 R.id.actionRemoveImage -> {
-                    binding.progressIndicator.showProgressbar()
+                   // binding.progressIndicator.showProgressbar()
                     editProfileViewModel.updateProfilePicture(image = "", userType = ReportType.KID.name, kidId = navigationArgs.kidId)
                 }
             }
