@@ -265,6 +265,9 @@
     <string name="share_moments">Share moments</string>
     <string name="commented_on_this">\u0020commented on this</string>
     <string name="reset"><u>Reset</u></string>
+    <!--Added  By RajKumar-->
+    <string name="camera_permission"><u>Camera permissions need to be allowed to get the media. Please give permissions from settings.
+</u></string>
 
     <array name="date_filter">
         <item>@string/select_filter_here</item>

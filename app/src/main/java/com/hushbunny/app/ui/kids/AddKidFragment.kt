@@ -10,10 +10,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.provider.Settings
 import android.view.View
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
+import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -435,10 +437,24 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
         if (isGranted) {
             chooseOption()
         } else {
-            PermissionUtility.showPermissionRationaleToast(
+            DialogUtils.showDialogWithCallBack(
+                requireContext(),
+                message = resourceProvider.getString(R.string.camera_permission),
+                title = "",
+                positiveButtonText = resourceProvider.getString(R.string.yes),
+                negativeButtonText = resourceProvider.getString(R.string.cancel),
+                positiveButtonCallback = {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri: Uri = Uri.fromParts("package", "com.hushbunny.app", null)
+                    intent.data = uri
+// This             will take the user to a page where they have to click twice to drill down to grant the permission
+                    startActivity(intent)
+                }
+            )
+           /* PermissionUtility.showPermissionRationaleToast(
                 requireContext(),
                 message = resourceProvider.getString(R.string.camera_permission_rationale)
-            )
+            )*/
         }
     }
 
