@@ -346,15 +346,36 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
     }
 
     private fun moveToStepFour() {
-        currentStep = 4
-        binding.root.hideKeyboard()
-        binding.titleText.text = resourceProvider.getString(R.string.birth_country_and_city)
-        binding.nextButton.text = resourceProvider.getString(R.string.submit)
-        binding.nameGroup.visibility = View.GONE
-        binding.genderGroup.visibility = View.GONE
-        binding.dateOfBirthGroup.visibility = View.GONE
-        binding.countryCityGroup.visibility = View.VISIBLE
-        loadKidImage()
+        if(!isEditKid){
+            currentStep = 4
+            binding.root.hideKeyboard()
+            binding.titleText.text = resourceProvider.getString(R.string.birth_country_and_city)
+            binding.nextButton.text = resourceProvider.getString(R.string.submit)
+            binding.nameGroup.visibility = View.GONE
+            binding.genderGroup.visibility = View.GONE
+            binding.dateOfBirthGroup.visibility = View.GONE
+            binding.countryCityGroup.visibility = View.VISIBLE
+            binding.addKidImageContainer.visibility=View.VISIBLE
+            binding.addProfilePhotoText.visibility=View.VISIBLE
+            binding.skipSubmitButton.visibility=View.VISIBLE
+            loadKidImage()
+        }
+        else
+        {
+            currentStep = 4
+            binding.root.hideKeyboard()
+            binding.titleText.text = resourceProvider.getString(R.string.birth_country_and_city)
+            binding.nextButton.text = resourceProvider.getString(R.string.submit)
+            binding.nameGroup.visibility = View.GONE
+            binding.genderGroup.visibility = View.GONE
+            binding.dateOfBirthGroup.visibility = View.GONE
+            binding.countryCityGroup.visibility = View.VISIBLE
+            binding.addKidImageContainer.visibility=View.GONE
+            binding.addProfilePhotoText.visibility=View.GONE
+            binding.skipSubmitButton.visibility=View.GONE
+            //loadKidImage()
+        }
+
     }
 
     private fun openCamera(isCamera: Boolean) {
