@@ -187,6 +187,8 @@
     <string name="please_enter_comment">Please enter comment</string>
     <string name="view_all_comment">View all %1$s comments</string>
     <string name="delete_from_bookmark">Are you sure you want to remove from bookmark?</string>
+    <!--delete from important moment-->
+    <string name="delete_from_important">Are you sure you want to remove from important?</string>
     <!--    Notification List Message-->
     <string name="notification_share_with_spouse_message">%1$s has invited you as a parent of %2$s</string>
     <string name="notification_react_message">%1$s reacted with %2$s on %3$s moment</string>

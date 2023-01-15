@@ -254,6 +254,22 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                             callBookMarkAPI(position = position, momentId = item._id.orEmpty())
                         }
                     }
+                    /*Added By RajKumar*/
+                    resourceProvider.getString(R.string.mark_as_important_moment) -> {
+                        if (item.isImportant == true) {
+                            DialogUtils.showDialogWithCallBack(
+                                requireContext(),
+                                message = resourceProvider.getString(R.string.delete_from_important),
+                                title = "", positiveButtonText = resourceProvider.getString(R.string.yes),
+                                negativeButtonText = resourceProvider.getString(R.string.cancel),
+                                positiveButtonCallback = {
+                                    callImportantMomentAPI(position = position, momentId = item._id.orEmpty())
+                                }
+                            )
+                        } else {
+                            callImportantMomentAPI(position = position, momentId = item._id.orEmpty())
+                        }
+                    }
                     resourceProvider.getString(R.string.comments) -> {
                         val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
                         val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
@@ -350,6 +366,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
+    /*Added By RajKumar*/
+    private fun callImportantMomentAPI(position: Int, momentId: String) {
+        binding.progressIndicator.showProgressbar()
+        momentViewModel.markMomentAsImportant(position = position, momentId = momentId)
+    }
+
 
     private fun loadFilterData() {
         isFilterAPICalled = true

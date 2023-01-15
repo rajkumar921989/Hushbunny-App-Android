@@ -157,7 +157,10 @@ class MomentAdapter(
             binding.bottomSpace.visibility = View.VISIBLE
             binding.commentsContainer.visibility = View.VISIBLE
         }
-
+        /*Added By RajKumar*/
+        binding.starImage.setOnClickListener {view->
+            onItemClick!!.invoke(view,position,binding.starImage.context.getString(R.string.mark_as_important_moment),item)
+        }
         binding.favoriteImage.setOnClickListener {
             val popupReactionBinding = PopupReactionBinding.inflate(LayoutInflater.from(it.context))
             val popupWindow =

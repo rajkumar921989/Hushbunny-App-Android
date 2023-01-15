@@ -330,7 +330,6 @@ class OtherUserProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
-
     private fun loadFilterData() {
         isFilterAPICalled = true
         currentPage = 1

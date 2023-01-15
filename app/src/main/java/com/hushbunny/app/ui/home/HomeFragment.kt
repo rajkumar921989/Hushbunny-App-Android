@@ -242,6 +242,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             callBookMarkAPI(position = position, momentId = item._id.orEmpty())
                         }
                     }
+                    /*Added By RajKumar*/
+                    resourceProvider.getString(R.string.mark_as_important_moment) -> {
+                        if (item.isImportant == true) {
+                            DialogUtils.showDialogWithCallBack(
+                                requireContext(),
+                                message = resourceProvider.getString(R.string.delete_from_important),
+                                title = "",
+                                positiveButtonText = resourceProvider.getString(R.string.yes),
+                                negativeButtonText = resourceProvider.getString(R.string.cancel),
+                                positiveButtonCallback = {
+                                    callImportatMomentAPI(position = position, momentId = item._id.orEmpty())
+                                }
+                            )
+                        } else {
+                            callImportatMomentAPI(position = position, momentId = item._id.orEmpty())
+                        }
+                    }
                     resourceProvider.getString(R.string.comments) -> {
                         val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
                         val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
@@ -351,6 +368,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun callBookMarkAPI(position: Int, momentId: String) {
         binding.progressIndicator.showProgressbar()
         momentViewModel.bookMarkMoment(position = position, momentId = momentId)
+    }
+    private fun callImportatMomentAPI(position: Int, momentId: String) {
+        binding.progressIndicator.showProgressbar()
+        momentViewModel.markMomentAsImportant(position = position, momentId = momentId)
     }
 
     private fun setObserver() {

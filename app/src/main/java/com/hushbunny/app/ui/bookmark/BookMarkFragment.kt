@@ -120,6 +120,22 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
                             callBookMarkAPI(position = position, momentId = item._id.orEmpty())
                         }
                     }
+                    /*Added By RajKumar*/
+                    resourceProvider.getString(R.string.mark_as_important_moment) -> {
+                        if (item.isImportant == true) {
+                            DialogUtils.showDialogWithCallBack(
+                                requireContext(),
+                                message = resourceProvider.getString(R.string.delete_from_important),
+                                title = resourceProvider.getString(R.string.delete), positiveButtonText = resourceProvider.getString(R.string.yes),
+                                negativeButtonText = resourceProvider.getString(R.string.cancel),
+                                positiveButtonCallback = {
+                                    callImportantMomentAPI(position = position, momentId = item._id.orEmpty())
+                                }
+                            )
+                        } else {
+                            callImportantMomentAPI(position = position, momentId = item._id.orEmpty())
+                        }
+                    }
                     resourceProvider.getString(R.string.comments) -> {
                         val parentOne = item.parents?.firstOrNull()?._id.orEmpty()
                         val parentTwo = item.parents?.lastOrNull()?._id.orEmpty()
@@ -233,6 +249,11 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
         binding.progressIndicator.showProgressbar()
         bookmarkViewModel.bookMarkMoment(position = position, momentId = momentId)
     }
+    /*Added By Raj Kumar*/
+    private fun callImportantMomentAPI(position: Int, momentId: String) {
+        binding.progressIndicator.showProgressbar()
+        bookmarkViewModel.markMomentAsImportant(position = position, momentId = momentId)
+    }
 
     private fun initClickListener() {
         if (navigationArgs.type == resourceProvider.getString(R.string.important_moments)) {
@@ -296,7 +317,12 @@ class BookMarkFragment : Fragment(R.layout.fragment_book_mark_list) {
             it.getContentIfNotHandled()?.let { response ->
                 when (response) {
                     is BookMarkResponseInfo.BookMarkSuccess -> {
-                        response.bookMark?.let { it1 -> bookmarkAdapter.updateMomentDetail(position = response.position, model = it1) }
+                        response.bookMark?.let {
+                                it1 -> bookmarkAdapter.updateMomentDetail(position = response.position, model = it1) }
+                        bookMarkList.removeAt(response.position)
+                        bookmarkAdapter.notifyDataSetChanged()
+                        if (bookMarkList.isEmpty()) visibleNoCommentView()
+
                     }
                     is BookMarkResponseInfo.ApiError -> {
                         activity?.let { it1 -> DialogUtils.sessionExpiredDialog(it1) }

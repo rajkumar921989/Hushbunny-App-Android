@@ -447,7 +447,6 @@ class AddKidFragment : Fragment(R.layout.fragment_add_kid) {
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                     val uri: Uri = Uri.fromParts("package", "com.hushbunny.app", null)
                     intent.data = uri
-// This             will take the user to a page where they have to click twice to drill down to grant the permission
                     startActivity(intent)
                 }
             )
